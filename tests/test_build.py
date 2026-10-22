@@ -125,6 +125,17 @@ class BookBuildTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, 'web reading only'):
                 book.validate_outputs(Path(temp))
 
+    def test_all_original_preview_pages_are_present(self):
+        catalog = json.loads((ROOT / 'data/textbook/catalog.json').read_text(encoding='utf-8'))
+        index = book.validate_previews(ROOT, catalog)
+        self.assertEqual([index['chapters'][c['id']]['pageCount'] for c in catalog['chapters']], [47, 35, 33])
+
+    def test_preview_version_mismatch_is_rejected(self):
+        catalog = json.loads((ROOT / 'data/textbook/catalog.json').read_text(encoding='utf-8'))
+        catalog['sourceHash'] = 'unmatched-edition'
+        with self.assertRaisesRegex(ValueError, 'Preview source version mismatch'):
+            book.validate_previews(ROOT, catalog)
+
 
 if __name__ == '__main__':
     unittest.main()

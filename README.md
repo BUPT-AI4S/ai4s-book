@@ -45,9 +45,9 @@
 
 | 章节 | 主要内容 | 状态 | 阅读资源 |
 | --- | --- | --- | --- |
-| 第 1 章 科学知识建模与大模型推理 | 科学知识的表示、建模、使用与推理；13 幅图 | 开放阅读 | [在线阅读](https://bupt-ai4s.github.io/ai4s-book/read.html?chapter=ch13-knowledge-rag) |
-| 第 2 章 自主实验室与干湿闭环 | 计算决策、实验执行、测量反馈与跨领域案例；10 幅图 | 开放阅读 | [在线阅读](https://bupt-ai4s.github.io/ai4s-book/read.html?chapter=ch16-autonomous-laboratory) |
-| 第 3 章 科学智能的测评数据构建与可信评价 | 测评目标、测试数据、评价依据、指标及运行协议；9 幅图、2 张表 | 开放阅读 | [在线阅读](https://bupt-ai4s.github.io/ai4s-book/read.html?chapter=ch03-evaluation) |
+| 第 1 章 科学知识建模与大模型推理 | 科学知识的表示、建模、使用与推理；13 幅图 | 开放阅读 | [在线阅读](https://bupt-ai4s.github.io/ai4s-book/read.html?chapter=ch13-knowledge-rag) · [PDF 预览](https://bupt-ai4s.github.io/ai4s-book/read.html?chapter=ch13-knowledge-rag&view=pdf) |
+| 第 2 章 自主实验室与干湿闭环 | 计算决策、实验执行、测量反馈与跨领域案例；10 幅图 | 开放阅读 | [在线阅读](https://bupt-ai4s.github.io/ai4s-book/read.html?chapter=ch16-autonomous-laboratory) · [PDF 预览](https://bupt-ai4s.github.io/ai4s-book/read.html?chapter=ch16-autonomous-laboratory&view=pdf) |
+| 第 3 章 科学智能的测评数据构建与可信评价 | 测评目标、测试数据、评价依据、指标及运行协议；9 幅图、2 张表 | 开放阅读 | [在线阅读](https://bupt-ai4s.github.io/ai4s-book/read.html?chapter=ch03-evaluation) · [PDF 预览](https://bupt-ai4s.github.io/ai4s-book/read.html?chapter=ch03-evaluation&view=pdf) |
 
 ## 如何阅读
 
@@ -59,7 +59,7 @@
 - 关注实验执行与反馈，从第 2 章开始。
 - 关注测评数据与结论可信度，从第 3 章开始。
 
-网站提供适合手机、平板和电脑屏幕的网页正文。教材正文为中文，项目介绍与网站导航提供中英文切换。
+网站提供适合手机、平板和电脑屏幕的网页正文，以及保留原版排版的 PDF 预览。预览支持翻页、页码跳转和缩放。教材正文为中文，项目介绍与网站导航提供中英文切换。
 
 ## 配套资源
 

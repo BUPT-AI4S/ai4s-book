@@ -28,7 +28,15 @@ python tools/build_textbook.py --sync-from /path/to/authoring-checkout
 
 生成器从快照中的 `main.tex` 确定章节与顺序，支持嵌套 input、学习目标、小贴士、图表、脚注、数学公式及交叉引用。遇到新宏时先补充网页映射再重新生成。阅读版省略工程说明，保留科研内容及其适用条件。
 
-网站只发布网页正文，参考文献按章编号。PDF 发布开关保持关闭，目录和章节数据不提供 PDF 地址；暂存过程也排除 PDF 文件。旧 PDF 阅读链接跳转至章节网页。
+网站提供网页正文和 PDF 原版页面预览，参考文献按章编号。预览使用 1600 像素宽的无损 WebP 页面图片，按需加载当前页，支持翻页、跳页与缩放。PDF 文件发布开关保持关闭，暂存过程排除 PDF 文件。
+
+更新原版预览时，使用与网页同版本的本地章节 PDF 和编译清单：
+
+```sh
+python tools/build_previews.py --pdf-dir /path/to/chapter-pdfs --source-catalog /path/to/compiled-catalog.json --renderer /path/to/pdftoppm
+```
+
+编译清单包含 `sourceHash` 和每章 PDF 的 `pdfSha256`。生成器核对版本与文件校验和，再转换全部页面；相同页面去重保存。网页正文重建时保留同版本的预览资源，来源变化后必须重新生成预览。
 
 发布前必须通过 `--check`，验证章节、配图、校验和及网页发布范围。来源摘要、内容校验和记录在 `data/textbook/catalog.json`。请勿直接修改生成文件。
 
@@ -36,7 +44,7 @@ python tools/build_textbook.py --sync-from /path/to/authoring-checkout
 
 - 正文结构、32 幅图和两张表格的数量及单元格完整；新章节发布时同步修改测试的预期数量。
 - 交叉引用、图解提示、脚注和文献可跳转。
-- 测试手机、桌面、深浅主题、中英导航、课程链接与授权邮箱，确认发布目录中没有 PDF。
+- 测试手机、桌面、深浅主题、中英导航、预览翻页与缩放、课程链接与授权邮箱，确认发布目录中没有 PDF。
 - 同步 README、English README、CHANGELOG 和引用信息。
 - 检查待提交文件与发布目录。
 

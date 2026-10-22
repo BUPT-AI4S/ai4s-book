@@ -428,6 +428,9 @@ def build_book(source=SOURCE, root=ROOT, pdf_engine=None, html_only=False):
         output = Path(temp) / 'output'
         for name in ('chapters', 'pdf'):
             (output / name).mkdir(parents=True, exist_ok=True)
+        if previous.get('sourceHash') == fingerprint and (destination / 'previews/index.json').is_file():
+            validate_previews(root, previous)
+            shutil.copytree(destination / 'previews', output / 'previews')
         cover = source / 'images/cover/scientific-unity-v1.png'
         if cover.is_file():
             (output / 'assets/images/cover').mkdir(parents=True, exist_ok=True)
@@ -489,6 +492,39 @@ def build_book(source=SOURCE, root=ROOT, pdf_engine=None, html_only=False):
     return catalog
 
 
+def validate_previews(root, catalog):
+    root = Path(root).resolve()
+    folder = root / 'data/textbook/previews'
+    index = json.loads((folder / 'index.json').read_text(encoding='utf-8'))
+    if index.get('schemaVersion') != 1 or index.get('sourceHash') != catalog['sourceHash']:
+        raise ValueError('Preview source version mismatch; rebuild the page previews')
+    if set(index.get('chapters', {})) != {chapter['id'] for chapter in catalog['chapters']}:
+        raise ValueError('Preview chapter list does not match the textbook')
+    verified = set()
+    for chapter in catalog['chapters']:
+        preview = index['chapters'][chapter['id']]
+        pages = preview.get('pages', [])
+        if not pages or preview.get('pageCount') != len(pages) or preview.get('title') != chapter['title']:
+            raise ValueError('Incomplete textbook preview')
+        for page in pages:
+            path = page.get('image', '')
+            if not re.fullmatch(r'data/textbook/previews/pages/[a-f0-9]{64}\.webp', path):
+                raise ValueError('Invalid preview page path')
+            if page.get('width') != 1600 or not isinstance(page.get('height'), int) or page['height'] <= 0:
+                raise ValueError('Invalid preview page dimensions')
+            asset = inside(root / path, folder)
+            if asset.name != page.get('sha256', '') + '.webp':
+                raise ValueError('Invalid preview page checksum')
+            if path not in verified:
+                data = asset.read_bytes()
+                if data[:4] != b'RIFF' or data[8:12] != b'WEBP' or hashlib.sha256(data).hexdigest() != page['sha256']:
+                    raise ValueError('Preview page checksum mismatch')
+                verified.add(path)
+    if {path.relative_to(root).as_posix() for path in (folder / 'pages').glob('*')} != verified:
+        raise ValueError('Unlisted preview page assets')
+    return index
+
+
 def validate_outputs(root=ROOT, require_pdfs=False):
     """Validate committed public outputs without access to the private manuscript."""
     root = Path(root).resolve()
@@ -535,7 +571,8 @@ def validate_outputs(root=ROOT, require_pdfs=False):
             data = (root / expected_pdf).read_bytes()
             if not data.startswith(b'%PDF-') or hashlib.sha256(data).hexdigest() != chapter['pdfSha256']:
                 raise ValueError('Invalid or stale chapter PDF; rebuild the textbook')
-    print(f'Validated {len(chapters)} published chapters and their assets', flush=True)
+    validate_previews(root, catalog)
+    print(f'Validated {len(chapters)} published chapters, previews and their assets', flush=True)
     return catalog
 
 

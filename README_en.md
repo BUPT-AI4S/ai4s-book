@@ -33,9 +33,9 @@ The book explores scientific knowledge modeling and large-model reasoning, auton
 
 | Chapter | Focus | Access |
 | --- | --- | --- |
-| 1. 科学知识建模与大模型推理 | Scientific knowledge modeling and large-model reasoning; 13 figures | [Read](https://bupt-ai4s.github.io/ai4s-book/read.html?chapter=ch13-knowledge-rag) |
-| 2. 自主实验室与干湿闭环 | Autonomous laboratories and computational–experimental feedback loops; 10 figures | [Read](https://bupt-ai4s.github.io/ai4s-book/read.html?chapter=ch16-autonomous-laboratory) |
-| 3. 科学智能的测评数据构建与可信评价 | Evaluation data construction and trustworthy assessment; 9 figures, 2 tables | [Read](https://bupt-ai4s.github.io/ai4s-book/read.html?chapter=ch03-evaluation) |
+| 1. 科学知识建模与大模型推理 | Scientific knowledge modeling and large-model reasoning; 13 figures | [Read](https://bupt-ai4s.github.io/ai4s-book/read.html?chapter=ch13-knowledge-rag) · [PDF preview](https://bupt-ai4s.github.io/ai4s-book/read.html?chapter=ch13-knowledge-rag&view=pdf) |
+| 2. 自主实验室与干湿闭环 | Autonomous laboratories and computational–experimental feedback loops; 10 figures | [Read](https://bupt-ai4s.github.io/ai4s-book/read.html?chapter=ch16-autonomous-laboratory) · [PDF preview](https://bupt-ai4s.github.io/ai4s-book/read.html?chapter=ch16-autonomous-laboratory&view=pdf) |
+| 3. 科学智能的测评数据构建与可信评价 | Evaluation data construction and trustworthy assessment; 9 figures, 2 tables | [Read](https://bupt-ai4s.github.io/ai4s-book/read.html?chapter=ch03-evaluation) · [PDF preview](https://bupt-ai4s.github.io/ai4s-book/read.html?chapter=ch03-evaluation&view=pdf) |
 
 All three chapters are available to read online. Read them in order or start with the topic closest to your research interests.
 
@@ -47,7 +47,7 @@ The book is in **Chinese**, with bilingual project information and website navig
 
 ## Reading and resources
 
-- [Read online](https://bupt-ai4s.github.io/ai4s-book/) with chapter navigation, figures, formulas and references.
+- [Read online](https://bupt-ai4s.github.io/ai4s-book/) with chapter navigation, figures, formulas and references. Switch to PDF preview for original page layouts, page navigation and zoom.
 - The [companion course](https://bupt-ai4s.github.io/) provides teaching materials, recordings and further reading.
 
 ## Feedback and contributions

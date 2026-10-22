@@ -8,6 +8,7 @@ function render(){
   const heading=node('h3');heading.lang='zh-CN';heading.append(link(chapter.title,chapterUrl(chapter.id)));
   const description=node('p',chapter.summary,'card-description');description.lang='zh-CN';const subtitle=descriptions[chapter.id]||[chapter.title,chapter.title];
   const actions=node('div',undefined,'card-actions');actions.append(link(tr('在线阅读 →','Read online →'),chapterUrl(chapter.id)));
+  actions.append(link(tr('PDF 预览 ↗','PDF preview ↗'),chapterUrl(chapter.id)+'&view=pdf'));
   card.append(top,node('p',tr(...subtitle),'card-kicker'),heading,description,actions);return card;
  }));$('catalog-status').hidden=true;
 }
