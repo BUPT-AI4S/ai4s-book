@@ -6,3 +6,4 @@ __pycache__/
 .env
 .env.*
 node_modules/
+data/textbook/pdf/

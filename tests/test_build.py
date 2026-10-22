@@ -104,26 +104,26 @@ class BookBuildTests(unittest.TestCase):
         for name in ('.textbook-source', '.tmp', 'tools', 'sources', 'main.tex', 'references.bib'):
             self.assertFalse((staged / name).exists(), name)
 
-    def test_pdf_internal_destinations_resolve(self):
-        try:
-            from pypdf import PdfReader
-        except ImportError:
-            self.skipTest('optional local PDF audit; CI validates file checksums')
-        for path in (ROOT / 'data/textbook/pdf').glob('*.pdf'):
-            reader = PdfReader(path)
-            page_ids = {p.indirect_reference.idnum for p in reader.pages}
-            for name, destination in reader.named_destinations.items():
-                index = reader.get_destination_page_number(destination)
-                self.assertIsNotNone(index, (path.name, name))
-                self.assertTrue(0 <= index < len(reader.pages), (path.name, name))
-            for page in reader.pages:
-                for item in page.get('/Annots', []):
-                    annotation = item.get_object()
-                    action = annotation.get('/A')
-                    action = action.get_object() if action else {}
-                    destination = annotation.get('/Dest', action.get('/D') if action.get('/S') == '/GoTo' else None)
-                    if isinstance(destination, list) and destination and hasattr(destination[0], 'idnum'):
-                        self.assertIn(destination[0].idnum, page_ids, path.name)
+    def test_publication_contains_no_pdf_files_or_urls(self):
+        catalog = book.validate_outputs(ROOT)
+        self.assertEqual(catalog['publicationMode'], 'web-only')
+        self.assertFalse(catalog.get('bookPdfUrl'))
+        for chapter in catalog['chapters']:
+            self.assertFalse(chapter.get('pdfUrl'))
+            detail = json.loads((ROOT / chapter['contentUrl']).read_text(encoding='utf-8'))
+            self.assertFalse(detail.get('pdfUrl'))
+        for folder in ('data', '_site'):
+            self.assertEqual(list((ROOT / folder).rglob('*.pdf')), [], folder)
+
+    def test_pdf_publication_is_rejected(self):
+        catalog = json.loads((ROOT / 'data/textbook/catalog.json').read_text(encoding='utf-8'))
+        catalog['bookPdfUrl'] = 'data/textbook/pdf/scientific-intelligence.pdf'
+        with tempfile.TemporaryDirectory() as temp:
+            target = Path(temp) / 'data/textbook'
+            target.mkdir(parents=True)
+            (target / 'catalog.json').write_text(json.dumps(catalog), encoding='utf-8')
+            with self.assertRaisesRegex(ValueError, 'web reading only'):
+                book.validate_outputs(Path(temp))
 
 
 if __name__ == '__main__':

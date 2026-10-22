@@ -1,6 +1,6 @@
 <div align="center">
 
-# Scientific Intelligence: Principles and Practice
+# AI for Science: Principles and Practice
 
 **AI4SBook · 科学智能原理与实践**
 
@@ -11,7 +11,7 @@
 
 [中文](README.md) | **English**
 
-📚 **[Read online](https://bupt-ai4s.github.io/ai4s-book/)** · 📄 **[Complete PDF](data/textbook/pdf/scientific-intelligence.pdf)** · 🎓 **[Companion course](https://bupt-ai4s.github.io/)**
+📚 **[Read online](https://bupt-ai4s.github.io/ai4s-book/)** · 🎓 **[Companion course](https://bupt-ai4s.github.io/)**
 
 ### From scientific questions to intelligent methods and reproducible experiments
 
@@ -19,7 +19,7 @@
 
 <img src="static/images/book-cover.png" width="260" alt="AI4SBook cover">
 
-**Open reading · Web and PDF · Companion course**
+**Open reading · Companion course**
 
 </div>
 
@@ -33,11 +33,11 @@ The book explores scientific knowledge modeling and large-model reasoning, auton
 
 | Chapter | Focus | Access |
 | --- | --- | --- |
-| 1. 科学知识建模与大模型推理 | Scientific knowledge modeling and large-model reasoning; 13 figures | [Read](https://bupt-ai4s.github.io/ai4s-book/read.html?chapter=ch13-knowledge-rag) · [PDF](data/textbook/pdf/ch13-knowledge-rag.pdf) |
-| 2. 自主实验室与干湿闭环 | Autonomous laboratories and computational–experimental feedback loops; 10 figures | [Read](https://bupt-ai4s.github.io/ai4s-book/read.html?chapter=ch16-autonomous-laboratory) · [PDF](data/textbook/pdf/ch16-autonomous-laboratory.pdf) |
-| 3. 科学智能的测评数据构建与可信评价 | Evaluation data construction and trustworthy assessment; 9 figures, 2 tables | [Read](https://bupt-ai4s.github.io/ai4s-book/read.html?chapter=ch03-evaluation) · [PDF](data/textbook/pdf/ch03-evaluation.pdf) |
+| 1. 科学知识建模与大模型推理 | Scientific knowledge modeling and large-model reasoning; 13 figures | [Read](https://bupt-ai4s.github.io/ai4s-book/read.html?chapter=ch13-knowledge-rag) |
+| 2. 自主实验室与干湿闭环 | Autonomous laboratories and computational–experimental feedback loops; 10 figures | [Read](https://bupt-ai4s.github.io/ai4s-book/read.html?chapter=ch16-autonomous-laboratory) |
+| 3. 科学智能的测评数据构建与可信评价 | Evaluation data construction and trustworthy assessment; 9 figures, 2 tables | [Read](https://bupt-ai4s.github.io/ai4s-book/read.html?chapter=ch03-evaluation) |
 
-All three chapters offer online reading and PDF downloads. Read them in order or start with the topic closest to your research interests.
+All three chapters are available to read online. Read them in order or start with the topic closest to your research interests.
 
 ## Audience and reading guide
 
@@ -47,22 +47,25 @@ The book is in **Chinese**, with bilingual project information and website navig
 
 ## Reading and resources
 
-- The website offers responsive HTML/MathML text and an original PDF view.
-- The [complete PDF](data/textbook/pdf/scientific-intelligence.pdf) includes the cover, front matter, contents, chapters and shared references.
-- Chapter PDFs retain the book's page and citation numbers and include shared references. Web references are numbered within each chapter.
+- [Read online](https://bupt-ai4s.github.io/ai4s-book/) with chapter navigation, figures, formulas and references.
 - The [companion course](https://bupt-ai4s.github.io/) provides teaching materials, recordings and further reading.
-- See the [changelog](CHANGELOG.md) for public updates. The initial three-chapter edition is dated 2026-10-22.
 
 ## Feedback and contributions
 
-Use [Issues](https://github.com/BUPT-AI4S/ai4s-book/issues/new/choose) to report text, formula, figure, reference or website issues. Include the chapter/section, a description, suggested changes and supporting sources where available. For PDF issues, include the version and page number.
+Use [Issues](https://github.com/BUPT-AI4S/ai4s-book/issues/new/choose) to report text, formula, figure, reference or website issues. Include the chapter/section, a description, suggested changes and supporting sources where available.
 
-Contributions to the book, website and documentation are welcome. See [CONTRIBUTING.md](CONTRIBUTING.md).
+See [CONTRIBUTING.md](CONTRIBUTING.md) for participation details.
+
+## Teaching and usage authorization
+
+Institutions wishing to use this book as a textbook, for courses, training or other purposes should contact the authors by email to obtain authorization.
+
+**Contact: [ehaihong@bupt.edu.cn](mailto:ehaihong@bupt.edu.cn)**
 
 ## Citation and rights
 
 Please cite the book title, authors, year and project URL. The full citation example is in the [Chinese README](README.md); machine-readable metadata is in [CITATION.cff](CITATION.cff).
 
-The book is available to read online and download. Copyright belongs to the respective rights holders. For redistribution, adaptation or commercial use, contact the maintainers through Issues. Third-party sources and licenses are listed in the chapters and components. See [RIGHTS.md](RIGHTS.md).
+The book is available to read online. Copyright belongs to the respective rights holders. For redistribution, adaptation or commercial use, contact the authors by email. Third-party sources and licenses are listed in the chapters and components. See [RIGHTS.md](RIGHTS.md).
 
 If the book is useful to you, consider starring the repository to find it again and follow updates.

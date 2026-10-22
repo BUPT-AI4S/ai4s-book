@@ -23,7 +23,7 @@ def stage(root=ROOT):
         for path in (root / name).rglob('*'):
             if path.is_symlink():
                 raise ValueError('Symlinks are not permitted in public assets')
-        shutil.copytree(root / name, output / name, ignore=shutil.ignore_patterns('.*', '__pycache__', '*.pyc'))
+        shutil.copytree(root / name, output / name, ignore=shutil.ignore_patterns('.*', '__pycache__', '*.pyc', '*.pdf', 'pdfjs'))
     (output / '.nojekyll').touch()
     print(f'Public website staged: {output}', flush=True)
     return output

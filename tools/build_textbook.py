@@ -13,6 +13,7 @@ import tempfile
 ROOT = Path(__file__).resolve().parents[1]
 SOURCE = ROOT / '.textbook-source'
 REPO = 'https://github.com/BUPT-AI4S/AI4SBook'
+PDF_PUBLICATION_ENABLED = False
 PREAMBLE = r'''
 \newcommand{\chapterintro}[2]{\textbf{学习目标：}#1\par\textbf{先修知识：}#2。\par}
 \newcommand{\chapterplan}[2]{\chapterintro{#1}{#2}}
@@ -401,6 +402,8 @@ def compile_and_split(source, work, output, chapters, engine, reuse_verified_pdf
 
 
 def build_book(source=SOURCE, root=ROOT, pdf_engine=None, html_only=False):
+    if not PDF_PUBLICATION_ENABLED:
+        html_only = True
     source, root = Path(source).resolve(), Path(root).resolve()
     chapters = read_book(source)
     fingerprint = source_hash(source)
@@ -446,7 +449,7 @@ def build_book(source=SOURCE, root=ROOT, pdf_engine=None, html_only=False):
             references.update(local)
         converted_chapters = {chapter['id']: convert_chapter(chapter, source, output, pandoc, documents[chapter['id']], references) for chapter in chapters}
         full_pdf = output / 'pdf/scientific-intelligence.pdf'
-        cached = html_only and previous.get('sourceHash') == fingerprint and previous.get('pdfVersion') == 4 and bool(previous.get('bookPdfUrl'))
+        cached = PDF_PUBLICATION_ENABLED and html_only and previous.get('sourceHash') == fingerprint and previous.get('pdfVersion') == 4 and bool(previous.get('bookPdfUrl'))
         total_pages = 0
         if not html_only:
             print('Compiling complete manuscript and splitting chapter PDFs', flush=True)
@@ -473,7 +476,7 @@ def build_book(source=SOURCE, root=ROOT, pdf_engine=None, html_only=False):
         info = (source / 'book-info.tex').read_text(encoding='utf-8')
         title_match = re.search(r'\\newcommand\{\\BookTitle\}', info)
         title = argument(info, title_match.end())[0] if title_match else '科学智能原理与实践'
-        catalog = dict(schemaVersion=1, pdfVersion=4, title=title, sourceHash=fingerprint, buildHash=build_hash,
+        catalog = dict(schemaVersion=1, publicationMode='web-only', pdfVersion=4, title=title, sourceHash=fingerprint, buildHash=build_hash,
                        sourceRepository=provenance['repository'], sourceCommit=provenance.get('commit'),
                        pages=total_pages, bookPdfUrl='data/textbook/pdf/scientific-intelligence.pdf' if full_pdf.is_file() else None,
                        bookPdfSha256=hashlib.sha256(full_pdf.read_bytes()).hexdigest() if full_pdf.is_file() else None, chapters=chapters)
@@ -486,11 +489,16 @@ def build_book(source=SOURCE, root=ROOT, pdf_engine=None, html_only=False):
     return catalog
 
 
-def validate_outputs(root=ROOT, require_pdfs=True):
+def validate_outputs(root=ROOT, require_pdfs=False):
     """Validate committed public outputs without access to the private manuscript."""
     root = Path(root).resolve()
     catalog = json.loads((root / 'data/textbook/catalog.json').read_text(encoding='utf-8'))
     chapters = catalog['chapters']
+    if not PDF_PUBLICATION_ENABLED:
+        if catalog.get('publicationMode') != 'web-only' or catalog.get('bookPdfUrl') or any(c.get('pdfUrl') for c in chapters):
+            raise ValueError('The public edition supports web reading only')
+        if any((root / 'data/textbook').rglob('*.pdf')):
+            raise ValueError('PDF files must not be included in the public edition')
     if catalog.get('schemaVersion') != 1 or not chapters or len({c['id'] for c in chapters}) != len(chapters):
         raise ValueError('Invalid textbook catalog')
     if require_pdfs or catalog.get('bookPdfUrl'):
@@ -513,6 +521,8 @@ def validate_outputs(root=ROOT, require_pdfs=True):
             raise ValueError('Invalid chapter content URL')
         content_path = root / expected_content
         detail = json.loads(content_path.read_text(encoding='utf-8'))
+        if not PDF_PUBLICATION_ENABLED and detail.get('pdfUrl'):
+            raise ValueError('Chapter data must not expose a PDF URL')
         if detail['sourceHash'] != catalog['sourceHash'] or detail['id'] != chapter['id']:
             raise ValueError('Mixed textbook source versions')
         if hashlib.sha256(content_path.read_bytes()).hexdigest() != chapter['contentSha256']:
@@ -525,7 +535,7 @@ def validate_outputs(root=ROOT, require_pdfs=True):
             data = (root / expected_pdf).read_bytes()
             if not data.startswith(b'%PDF-') or hashlib.sha256(data).hexdigest() != chapter['pdfSha256']:
                 raise ValueError('Invalid or stale chapter PDF; rebuild the textbook')
-    print(f'Validated {len(chapters)} published chapters and their assets/PDFs', flush=True)
+    print(f'Validated {len(chapters)} published chapters and their assets', flush=True)
     return catalog
 
 

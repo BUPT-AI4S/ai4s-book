@@ -21,22 +21,22 @@ python tools/preview.py --port 8084
 
 ```sh
 python -m pip install -r tools/textbook-requirements.txt
-python tools/build_textbook.py --sync-from /path/to/authoring-checkout --pdf-engine /path/to/tectonic
+python tools/build_textbook.py --sync-from /path/to/authoring-checkout
 ```
 
-也可使用已安装的 `latexmk` 和 XeLaTeX。Tectonic 首次使用需要联网获取字体和宏包。`.textbook-source/` 是忽略提交的本地快照，保留所选版本以便重建。
+`.textbook-source/` 是忽略提交的本地快照，保留所选版本以便重建。生成网页不需要 LaTeX 编译器。
 
-生成器从快照中的 `main.tex` 确定章节与顺序，支持嵌套 input、学习目标、小贴士、图表、脚注、数学公式及交叉引用。遇到新宏时先补充网页映射再重新生成。阅读版在网页与 PDF 中统一省略工程说明，保留科研内容及其适用条件；PDF 缓存同时核对来源与生成器版本。
+生成器从快照中的 `main.tex` 确定章节与顺序，支持嵌套 input、学习目标、小贴士、图表、脚注、数学公式及交叉引用。遇到新宏时先补充网页映射再重新生成。阅读版省略工程说明，保留科研内容及其适用条件。
 
-完整教材按 LaTeX 排版编译，分章 PDF 由书签确定边界并附全书共享参考文献。PDF 保留全书页码与文献编号，网页文献按章编号。
+网站只发布网页正文，参考文献按章编号。PDF 发布开关保持关闭，目录和章节数据不提供 PDF 地址；暂存过程也排除 PDF 文件。旧 PDF 阅读链接跳转至章节网页。
 
-仅重建网页可用 `--html-only`，只复用同一份源码、且通过校验的现有 PDF；正式发布前必须通过 `--check`，确保完整和分章 PDF 全部存在。源码摘要、内容/PDF 校验和记录在 `data/textbook/catalog.json`。请勿直接修改生成文件。
+发布前必须通过 `--check`，验证章节、配图、校验和及网页发布范围。来源摘要、内容校验和记录在 `data/textbook/catalog.json`。请勿直接修改生成文件。
 
 ## 提交前检查
 
 - 正文结构、32 幅图和两张表格的数量及单元格完整；新章节发布时同步修改测试的预期数量。
-- 交叉引用、图解提示、脚注和文献可跳转；PDF 中的命名目标有效。
-- 测试手机、桌面、深浅主题、中英导航、网页/PDF切换及下载。
+- 交叉引用、图解提示、脚注和文献可跳转。
+- 测试手机、桌面、深浅主题、中英导航、课程链接与授权邮箱，确认发布目录中没有 PDF。
 - 同步 README、English README、CHANGELOG 和引用信息。
 - 检查待提交文件与发布目录。
 

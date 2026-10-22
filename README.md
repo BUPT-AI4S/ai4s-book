@@ -2,7 +2,7 @@
 
 # 科学智能原理与实践
 
-**Scientific Intelligence: Principles and Practice · AI4SBook**
+**AI for Science: Principles and Practice · AI4SBook**
 
 [![Stars](https://img.shields.io/github/stars/BUPT-AI4S/ai4s-book?style=flat-square)](https://github.com/BUPT-AI4S/ai4s-book/stargazers)
 [![Forks](https://img.shields.io/github/forks/BUPT-AI4S/ai4s-book?style=flat-square)](https://github.com/BUPT-AI4S/ai4s-book/forks)
@@ -11,7 +11,7 @@
 
 **中文** | [English](README_en.md)
 
-📚 **[书籍官网与在线阅读](https://bupt-ai4s.github.io/ai4s-book/)** · 📄 **[完整 PDF](https://bupt-ai4s.github.io/ai4s-book/data/textbook/pdf/scientific-intelligence.pdf)** · 🎓 **[配套课程](https://bupt-ai4s.github.io/)**
+📚 **[书籍官网与在线阅读](https://bupt-ai4s.github.io/ai4s-book/)** · 🎓 **[配套课程](https://bupt-ai4s.github.io/)**
 
 ### 从科学问题到智能方法与可复现实验
 
@@ -21,7 +21,7 @@
 
 <img src="static/images/book-cover.png" width="260" alt="《科学智能原理与实践》书籍封面">
 
-**开放阅读 · 网页与 PDF · 配套课程**
+**开放阅读 · 配套课程**
 
 </div>
 
@@ -41,13 +41,13 @@
 
 ## 内容导航
 
-各章均提供网页阅读与 PDF 下载，可按顺序学习，也可根据研究兴趣选择主题。
+各章均提供在线阅读，可按顺序学习，也可根据研究兴趣选择主题。
 
 | 章节 | 主要内容 | 状态 | 阅读资源 |
 | --- | --- | --- | --- |
-| 第 1 章 科学知识建模与大模型推理 | 科学知识的表示、建模、使用与推理；13 幅图 | 开放阅读 | [网页 / PDF 原版](https://bupt-ai4s.github.io/ai4s-book/read.html?chapter=ch13-knowledge-rag) · [下载 PDF](data/textbook/pdf/ch13-knowledge-rag.pdf) |
-| 第 2 章 自主实验室与干湿闭环 | 计算决策、实验执行、测量反馈与跨领域案例；10 幅图 | 开放阅读 | [网页 / PDF 原版](https://bupt-ai4s.github.io/ai4s-book/read.html?chapter=ch16-autonomous-laboratory) · [下载 PDF](data/textbook/pdf/ch16-autonomous-laboratory.pdf) |
-| 第 3 章 科学智能的测评数据构建与可信评价 | 测评目标、测试数据、评价依据、指标及运行协议；9 幅图、2 张表 | 开放阅读 | [网页 / PDF 原版](https://bupt-ai4s.github.io/ai4s-book/read.html?chapter=ch03-evaluation) · [下载 PDF](data/textbook/pdf/ch03-evaluation.pdf) |
+| 第 1 章 科学知识建模与大模型推理 | 科学知识的表示、建模、使用与推理；13 幅图 | 开放阅读 | [在线阅读](https://bupt-ai4s.github.io/ai4s-book/read.html?chapter=ch13-knowledge-rag) |
+| 第 2 章 自主实验室与干湿闭环 | 计算决策、实验执行、测量反馈与跨领域案例；10 幅图 | 开放阅读 | [在线阅读](https://bupt-ai4s.github.io/ai4s-book/read.html?chapter=ch16-autonomous-laboratory) |
+| 第 3 章 科学智能的测评数据构建与可信评价 | 测评目标、测试数据、评价依据、指标及运行协议；9 幅图、2 张表 | 开放阅读 | [在线阅读](https://bupt-ai4s.github.io/ai4s-book/read.html?chapter=ch03-evaluation) |
 
 ## 如何阅读
 
@@ -59,28 +59,24 @@
 - 关注实验执行与反馈，从第 2 章开始。
 - 关注测评数据与结论可信度，从第 3 章开始。
 
-网站提供适合不同屏幕的**网页正文**与保留 LaTeX 排版的 **PDF 原版**两种阅读方式。教材正文为中文，项目介绍与网站导航提供中英文切换。
+网站提供适合手机、平板和电脑屏幕的网页正文。教材正文为中文，项目介绍与网站导航提供中英文切换。
 
-## PDF 与配套资源
+## 配套资源
 
-- **[完整教材 PDF](data/textbook/pdf/scientific-intelligence.pdf)**：包含封面、前言、阅读指南、全书目录、三章正文和参考文献。
-- **章节 PDF**：附全书参考文献，保留教材中的引用编号和页码。
 - **[配套课程网站](https://bupt-ai4s.github.io/)**：课程介绍、讲义、课程回看和拓展阅读。
-- **[更新记录](CHANGELOG.md)**：记录公开内容的新增和修订。
-
-网页的参考文献按章编号，PDF 使用全书编号，均支持引用跳转。
+- **[在线阅读](https://bupt-ai4s.github.io/ai4s-book/)**：章节目录、图表、公式和参考文献。
 
 ## 更新记录
 
 | 日期 | 公开更新 |
 | --- | --- |
-| 2026-10-22 | 首版开放三章网页、完整及分章 PDF、32 幅图与 2 张表格；上线书籍介绍、阅读导航和反馈入口。 |
+| 2026-10-22 | 上线三章网页、32 幅图与 2 张表格，提供书籍介绍和阅读导航。 |
 
 ## 反馈与参与
 
-欢迎通过 [Issues](https://github.com/BUPT-AI4S/ai4s-book/issues/new/choose) 提交文字、公式、图表、引用和页面问题。请尽量提供：**章节与小节位置、问题描述、建议修改、核对来源**。PDF 问题也请附上当前版本和页码。
+欢迎通过 [Issues](https://github.com/BUPT-AI4S/ai4s-book/issues/new/choose) 提交文字、公式、图表、引用和页面问题。请尽量提供：**章节与小节位置、问题描述、建议修改、核对来源**。
 
-欢迎参与教材内容、网站和文档的改进，具体方式见 [贡献指南](CONTRIBUTING.md)。
+参与方式见 [贡献指南](CONTRIBUTING.md)。
 
 ## 作者与贡献者
 
@@ -102,11 +98,17 @@
 }
 ```
 
+## 教学与使用授权
+
+如有单位希望使用本书作为教材，或将本书用于课程教学、培训及其他用途，请通过邮箱与作者取得联系，获取相应授权。
+
+**联系邮箱：[ehaihong@bupt.edu.cn](mailto:ehaihong@bupt.edu.cn)**
+
 ## 版权与使用说明
 
-本书提供网页阅读和 PDF 下载，版权归相应著作权人所有。第三方图表与文献的来源见正文标注。
+本书提供在线阅读，版权归相应著作权人所有。第三方图表与文献的来源见正文标注。
 
-转载、改编或商业使用事宜请通过 Issues 联系维护者，详见 [版权与使用说明](RIGHTS.md)。PDF.js 等第三方组件适用各自的许可。
+转载、改编或商业使用事宜请通过邮箱联系作者，详见 [版权与使用说明](RIGHTS.md)。
 
 ---
 

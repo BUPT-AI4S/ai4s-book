@@ -9,7 +9,7 @@ authors:
 date-released: 2026-10-22
 url: "https://bupt-ai4s.github.io/ai4s-book/"
 repository-code: "https://github.com/BUPT-AI4S/ai4s-book"
-abstract: "围绕科学知识建模、自主实验室与科学智能测评，结合研究案例、图表与参考文献，介绍科学智能的方法与实践。提供在线阅读与PDF下载。"
+abstract: "围绕科学知识建模、自主实验室与科学智能测评，结合研究案例、图表与参考文献，介绍科学智能的方法与实践。提供在线阅读与配套课程。"
 preferred-citation:
   type: book
   title: "科学智能原理与实践"

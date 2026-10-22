@@ -1,14 +1,15 @@
 {
   "schemaVersion": 1,
+  "publicationMode": "web-only",
   "pdfVersion": 4,
   "title": "科学智能原理与实践",
   "sourceHash": "4b9f08d95b35636035d6f7effc702119a1b6c0ec0e6aa7e6f023a21f2c32290f",
-  "buildHash": "f03e337d040fbf3baa36641ebe8141e10b86bf0b40eae892408c395062bafc27",
+  "buildHash": "48aa799a9cbdd00df6b3e8876ddc9812985fe40623d9d1d1d9f7524237f39dd4",
   "sourceRepository": "https://github.com/BUPT-AI4S/AI4SBook",
   "sourceCommit": "0df407699d87c0b10b9f28d04479ef8b16242a36",
-  "pages": 104,
-  "bookPdfUrl": "data/textbook/pdf/scientific-intelligence.pdf",
-  "bookPdfSha256": "05516ad8590b067bc6e0c99d924e17e4cfd4917611dd18605abf54058526dc50",
+  "pages": 0,
+  "bookPdfUrl": null,
+  "bookPdfSha256": null,
   "chapters": [
     {
       "id": "ch13-knowledge-rag",
@@ -20,11 +21,10 @@
       "status": "available",
       "hasCitations": true,
       "summary": "理解结构化记录、本体与知识图谱的分工，能够组织保留实验条件和来源的科学知识，并评价其在检索、推理和候选设计中的作用。",
-      "pages": 47,
-      "pdfUrl": "data/textbook/pdf/ch13-knowledge-rag.pdf",
-      "pdfSha256": "b89c341f31e1c70d0f89b7eeb282f727b28b48c74a8a7f5015412668c51c930f",
+      "pdfUrl": null,
+      "pdfSha256": null,
       "contentUrl": "data/textbook/chapters/ch13-knowledge-rag.json",
-      "contentSha256": "010fa851d9854c738a5bc8d7405142e5bf9a21d34f06da93bee7ea5e64cd4f50"
+      "contentSha256": "ed509079b32cf79fe569793c1a57a59f531c50a5eddb4af5fd367e7342d3542a"
     },
     {
       "id": "ch16-autonomous-laboratory",
@@ -36,11 +36,10 @@
       "status": "available",
       "hasCitations": true,
       "summary": "理解自主实验室如何连接计算决策、实验执行和测量反馈，比较不同领域的闭环指标。",
-      "pages": 35,
-      "pdfUrl": "data/textbook/pdf/ch16-autonomous-laboratory.pdf",
-      "pdfSha256": "cb83fa6c1288176ae16a40e899060e8bdd4ffc81c730ef8d428f57e54e81aa8d",
+      "pdfUrl": null,
+      "pdfSha256": null,
       "contentUrl": "data/textbook/chapters/ch16-autonomous-laboratory.json",
-      "contentSha256": "7e3033adc2546b9313619e517191a714c428b65196dd0e4f0f6a413fac97f884"
+      "contentSha256": "4c7a198b89799aaebe789d5a43336809a1d70af0cd8f919f9d933e78b5e97a60"
     },
     {
       "id": "ch03-evaluation",
@@ -52,11 +51,10 @@
       "status": "available",
       "hasCitations": true,
       "summary": "区分科学任务、研究工作流与科学发现的测评目标，能够设计测试数据、选择评价依据，并审查测评结论的适用条件。",
-      "pages": 33,
-      "pdfUrl": "data/textbook/pdf/ch03-evaluation.pdf",
-      "pdfSha256": "9892c3f68300b670c1e486e18ed7ed9125ea151142b9789fc05c7af706c91006",
+      "pdfUrl": null,
+      "pdfSha256": null,
       "contentUrl": "data/textbook/chapters/ch03-evaluation.json",
-      "contentSha256": "4461100a0f1f64f4b77f3ce7522d3139c8ed1a647b200a6d448cc3e35c4a107f"
+      "contentSha256": "5dd67ac59e89bfbffbb1cd12af9ed29c9a9788fb505d016a2663c73fd63724bf"
     }
   ]
 }
