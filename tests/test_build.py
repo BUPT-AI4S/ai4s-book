@@ -15,13 +15,26 @@ SPEC.loader.exec_module(book)
 
 class BookBuildTests(unittest.TestCase):
     def test_current_order_and_count(self):
-        source = ROOT.parent / 'AI4SBook'
+        source = book.SOURCE
         if not source.exists():
-            self.skipTest('private authoring checkout is not required in CI')
+            self.skipTest('the pinned source snapshot is not required in CI')
         chapters = book.read_book(source)
         self.assertEqual([c['number'] for c in chapters], [1, 2, 3])
         self.assertEqual([c['id'] for c in chapters], ['ch13-knowledge-rag', 'ch16-autonomous-laboratory', 'ch03-evaluation'])
         self.assertTrue(all(c['part'] for c in chapters))
+
+    def test_reader_edition_removes_authoring_notes_preserving_scientific_limits(self):
+        text = (r'\chapter{知识建模}' + '\n\n' +
+                r'\noindent\textbf{编写说明。}原稿尚未独立核验。' + '\n\n' +
+                '结论只适用于所报告的测试条件。\n' +
+                r'\section*{原稿文献附注}' + '\n' +
+                '原稿注明为主会论文。')
+        cleaned = book.reader_tex(text)
+        self.assertNotIn('编写说明', cleaned)
+        self.assertNotIn('原稿', cleaned)
+        self.assertIn('结论只适用于所报告的测试条件。', cleaned)
+        self.assertIn(r'\chapter{知识建模}', cleaned)
+        self.assertIn('文献与延伸阅读', cleaned)
 
     def test_unknown_tex_and_input_escape_fail(self):
         with tempfile.TemporaryDirectory() as temp:

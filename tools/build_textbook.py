@@ -15,7 +15,7 @@ SOURCE = ROOT / '.textbook-source'
 REPO = 'https://github.com/BUPT-AI4S/AI4SBook'
 PREAMBLE = r'''
 \newcommand{\chapterintro}[2]{\textbf{学习目标：}#1\par\textbf{先修知识：}#2。\par}
-\newcommand{\chapterplan}[2]{\chapterintro{#1}{#2}\textbf{编写状态：框架待扩写。}\par}
+\newcommand{\chapterplan}[2]{\chapterintro{#1}{#2}}
 \newcommand{\chaptersummary}[1]{\section*{本章小结}#1}
 \newcommand{\labheading}[1]{\subsubsection*{#1}}
 \newcommand{\keyterm}[1]{\emph{#1}}
@@ -79,7 +79,7 @@ def command_arg(text, name):
 def read_book(source):
     source = Path(source)
     main = uncomment((source / 'main.tex').read_text(encoding='utf-8'))
-    chapters, part, part_number = [], '当前书稿', 1
+    chapters, part, part_number = [], '教材内容', 1
     for match in re.finditer(r'\\(part|include)\s*\{([^{}]+)\}', main):
         if match[1] == 'part':
             part, part_number = match[2], part_number + 1
@@ -97,7 +97,7 @@ def read_book(source):
             summary = re.sub(r'\\[a-zA-Z]+|[{}]', '', summary)
             chapters.append(dict(id=slug, number=len(chapters) + 1, title=title,
                                  part=part, partNumber=part_number, source=filename,
-                                 status='outline' if r'\chapterplan' in text else 'draft',
+                                 status='available',
                                  hasCitations=bool(re.search(r'\\cite\w*\b', text)),
                                  summary=summary))
     if not chapters or len({c['id'] for c in chapters}) != len(chapters):
@@ -105,8 +105,34 @@ def read_book(source):
     return chapters
 
 
+def reader_tex(text):
+    """Omit authoring logistics from the reading edition; retain scientific content."""
+    text = re.sub(r'(?m)^\\noindent\\textbf\{编写说明。\}[^\n]*(?:\n|$)', '', text)
+    text = text.replace(r'\textbf{当前版本为协作编写稿，只收录已经提供完整原稿的章节。}', '')
+    text = re.sub(r'(?m)^三章均保留原稿[^\n]*',
+                  '各章结合研究案例、图表与学习目标展开讨论，参考文献统一列于书末，便于读者延伸阅读。', text)
+    text = text.replace(r'\chapter*{阅读与编写指南}', r'\chapter*{阅读指南}')
+    text = text.replace(r'\section*{当前内容与阅读顺序}', r'\section*{内容与阅读顺序}')
+    text = text.split(r'\section*{协作编写约定}', 1)[0]
+    text = text.replace('原稿文献附注', '文献与延伸阅读')
+    text = text.replace('原稿摘要', '摘要')
+    text = re.sub(r'\\begin\{minipage\}\{\\linewidth\}\\footnotesize\\linespread\{1\.15\}\\selectfont 原稿第[^\n]*?\\end\{minipage\}', '', text)
+    text = text.replace('以下保留原稿的发表背景说明及补充项目入口', '以下补充文献的发表背景说明与项目入口')
+    text = text.replace('以下保留原稿文献表中的说明，完整条目统一列于书末；出版背景按原稿转录。',
+                        '以下介绍代表性文献的研究主题与发表信息，完整条目统一列于书末。')
+    text = text.replace('原稿第三节“本节主参考综述”', '科学智能测评的参考综述')
+    text = text.replace('原稿访问日期', '访问日期')
+    text = text.replace('原稿注明', '文献信息注明')
+    text = text.replace('这一视角也明确了本章与第一章的分工' +
+                        r'\footnote{编者注：此处“第一章”为原稿内部编排指称，所述科学数据一般质量的内容目前尚未作为独立章节收录；并非指当前书稿的第1章。}' +
+                        '：第一章讨论科学数据作为研究资源的一般质量，包括准确性、完整性、组织方式和可复用性；本章讨论这些数据作为能力测量工具是否合适。',
+                        '这一视角也明确了科学数据质量与测评数据适用性的区别：科学数据作为研究资源的一般质量包括准确性、完整性、组织方式和可复用性；本章讨论这些数据作为能力测量工具是否合适。')
+    text = text.replace(r'\newcommand{\BookEdition}{协作编写稿}', r'\newcommand{\BookEdition}{2026年10月版}')
+    return text
+
+
 def prepare_tex(text):
-    text = uncomment(text)
+    text = reader_tex(uncomment(text))
     # Preserve semantic tips while discarding only their TeX box configuration.
     def tip(match):
         position = match.end()
@@ -360,7 +386,7 @@ def compile_and_split(source, work, output, chapters, engine, reuse_verified_pdf
                 if isinstance(name, str) and name in chapter_reader.named_destinations:
                     container[NameObject(key)] = chapter_reader.named_destinations[name].dest_array
         writer.append(chapter_reader, pages=list(range(starts[index], end)) + list(range(refs, len(reader.pages))))
-        writer.add_metadata({'/Title': chapter['title'], '/Author': '鄂海红 徐坤', '/Subject': '科学智能原理与实践 · 协作编写稿'})
+        writer.add_metadata({'/Title': chapter['title'], '/Author': '鄂海红 徐坤', '/Subject': '科学智能原理与实践'})
         path = output / 'pdf' / (chapter['id'] + '.pdf')
         with path.open('wb') as stream:
             writer.write(stream)
@@ -405,6 +431,11 @@ def build_book(source=SOURCE, root=ROOT, pdf_engine=None, html_only=False):
             shutil.copy2(cover, output / 'assets/images/cover' / cover.name)
         work = Path(temp) / 'latex'
         shutil.copytree(source, work)
+        # Apply the same reader-facing text to HTML and the compiled PDF copy.
+        # The pinned authoring snapshot remains unchanged for reproducibility.
+        for path in work.rglob('*'):
+            if path.suffix in {'.tex', '.bib'}:
+                path.write_text(reader_tex(path.read_text(encoding='utf-8')), encoding='utf-8', newline='\n')
         documents, references = {}, {}
         for chapter in chapters:
             ast, local = parse_chapter(chapter, source, pandoc)
@@ -415,13 +446,13 @@ def build_book(source=SOURCE, root=ROOT, pdf_engine=None, html_only=False):
             references.update(local)
         converted_chapters = {chapter['id']: convert_chapter(chapter, source, output, pandoc, documents[chapter['id']], references) for chapter in chapters}
         full_pdf = output / 'pdf/scientific-intelligence.pdf'
-        cached = html_only and previous.get('sourceHash') == fingerprint and bool(previous.get('bookPdfUrl'))
+        cached = html_only and previous.get('sourceHash') == fingerprint and previous.get('pdfVersion') == 4 and bool(previous.get('bookPdfUrl'))
         total_pages = 0
         if not html_only:
             print('Compiling complete manuscript and splitting chapter PDFs', flush=True)
             previous_pdf = destination / 'pdf/scientific-intelligence.pdf'
             reuse_verified_pdf = False
-            if previous.get('sourceHash') == fingerprint and previous_pdf.is_file() and hashlib.sha256(previous_pdf.read_bytes()).hexdigest() == previous.get('bookPdfSha256'):
+            if previous.get('sourceHash') == fingerprint and previous.get('buildHash') == build_hash and previous.get('pdfVersion') == 4 and previous_pdf.is_file() and hashlib.sha256(previous_pdf.read_bytes()).hexdigest() == previous.get('bookPdfSha256'):
                 shutil.copy2(previous_pdf, work / 'main.pdf')
                 reuse_verified_pdf = True
             total_pages = compile_and_split(source, work, output, chapters, engine, reuse_verified_pdf)
@@ -442,7 +473,7 @@ def build_book(source=SOURCE, root=ROOT, pdf_engine=None, html_only=False):
         info = (source / 'book-info.tex').read_text(encoding='utf-8')
         title_match = re.search(r'\\newcommand\{\\BookTitle\}', info)
         title = argument(info, title_match.end())[0] if title_match else '科学智能原理与实践'
-        catalog = dict(schemaVersion=1, pdfVersion=3, title=title, sourceHash=fingerprint, buildHash=build_hash,
+        catalog = dict(schemaVersion=1, pdfVersion=4, title=title, sourceHash=fingerprint, buildHash=build_hash,
                        sourceRepository=provenance['repository'], sourceCommit=provenance.get('commit'),
                        pages=total_pages, bookPdfUrl='data/textbook/pdf/scientific-intelligence.pdf' if full_pdf.is_file() else None,
                        bookPdfSha256=hashlib.sha256(full_pdf.read_bytes()).hexdigest() if full_pdf.is_file() else None, chapters=chapters)

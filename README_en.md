@@ -19,7 +19,7 @@
 
 <img src="static/images/book-cover.png" width="260" alt="AI4SBook cover">
 
-**Open reading · Collaborative manuscript · Under revision**
+**Open reading · Web and PDF · Companion course**
 
 </div>
 
@@ -27,7 +27,7 @@
 
 Scientific intelligence requires clear scientific questions, organized knowledge, usable experimental feedback and evaluation that supports the conclusions. This book connects knowledge, action and evaluation in scientific research.
 
-The current public manuscript contains three chapters with 32 source figures and two text tables. It is not a final published edition. Research claims, dates and numerical results are retained from the source manuscript; publication does not imply independent verification of every cited scientific result.
+The book explores scientific knowledge modeling and large-model reasoning, autonomous laboratory feedback loops, and trustworthy assessment through three chapters, 32 figures, two tables and research examples.
 
 ## Contents
 
@@ -37,19 +37,19 @@ The current public manuscript contains three chapters with 32 source figures and
 | 2. 自主实验室与干湿闭环 | Autonomous laboratories and computational–experimental feedback loops; 10 figures | [Read](https://bupt-ai4s.github.io/ai4s-book/read.html?chapter=ch16-autonomous-laboratory) · [PDF](data/textbook/pdf/ch16-autonomous-laboratory.pdf) |
 | 3. 科学智能的测评数据构建与可信评价 | Evaluation data construction and trustworthy assessment; 9 figures, 2 tables | [Read](https://bupt-ai4s.github.io/ai4s-book/read.html?chapter=ch03-evaluation) · [PDF](data/textbook/pdf/ch03-evaluation.pdf) |
 
-All three chapters are open to read and remain drafts. The chapter order follows the current manuscript, rather than historical source-file identifiers.
+All three chapters offer online reading and PDF downloads. Read them in order or start with the topic closest to your research interests.
 
 ## Audience and reading guide
 
 The book is intended for advanced science and engineering undergraduates, graduate students and interdisciplinary researchers. Basic mathematics, statistics, machine learning concepts and Python reading skills are useful. Start with Chapter 1 for knowledge organization and reasoning, Chapter 2 for experimental feedback, or Chapter 3 for evaluation data and credible conclusions.
 
-The manuscript is in **Chinese**. This English README and the English website interface provide project information and navigation, not an English translation of the chapters.
+The book is in **Chinese**, with bilingual project information and website navigation.
 
 ## Reading and resources
 
 - The website offers responsive HTML/MathML text and an original PDF view.
 - The [complete PDF](data/textbook/pdf/scientific-intelligence.pdf) includes the cover, front matter, contents, chapters and shared references.
-- Chapter PDFs retain original manuscript page numbers and include the complete shared references to preserve citation numbering. HTML references are numbered separately within each chapter.
+- Chapter PDFs retain the book's page and citation numbers and include shared references. Web references are numbered within each chapter.
 - The [companion course](https://bupt-ai4s.github.io/) provides teaching materials, recordings and further reading.
 - See the [changelog](CHANGELOG.md) for public updates. The initial three-chapter edition is dated 2026-10-22.
 
@@ -57,12 +57,12 @@ The manuscript is in **Chinese**. This English README and the English website in
 
 Use [Issues](https://github.com/BUPT-AI4S/ai4s-book/issues/new/choose) to report text, formula, figure, reference or website issues. Include the chapter/section, a description, suggested changes and supporting sources where available. For PDF issues, include the version and page number.
 
-Public website and documentation improvements are welcome. The writing team reviews manuscript suggestions and incorporates accepted changes into later public editions. See [CONTRIBUTING.md](CONTRIBUTING.md).
+Contributions to the book, website and documentation are welcome. See [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## Citation and rights
 
-Please cite the Chinese title, authors, year, manuscript status, project URL and the version/date used. The full citation example is in the [Chinese README](README.md); machine-readable metadata is in [CITATION.cff](CITATION.cff).
+Please cite the book title, authors, year and project URL. The full citation example is in the [Chinese README](README.md); machine-readable metadata is in [CITATION.cff](CITATION.cff).
 
-LaTeX manuscript source and internal import materials remain private. Public content is available to read and download; copyright remains with the respective rights holders. No uniform permission for redistribution, adaptation or commercial use has been granted. Third-party sources and licenses are retained in the chapters and vendored components. See [RIGHTS.md](RIGHTS.md).
+The book is available to read online and download. Copyright belongs to the respective rights holders. For redistribution, adaptation or commercial use, contact the maintainers through Issues. Third-party sources and licenses are listed in the chapters and components. See [RIGHTS.md](RIGHTS.md).
 
-If the book is useful to you, consider starring the repository to find it again and follow its progress.
+If the book is useful to you, consider starring the repository to find it again and follow updates.

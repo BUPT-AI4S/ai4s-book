@@ -22,7 +22,7 @@ jobs:
       - uses: actions/setup-python@v6
         with:
           python-version: '3.12'
-      - name: Validate public manuscript
+      - name: Validate textbook assets
         run: python tools/build_textbook.py --check
       - name: Test public files and stage website
         run: |

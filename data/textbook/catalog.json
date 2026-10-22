@@ -1,59 +1,62 @@
 {
   "schemaVersion": 1,
-  "pdfVersion": 3,
+  "pdfVersion": 4,
   "title": "科学智能原理与实践",
   "sourceHash": "4b9f08d95b35636035d6f7effc702119a1b6c0ec0e6aa7e6f023a21f2c32290f",
-  "buildHash": "cbba811dc0bc55c7984681c046c53d62149cff1e439230c1b89c32a27d7ff51d",
+  "buildHash": "f03e337d040fbf3baa36641ebe8141e10b86bf0b40eae892408c395062bafc27",
   "sourceRepository": "https://github.com/BUPT-AI4S/AI4SBook",
   "sourceCommit": "0df407699d87c0b10b9f28d04479ef8b16242a36",
-  "pages": 105,
+  "pages": 104,
   "bookPdfUrl": "data/textbook/pdf/scientific-intelligence.pdf",
-  "bookPdfSha256": "b777f5a5bc4194f906ef22b275e519c797f4889526031a8199294e76d8fda0cd",
+  "bookPdfSha256": "05516ad8590b067bc6e0c99d924e17e4cfd4917611dd18605abf54058526dc50",
   "chapters": [
     {
       "id": "ch13-knowledge-rag",
       "number": 1,
       "title": "科学知识建模与大模型推理",
-      "part": "当前书稿",
+      "part": "教材内容",
       "partNumber": 1,
       "source": "chapters/ch13-knowledge-rag.tex",
-      "status": "draft",
+      "status": "available",
       "hasCitations": true,
       "summary": "理解结构化记录、本体与知识图谱的分工，能够组织保留实验条件和来源的科学知识，并评价其在检索、推理和候选设计中的作用。",
+      "pages": 47,
       "pdfUrl": "data/textbook/pdf/ch13-knowledge-rag.pdf",
-      "pdfSha256": "207215a327c9a366068016525390b29f987775d2ac64328f3e548823d9b0c98e",
+      "pdfSha256": "b89c341f31e1c70d0f89b7eeb282f727b28b48c74a8a7f5015412668c51c930f",
       "contentUrl": "data/textbook/chapters/ch13-knowledge-rag.json",
-      "contentSha256": "7c0ec9c59d9a5ae5e52b29a8a866ec7025c96d144e9a7ce4578c49d986b39d74"
+      "contentSha256": "010fa851d9854c738a5bc8d7405142e5bf9a21d34f06da93bee7ea5e64cd4f50"
     },
     {
       "id": "ch16-autonomous-laboratory",
       "number": 2,
       "title": "自主实验室与干湿闭环",
-      "part": "当前书稿",
+      "part": "教材内容",
       "partNumber": 1,
       "source": "chapters/ch16-autonomous-laboratory.tex",
-      "status": "draft",
+      "status": "available",
       "hasCitations": true,
       "summary": "理解自主实验室如何连接计算决策、实验执行和测量反馈，比较不同领域的闭环指标。",
+      "pages": 35,
       "pdfUrl": "data/textbook/pdf/ch16-autonomous-laboratory.pdf",
-      "pdfSha256": "6163d3cd6c9916a9e3055352980bd62b16308e04e8d1588d4fc8674b612998e5",
+      "pdfSha256": "cb83fa6c1288176ae16a40e899060e8bdd4ffc81c730ef8d428f57e54e81aa8d",
       "contentUrl": "data/textbook/chapters/ch16-autonomous-laboratory.json",
-      "contentSha256": "bbe3ed334c36ea34f2f2d390559f46e0ec2647fe015acaa7cb1be589a972d813"
+      "contentSha256": "7e3033adc2546b9313619e517191a714c428b65196dd0e4f0f6a413fac97f884"
     },
     {
       "id": "ch03-evaluation",
       "number": 3,
       "title": "科学智能的测评数据构建与可信评价",
-      "part": "当前书稿",
+      "part": "教材内容",
       "partNumber": 1,
       "source": "chapters/ch03-evaluation.tex",
-      "status": "draft",
+      "status": "available",
       "hasCitations": true,
       "summary": "区分科学任务、研究工作流与科学发现的测评目标，能够设计测试数据、选择评价依据，并审查测评结论的适用条件。",
+      "pages": 33,
       "pdfUrl": "data/textbook/pdf/ch03-evaluation.pdf",
-      "pdfSha256": "17c8109a536f8509a05b56d4f1798ecb1e818ab48fea9d772c5f3e98c81b16e4",
+      "pdfSha256": "9892c3f68300b670c1e486e18ed7ed9125ea151142b9789fc05c7af706c91006",
       "contentUrl": "data/textbook/chapters/ch03-evaluation.json",
-      "contentSha256": "fb582745f9d783a80dfaf8d66ec7b87863d8569910311da5795f9afe5f862574"
+      "contentSha256": "4461100a0f1f64f4b77f3ce7522d3139c8ed1a647b200a6d448cc3e35c4a107f"
     }
   ]
 }

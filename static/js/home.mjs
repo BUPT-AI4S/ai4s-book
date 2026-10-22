@@ -4,7 +4,7 @@ const descriptions={'ch13-knowledge-rag':['知识如何进入推理','Knowledge 
 function render(){
  if(!catalog)return;
  $('chapter-cards').replaceChildren(...catalog.chapters.map(chapter=>{
-  const card=node('article',undefined,'chapter-card'),top=node('div',undefined,'card-top');top.append(node('span',String(chapter.number).padStart(2,'0'),'card-number'),node('span',tr('正文草稿','Draft'),'draft-badge'));
+  const card=node('article',undefined,'chapter-card'),top=node('div',undefined,'card-top');top.append(node('span',String(chapter.number).padStart(2,'0'),'card-number'),node('span',tr('开放阅读','Read online'),'access-badge'));
   const heading=node('h3');heading.lang='zh-CN';heading.append(link(chapter.title,chapterUrl(chapter.id)));
   const description=node('p',chapter.summary,'card-description');description.lang='zh-CN';const subtitle=descriptions[chapter.id]||[chapter.title,chapter.title];
   const actions=node('div',undefined,'card-actions');actions.append(link(tr('在线阅读 →','Read online →'),chapterUrl(chapter.id)));
