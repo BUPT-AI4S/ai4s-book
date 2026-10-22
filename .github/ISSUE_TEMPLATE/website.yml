@@ -1,0 +1,16 @@
+name: 页面问题 / Website issue
+description: 阅读、下载、显示或导航问题
+body:
+  - type: input
+    id: url
+    attributes:
+      label: 问题页面
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: 复现步骤、预期行为与实际表现
+      description: 请补充设备、浏览器和屏幕宽度；如方便可添加截图。
+    validations:
+      required: true

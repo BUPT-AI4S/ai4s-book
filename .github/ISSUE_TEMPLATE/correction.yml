@@ -1,0 +1,22 @@
+name: 书稿纠错 / Correction
+description: 文字、公式、图表、引用或研究表述问题
+title: "[纠错] "
+body:
+  - type: input
+    id: location
+    attributes:
+      label: 章节位置与版本
+      description: 请提供章节/小节、网页链接或 PDF 版本及页码。
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: 问题描述与建议修改
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: 核对来源
+      description: 涉及数字、结论或引用时，请尽量提供原论文/官方资料链接。

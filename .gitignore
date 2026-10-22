@@ -1,0 +1,8 @@
+.textbook-source/
+.tmp/
+_site/
+__pycache__/
+*.pyc
+.env
+.env.*
+node_modules/

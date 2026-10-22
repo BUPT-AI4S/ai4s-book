@@ -1,0 +1,23 @@
+cff-version: 1.2.0
+message: "引用本项目时，请注明协作编写稿及所用版本/日期。"
+title: "科学智能原理与实践"
+authors:
+  - family-names: "鄂"
+    given-names: "海红"
+  - family-names: "徐"
+    given-names: "坤"
+date-released: 2026-10-22
+url: "https://bupt-ai4s.github.io/ai4s-book/"
+repository-code: "https://github.com/BUPT-AI4S/ai4s-book"
+abstract: "围绕科学知识建模、自主实验室与科学智能测评的协作编写稿。当前公开三章网页和PDF，LaTeX编写源码保持私有。"
+preferred-citation:
+  type: book
+  title: "科学智能原理与实践"
+  authors:
+    - family-names: "鄂"
+      given-names: "海红"
+    - family-names: "徐"
+      given-names: "坤"
+  year: 2026
+  notes: "协作编写稿"
+  url: "https://bupt-ai4s.github.io/ai4s-book/"
