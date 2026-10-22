@@ -64,6 +64,10 @@ class BookBuildTests(unittest.TestCase):
         for chapter in details:
             self.assertNotIn('data-reference-unresolved', chapter['html'])
 
+    def test_generated_json_has_portable_line_endings(self):
+        for path in (ROOT / 'data/textbook').rglob('*.json'):
+            self.assertNotIn(b'\r\n', path.read_bytes(), path.name)
+
     def test_chapter_anchors_and_reference_targets_exist(self):
         class Anchors(HTMLParser):
             def __init__(self):

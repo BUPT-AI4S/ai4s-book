@@ -437,7 +437,7 @@ def build_book(source=SOURCE, root=ROOT, pdf_engine=None, html_only=False):
             chapter['pdfSha256'] = hashlib.sha256((output / 'pdf' / pdf.name).read_bytes()).hexdigest() if chapter['pdfUrl'] else None
             chapter['contentUrl'] = 'data/textbook/chapters/' + chapter['id'] + '.json'
             detail = dict(chapter, **converted, sourceHash=fingerprint)
-            (output / 'chapters' / (chapter['id'] + '.json')).write_text(json.dumps(detail, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+            (output / 'chapters' / (chapter['id'] + '.json')).write_text(json.dumps(detail, ensure_ascii=False, indent=2) + '\n', encoding='utf-8', newline='\n')
             chapter['contentSha256'] = hashlib.sha256((output / 'chapters' / (chapter['id'] + '.json')).read_bytes()).hexdigest()
         info = (source / 'book-info.tex').read_text(encoding='utf-8')
         title_match = re.search(r'\\newcommand\{\\BookTitle\}', info)
@@ -446,7 +446,7 @@ def build_book(source=SOURCE, root=ROOT, pdf_engine=None, html_only=False):
                        sourceRepository=provenance['repository'], sourceCommit=provenance.get('commit'),
                        pages=total_pages, bookPdfUrl='data/textbook/pdf/scientific-intelligence.pdf' if full_pdf.is_file() else None,
                        bookPdfSha256=hashlib.sha256(full_pdf.read_bytes()).hexdigest() if full_pdf.is_file() else None, chapters=chapters)
-        (output / 'catalog.json').write_text(json.dumps(catalog, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+        (output / 'catalog.json').write_text(json.dumps(catalog, ensure_ascii=False, indent=2) + '\n', encoding='utf-8', newline='\n')
         (output / '.generated-textbook').write_text('AI4S generated textbook', encoding='utf-8')
         if destination.exists():
             shutil.rmtree(destination)

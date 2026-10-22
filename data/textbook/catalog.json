@@ -3,7 +3,7 @@
   "pdfVersion": 3,
   "title": "科学智能原理与实践",
   "sourceHash": "4b9f08d95b35636035d6f7effc702119a1b6c0ec0e6aa7e6f023a21f2c32290f",
-  "buildHash": "00fd59dab214d3da28749d849c4a341d85bf502d4c318bd1e28a21a551f71254",
+  "buildHash": "cbba811dc0bc55c7984681c046c53d62149cff1e439230c1b89c32a27d7ff51d",
   "sourceRepository": "https://github.com/BUPT-AI4S/AI4SBook",
   "sourceCommit": "0df407699d87c0b10b9f28d04479ef8b16242a36",
   "pages": 105,
@@ -23,7 +23,7 @@
       "pdfUrl": "data/textbook/pdf/ch13-knowledge-rag.pdf",
       "pdfSha256": "207215a327c9a366068016525390b29f987775d2ac64328f3e548823d9b0c98e",
       "contentUrl": "data/textbook/chapters/ch13-knowledge-rag.json",
-      "contentSha256": "4de696afb9911ad324889c7c24bb82a75217d7d7b7677ad73961532ed248e669"
+      "contentSha256": "7c0ec9c59d9a5ae5e52b29a8a866ec7025c96d144e9a7ce4578c49d986b39d74"
     },
     {
       "id": "ch16-autonomous-laboratory",
@@ -38,7 +38,7 @@
       "pdfUrl": "data/textbook/pdf/ch16-autonomous-laboratory.pdf",
       "pdfSha256": "6163d3cd6c9916a9e3055352980bd62b16308e04e8d1588d4fc8674b612998e5",
       "contentUrl": "data/textbook/chapters/ch16-autonomous-laboratory.json",
-      "contentSha256": "b4b4ecdaa6ae5bb9ee9a4176b253f295210f2f9cba008cebca635bf24a55c545"
+      "contentSha256": "bbe3ed334c36ea34f2f2d390559f46e0ec2647fe015acaa7cb1be589a972d813"
     },
     {
       "id": "ch03-evaluation",
@@ -53,7 +53,7 @@
       "pdfUrl": "data/textbook/pdf/ch03-evaluation.pdf",
       "pdfSha256": "17c8109a536f8509a05b56d4f1798ecb1e818ab48fea9d772c5f3e98c81b16e4",
       "contentUrl": "data/textbook/chapters/ch03-evaluation.json",
-      "contentSha256": "f8cd71d2a2ef6efe5dfe7242d9e0a9e02682876f81cf73bce8591ab321fcb573"
+      "contentSha256": "fb582745f9d783a80dfaf8d66ec7b87863d8569910311da5795f9afe5f862574"
     }
   ]
 }
