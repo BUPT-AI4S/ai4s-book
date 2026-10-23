@@ -18,6 +18,10 @@ const output=process.env.BOOK_SCREENSHOT_DIR||'.tmp';
  await page.goto(root);await page.waitForSelector('.chapter-card');assert.equal(await page.locator('.chapter-card').count(),chapters.length);
  assert.equal(await page.locator('.card-actions a[href*="view=pdf"]').count(),chapters.length);
  assert.equal(await page.locator('.hero-actions a[href="https://bupt-ai4s.github.io/"]').count(),1);
+ assert.equal(await page.locator('#resources .resource-card').count(),2,'course and GitHub resources fill two columns');
+ assert.equal(await page.locator('#resources a[href^="mailto:"]').count(),0,'authorization remains in the dedicated section');
+ assert.equal(await page.locator('.footer-reading a[href="#chapters"]').count(),1);
+ assert.equal(await page.locator('.footer-reading a[href="https://bupt-ai4s.github.io/"]').count(),1);
  assert.equal(await page.locator('a[download],a[href*=".pdf"]').count(),0);
  assert.ok((await page.locator('.english-title').textContent()).includes('AI FOR SCIENCE'));
  assert.ok(!/持续修订|持续编写|草稿|原稿|暂不公开/.test(await page.locator('body').innerText()));
@@ -36,6 +40,7 @@ const output=process.env.BOOK_SCREENSHOT_DIR||'.tmp';
      assert.equal(await page.locator('#'+id).textContent(),dateFormat.format(new Date(release[key])));
     }
     assert.deepEqual(await page.locator('.publication-times dt').allTextContents(),lang==='en'?['First published','Last updated']:['首次推出','最近更新']);
+    assert.equal(await page.locator('.authors').textContent(),lang==='en'?'Haihong E · Kun Xu':'鄂海红 · 徐坤 著');
     assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),'publication metadata overflow '+[lang,theme,width].join('/'));
     if(width===390||width===1440){await page.locator('.publication-meta').scrollIntoViewIfNeeded();await page.screenshot({path:output+'/book-home-dates-'+lang+'-'+theme+'-'+width+'.png'});}
    }
@@ -71,6 +76,19 @@ const output=process.env.BOOK_SCREENSHOT_DIR||'.tmp';
   await page.locator('#view-pdf').click();await loaded(1);
   assert.equal(await page.locator('.page-preview-count').textContent(),' / '+total);
   assert.equal(await page.locator('.page-preview-sheet').count(),total,'all pages have continuous scroll placeholders');
+  const sourcePage=preview.pages.findIndex(p=>p.links?.some(link=>link.page&&link.page>1));
+  assert.ok(sourcePage>=0,'chapter has clickable internal citations/references');
+  await jump(sourcePage+1);
+  const internal=preview.pages[sourcePage].links.find(link=>link.page&&link.page>1);
+  const citation=page.locator('.page-preview-sheet[data-page="'+(sourcePage+1)+'"] .preview-link[data-target-page="'+internal.page+'"]').first();
+  assert.equal(await citation.count(),1,'PDF citation has a clickable link overlay');
+  await citation.scrollIntoViewIfNeeded();
+  const previousPosition=await page.locator('.page-preview-stage').evaluate(el=>el.scrollTop);
+  await citation.click();await loaded(internal.page);
+  await page.waitForFunction(n=>document.querySelector('.page-preview-paging input').value===String(n),internal.page);
+  await page.locator('.preview-return').click();await loaded(sourcePage+1);
+  assert.ok(Math.abs(await page.locator('.page-preview-stage').evaluate(el=>el.scrollTop)-previousPosition)<2,'return to citation preserves position');
+  await jump(1);
   if(total>1)assert.ok(await page.locator('.page-preview-sheet img[src]').count()<total,'offscreen images load on demand');
   const stage=page.locator('.page-preview-stage');
   if(total>1){

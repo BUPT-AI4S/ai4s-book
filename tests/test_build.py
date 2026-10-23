@@ -163,6 +163,14 @@ class BookBuildTests(unittest.TestCase):
         index = book.validate_previews(ROOT, catalog)
         self.assertEqual([index['chapters'][c['id']]['pageCount'] for c in catalog['chapters']], [66, 48, 42, 30, 38, 33])
 
+    def test_original_preview_preserves_citation_link_destinations(self):
+        index = json.loads((ROOT / 'data/textbook/previews/index.json').read_text(encoding='utf-8'))
+        chapter = index['chapters']['ch06-scientific-data']
+        links = chapter['pages'][1].get('links', [])
+        self.assertGreater(len(links), 0, 'Page 2 citations must remain clickable')
+        self.assertEqual(links[1]['page'], 52)
+        self.assertTrue(all(0 <= value <= 1 for value in links[1]['rect']))
+
     def test_preview_version_mismatch_is_rejected(self):
         catalog = json.loads((ROOT / 'data/textbook/catalog.json').read_text(encoding='utf-8'))
         catalog['sourceHash'] = 'unmatched-edition'

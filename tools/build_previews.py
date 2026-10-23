@@ -8,6 +8,7 @@ from pathlib import Path
 import shutil
 import subprocess
 import tempfile
+from preview_links import extract_links
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -39,7 +40,9 @@ def build(pdf_dir, source_catalog, renderer, root=ROOT):
         def render(chapter):
             chapter_id = chapter['id']
             pdf = pdf_dir / (chapter_id + '.pdf')
-            page_count = len(PdfReader(pdf).pages)
+            reader = PdfReader(pdf)
+            page_count = len(reader.pages)
+            annotations = extract_links(reader)
             folder = Path(temp) / chapter_id
             folder.mkdir()
             result = subprocess.run([str(renderer), '-scale-to-x', '1600', '-scale-to-y', '-1',
@@ -57,7 +60,7 @@ def build(pdf_dir, source_catalog, renderer, root=ROOT):
                     filename = digest + '.webp'
                     (output / 'pages' / filename).write_bytes(data)
                     pages.append(dict(image='data/textbook/previews/pages/' + filename,
-                                      width=image.width, height=image.height, sha256=digest))
+                                      width=image.width, height=image.height, sha256=digest, links=annotations[len(pages)]))
             if len(pages) != page_count:
                 raise ValueError(f'Incomplete page rendering for {chapter_id}')
             print(f'Rendered {chapter_id}: {len(pages)} pages', flush=True)
@@ -66,7 +69,7 @@ def build(pdf_dir, source_catalog, renderer, root=ROOT):
 
         with ThreadPoolExecutor(max_workers=3) as pool:
             chapters = dict(pool.map(render, catalog['chapters']))
-        index = dict(schemaVersion=1, sourceHash=catalog['sourceHash'], chapters=chapters)
+        index = dict(schemaVersion=1, linkVersion=1, sourceHash=catalog['sourceHash'], chapters=chapters)
         (output / 'index.json').write_text(json.dumps(index, ensure_ascii=False, indent=2) + '\n',
                                          encoding='utf-8', newline='\n')
         if destination.exists():
@@ -77,10 +80,43 @@ def build(pdf_dir, source_catalog, renderer, root=ROOT):
     print(f'Published {sum(c["pageCount"] for c in chapters.values())} preview pages; no PDFs copied.', flush=True)
 
 
+def update_links(pdf_dir, source_catalog, root=ROOT):
+    """Refresh annotation metadata without changing verified rendered images."""
+    from pypdf import PdfReader
+    root, pdf_dir = Path(root), Path(pdf_dir)
+    catalog = json.loads((root / 'data/textbook/catalog.json').read_text(encoding='utf-8'))
+    approved = json.loads(Path(source_catalog).read_text(encoding='utf-8'))
+    path = root / 'data/textbook/previews/index.json'
+    index = json.loads(path.read_text(encoding='utf-8'))
+    if not approved['sourceHash'] == catalog['sourceHash'] == index['sourceHash']:
+        raise ValueError('Preview PDFs do not match the published textbook source')
+    entries = {chapter['id']: chapter for chapter in approved['chapters']}
+    for chapter in catalog['chapters']:
+        preview = index['chapters'][chapter['id']]
+        pdf = pdf_dir / (chapter['id'] + '.pdf')
+        digest = hashlib.sha256(pdf.read_bytes()).hexdigest()
+        if digest != entries[chapter['id']]['pdfSha256'] or digest != preview['pdfSha256']:
+            raise ValueError('Unverified preview PDF')
+        links = extract_links(PdfReader(pdf))
+        if len(links) != len(preview['pages']):
+            raise ValueError('Preview page count mismatch')
+        for page, annotations in zip(preview['pages'], links):
+            page['links'] = annotations
+    index['linkVersion'] = 1
+    path.write_text(json.dumps(index, ensure_ascii=False, indent=2) + '\n', encoding='utf-8', newline='\n')
+    print(f'Restored {sum(len(page["links"]) for chapter in index["chapters"].values() for page in chapter["pages"])} preview links')
+
+
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--pdf-dir', required=True, type=Path)
     parser.add_argument('--source-catalog', required=True, type=Path)
-    parser.add_argument('--renderer', required=True, type=Path)
+    parser.add_argument('--renderer', type=Path)
+    parser.add_argument('--links-only', action='store_true')
     args = parser.parse_args()
-    build(args.pdf_dir, args.source_catalog, args.renderer)
+    if args.links_only:
+        update_links(args.pdf_dir, args.source_catalog)
+    elif args.renderer:
+        build(args.pdf_dir, args.source_catalog, args.renderer)
+    else:
+        parser.error('--renderer is required unless --links-only is used')

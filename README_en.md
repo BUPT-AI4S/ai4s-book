@@ -15,7 +15,7 @@
 
 ### From scientific questions to intelligent methods and reproducible experiments
 
-**Authors: 鄂海红 · 徐坤**
+**Authors: Haihong E · Kun Xu**
 
 <img src="static/images/book-cover.png" width="260" alt="AI4SBook cover">
 
@@ -50,7 +50,7 @@ The book is in **Chinese**, with bilingual project information and website navig
 
 ## Reading and resources
 
-- [Read online](https://bupt-ai4s.github.io/ai4s-book/) with chapter navigation, figures, formulas and references. Switch to PDF preview for original page layouts, continuous scrolling, page navigation and zoom.
+- [Read online](https://bupt-ai4s.github.io/ai4s-book/) with chapter navigation, figures, formulas and references. Switch to PDF preview for original page layouts, continuous scrolling, page navigation, zoom and clickable citations with a return to the reading position.
 - The [companion course](https://bupt-ai4s.github.io/) provides teaching materials, recordings and further reading.
 
 ## Feedback and contributions

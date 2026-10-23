@@ -557,6 +557,8 @@ def validate_previews(root, catalog):
     index = json.loads((folder / 'index.json').read_text(encoding='utf-8'))
     if index.get('schemaVersion') != 1 or index.get('sourceHash') != catalog['sourceHash']:
         raise ValueError('Preview source version mismatch; rebuild the page previews')
+    if index.get('linkVersion') != 1:
+        raise ValueError('Preview link annotations are missing')
     if set(index.get('chapters', {})) != {chapter['id'] for chapter in catalog['chapters']}:
         raise ValueError('Preview chapter list does not match the textbook')
     verified = set()
@@ -566,6 +568,17 @@ def validate_previews(root, catalog):
         if not pages or preview.get('pageCount') != len(pages) or preview.get('title') != chapter['title']:
             raise ValueError('Incomplete textbook preview')
         for page in pages:
+            if not isinstance(page.get('links'), list):
+                raise ValueError('Preview link annotations are missing')
+            for link in page['links']:
+                rect = link.get('rect', [])
+                if len(rect) != 4 or any(not isinstance(value, (int, float)) or not 0 <= value <= 1 for value in rect) or rect[2] <= 0 or rect[3] <= 0 or rect[0] + rect[2] > 1.000001 or rect[1] + rect[3] > 1.000001:
+                    raise ValueError('Invalid preview link rectangle')
+                if 'page' in link:
+                    if not isinstance(link['page'], int) or not 1 <= link['page'] <= len(pages) or any(not isinstance(link.get(key), (int, float)) or not 0 <= link[key] <= 1 for key in ('x', 'y')):
+                        raise ValueError('Invalid preview page link')
+                elif not isinstance(link.get('href'), str) or not re.match(r'^(https?://|mailto:)', link['href'], re.I):
+                    raise ValueError('Invalid preview external link')
             path = page.get('image', '')
             if not re.fullmatch(r'data/textbook/previews/pages/[a-f0-9]{64}\.webp', path):
                 raise ValueError('Invalid preview page path')

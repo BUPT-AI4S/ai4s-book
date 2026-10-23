@@ -2,13 +2,14 @@ import {node,json,tr} from './shared.mjs';
 
 export class PagePreview {
  constructor(root,chapter,sourceHash){
-  this.root=root;this.chapter=chapter;this.sourceHash=sourceHash;this.page=1;this.zoom=100;this.sheets=[];
+  this.root=root;this.chapter=chapter;this.sourceHash=sourceHash;this.page=1;this.zoom=100;this.sheets=[];this.history=[];
   const toolbar=node('div',undefined,'page-preview-toolbar');toolbar.setAttribute('role','group');
   this.previous=node('button');this.previous.type='button';this.previous.onclick=()=>this.select(this.page-1);
   this.next=node('button');this.next.type='button';this.next.onclick=()=>this.select(this.page+1);
   this.input=node('input');this.input.type='number';this.input.min='1';this.input.value='1';this.input.onchange=()=>this.select(Number(this.input.value)||this.page);
   this.count=node('span',' / —','page-preview-count');
-  const paging=node('div',undefined,'page-preview-paging');paging.append(this.previous,this.input,this.count,this.next);
+  this.returnButton=node('button',undefined,'preview-return');this.returnButton.type='button';this.returnButton.hidden=true;this.returnButton.onclick=()=>this.returnToCitation();
+  const paging=node('div',undefined,'page-preview-paging');paging.append(this.previous,this.input,this.count,this.next,this.returnButton);
   const zooming=node('div',undefined,'page-preview-zoom');
   this.smaller=node('button','−');this.smaller.type='button';this.smaller.onclick=()=>this.resize(this.zoom-25);
   this.reset=node('button','100%');this.reset.type='button';this.reset.onclick=()=>this.resize(100);
@@ -23,12 +24,14 @@ export class PagePreview {
  }
  translate(){
   this.previous.textContent=tr('上一页','Previous');this.next.textContent=tr('下一页','Next');
+  this.returnButton.textContent=tr('返回引用','Back to citation');
   this.input.setAttribute('aria-label',tr('预览页码','Preview page number'));
   this.smaller.setAttribute('aria-label',tr('缩小','Zoom out'));this.larger.setAttribute('aria-label',tr('放大','Zoom in'));this.reset.setAttribute('aria-label',tr('适合页宽','Fit page width'));
   this.stage.setAttribute('aria-label',tr('PDF 原版连续阅读','Original PDF continuous reader'));this.root.firstElementChild.setAttribute('aria-label',tr('预览控制','Preview controls'));
   for(const [index,sheet] of this.sheets.entries()){
    const label=tr('第 '+(index+1)+' 页','Page '+(index+1));sheet.setAttribute('aria-label',label);sheet.image.alt=label;
    sheet.placeholder.textContent=label;sheet.retry.textContent=tr('页面加载失败，点击重试','Page could not load. Retry');
+   for(const anchor of sheet.links.querySelectorAll('a'))anchor.setAttribute('aria-label',anchor.dataset.targetPage?tr('跳转至第 '+anchor.dataset.targetPage+' 页','Go to page '+anchor.dataset.targetPage):tr('打开参考文献链接：','Open reference link: ')+anchor.href);
   }
   this.showStatus();
  }
@@ -46,7 +49,20 @@ export class PagePreview {
      const sheet=node('div',undefined,'page-preview-sheet');sheet.dataset.page=String(index+1);sheet.style.aspectRatio=page.width+' / '+page.height;sheet.setAttribute('role','group');
      sheet.placeholder=node('span',undefined,'page-preview-placeholder');sheet.image=node('img');sheet.image.width=page.width;sheet.image.height=page.height;sheet.image.decoding='async';sheet.image.draggable=false;sheet.image.hidden=true;sheet.image.dataset.page=String(index+1);
      sheet.retry=node('button',undefined,'page-preview-retry');sheet.retry.type='button';sheet.retry.hidden=true;sheet.retry.onclick=()=>this.load(sheet,true);
-     sheet.append(sheet.placeholder,sheet.image,sheet.retry);return sheet;
+     sheet.links=node('div',undefined,'preview-links');sheet.links.hidden=true;
+     for(const target of page.links||[]){
+      const anchor=node('a',undefined,'preview-link');
+      const rect=target.rect;
+      if(!Array.isArray(rect)||rect.length!==4||!rect.every(value=>Number.isFinite(value)&&value>=0&&value<=1))throw new Error('Invalid preview link rectangle');
+      [anchor.style.left,anchor.style.top,anchor.style.width,anchor.style.height]=rect.map(value=>(100*value)+'%');
+      if(Number.isInteger(target.page)&&target.page>=1&&target.page<=data.pageCount&&[target.x,target.y].every(value=>Number.isFinite(value)&&value>=0&&value<=1)){
+       anchor.href='#preview-page-'+target.page;anchor.dataset.targetPage=String(target.page);anchor.onclick=event=>{event.preventDefault();this.follow(target);};
+      }else if(typeof target.href==='string'&&/^(https?:\/\/|mailto:)/i.test(target.href)){
+       anchor.href=target.href;anchor.target='_blank';anchor.rel='noopener noreferrer';anchor.title=target.href;
+      }else throw new Error('Invalid preview link destination');
+      sheet.links.append(anchor);
+     }
+     sheet.append(sheet.placeholder,sheet.image,sheet.links,sheet.retry);return sheet;
     });
     this.pages.replaceChildren(...this.sheets);this.translate();
     this.observer=new IntersectionObserver(entries=>{for(const entry of entries)if(entry.isIntersecting)this.load(entry.target);},{root:this.stage,rootMargin:'100% 0px'});
@@ -60,7 +76,7 @@ export class PagePreview {
   if(sheet.state==='loading'||sheet.state==='loaded'||(sheet.state==='error'&&!retry))return;
   sheet.state='loading';sheet.retry.hidden=true;sheet.placeholder.hidden=false;
   const image=sheet.image;
-  image.onload=async()=>{try{await image.decode();}catch{}sheet.state='loaded';image.hidden=false;sheet.placeholder.hidden=true;this.showStatus();};
+  image.onload=async()=>{try{await image.decode();}catch{}sheet.state='loaded';image.hidden=false;sheet.links.hidden=false;sheet.placeholder.hidden=true;this.showStatus();};
   image.onerror=()=>{sheet.state='error';sheet.placeholder.hidden=true;sheet.retry.hidden=false;this.showStatus();};
   image.src=this.data.pages[Number(sheet.dataset.page)-1].image;this.showStatus();
  }
@@ -90,6 +106,22 @@ export class PagePreview {
   if(!this.data)return;
   this.page=Math.max(1,Math.min(this.data.pageCount,Math.round(value)));this.input.value=String(this.page);this.update();
   const sheet=this.sheets[this.page-1];this.load(sheet,true);this.reserveEndSpace();this.stage.scrollTop=sheet.offsetTop;this.stage.scrollLeft=0;this.showStatus();
+ }
+ follow(target){
+  const index=this.currentAt(this.stage.scrollTop),source=this.sheets[index];
+  this.history.push({index,fraction:(this.stage.scrollTop-source.offsetTop)/source.offsetHeight,horizontal:(this.stage.scrollLeft+this.stage.clientWidth/2)/this.pages.offsetWidth});this.returnButton.hidden=false;
+  this.select(target.page);
+  const sheet=this.sheets[target.page-1];
+  const offset=Math.min(target.y*sheet.offsetHeight,Math.max(0,sheet.offsetHeight-100));
+  this.stage.scrollTop=sheet.offsetTop+Math.max(0,offset-24);
+  this.stage.scrollLeft=Math.max(0,target.x*sheet.offsetWidth-this.stage.clientWidth*.15);
+  this.stage.focus({preventScroll:true});
+ }
+ returnToCitation(){
+  const position=this.history.pop();if(!position)return;
+  const sheet=this.sheets[position.index];
+  this.reserveEndSpace();this.stage.scrollTop=sheet.offsetTop+position.fraction*sheet.offsetHeight;this.stage.scrollLeft=position.horizontal*this.pages.offsetWidth-this.stage.clientWidth/2;this.returnButton.hidden=!this.history.length;
+  this.trackPage();this.stage.focus({preventScroll:true});
  }
  resize(value){
   // Anchor the same point of the same page at the top of the viewport.
