@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>阅读访问统计 · AI4SBook</title>
+  <meta name="description" content="《科学智能原理与实践》书籍首页与各章阅读打开次数。">
+  <link rel="icon" href="static/images/favicon.svg">
+  <link rel="stylesheet" href="static/css/book.css?v=stats-1">
+  <script>try{document.documentElement.dataset.theme=localStorage.getItem('ai4s-theme')||'light'}catch{}</script>
+</head>
+<body>
+  <a class="skip" href="#stats-board">跳到正文</a>
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="./"><img src="static/images/favicon.svg" width="32" height="32" alt=""><span>AI4S<span class="brand-book">Book</span><small>BUPT · OPEN READING</small></span></a>
+      <nav class="main-nav" aria-label="主导航">
+        <a href="index.html#about" data-zh="关于本书" data-en="About">关于本书</a>
+        <a href="index.html#chapters" data-zh="章节阅读" data-en="Chapters">章节阅读</a>
+        <a href="index.html#resources" data-zh="配套资源" data-en="Resources">配套资源</a>
+        <a href="index.html#participate" data-zh="联系作者" data-en="Contact">联系作者</a>
+        <a href="stats.html" aria-current="page" data-zh="统计" data-en="Stats">统计</a>
+      </nav>
+      <div class="header-actions">
+        <button id="lang-toggle" type="button">EN</button>
+        <button id="theme-toggle" type="button" aria-label="切换主题">☾</button>
+        <a class="github-button" href="https://github.com/BUPT-AI4S/ai4s-book" target="_blank" rel="noopener noreferrer">☆ GitHub Star</a>
+      </div>
+    </div>
+  </header>
+  <main id="stats-board" class="section shell stats-board">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow">05 / VISIT STATISTICS</p>
+        <h1 data-zh="阅读访问统计" data-en="Reading statistics">阅读访问统计</h1>
+      </div>
+      <p data-zh="首页与各章的打开次数" data-en="Opens of the homepage and chapters">首页与各章的打开次数</p>
+    </div>
+    <div class="hero-stats stats-summary">
+      <span><strong id="metric-total">—</strong><span data-zh="总访问量" data-en="Total opens">总访问量</span></span>
+      <span><strong id="metric-home">—</strong><span data-zh="首页访问" data-en="Homepage">首页访问</span></span>
+      <span><strong id="metric-chapters">—</strong><span data-zh="章节合计" data-en="Chapter opens">章节合计</span></span>
+    </div>
+    <section class="stats-panel">
+      <h2 data-zh="各章访问" data-en="Opens by chapter">各章访问</h2>
+      <p id="stats-status" class="status" role="status">正在读取访问次数…</p>
+      <ul class="visit-bars" id="chapter-bars"></ul>
+    </section>
+    <p class="stats-note" data-zh="打开次数按页面加载计算。总访问量是首页与各章打开次数之和，同一次阅读会计入首页和所读章节。刷新或更换浏览器会再计一次，不是读者人数。本页打开次数不计入。取不到数字时显示“—”。" data-en="Opens count page loads. The total adds the homepage to every chapter, so one reading session counts both. A refresh or another browser counts again. These are not reader numbers. Opening this page is not included. A dash means the figure could not be loaded.">打开次数按页面加载计算。总访问量是首页与各章打开次数之和，同一次阅读会计入首页和所读章节。刷新或更换浏览器会再计一次，不是读者人数。本页打开次数不计入。取不到数字时显示“—”。</p>
+  </main>
+  <footer class="site-footer shell">
+    <div><a class="footer-brand" href="./">AI4SBook</a><p data-zh="© 2026 BUPT AI4S · 鄂海红 徐坤" data-en="© 2026 BUPT AI4S · Haihong E · Kun Xu">© 2026 BUPT AI4S · 鄂海红 徐坤</p></div>
+    <nav class="footer-reading" aria-label="阅读与课程"><a href="index.html#chapters" data-zh="在线阅读" data-en="Read online">在线阅读</a><span aria-hidden="true">·</span><a href="https://bupt-ai4s.github.io/" target="_blank" rel="noopener noreferrer" data-zh="配套课程 ↗" data-en="Companion course ↗">配套课程 ↗</a></nav>
+    <nav><a href="https://github.com/BUPT-AI4S/ai4s-book/blob/main/RIGHTS.md" data-zh="版权与使用说明" data-en="Rights and use">版权与使用说明</a><a href="https://github.com/BUPT-AI4S/ai4s-book" target="_blank" rel="noopener noreferrer">GitHub ↗</a></nav>
+  </footer>
+  <script type="module" src="static/js/stats.mjs?v=stats-1"></script>
+</body>
+</html>

@@ -17,7 +17,7 @@ def stage(root=ROOT):
         shutil.rmtree(output)
     output.mkdir()
     (output / '.generated-site').write_text('AI4SBook public site', encoding='utf-8')
-    for filename in ('index.html', 'read.html', 'pdf.html'):
+    for filename in ('index.html', 'read.html', 'pdf.html', 'stats.html'):
         shutil.copy2(root / filename, output / filename)
     for name in ('static', 'data'):
         for path in (root / name).rglob('*'):

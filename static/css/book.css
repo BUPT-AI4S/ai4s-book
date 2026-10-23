@@ -12,3 +12,19 @@ html[data-theme="dark"]{--paper:#101722;--surface:#172132;--ink:#e9edf6;--muted:
 .publication-meta{margin-top:24px;color:var(--muted);font-size:12px}.publication-times{display:flex;flex-wrap:wrap;gap:14px 28px;margin:0}.publication-times>div{display:grid;gap:5px}.publication-times dt{font-size:11px;letter-spacing:.04em}.publication-times dd{margin:0;font-variant-numeric:tabular-nums;color:var(--ink);font-size:12px}.publication-meta>p{margin:8px 0 0;font-size:10px}@media(max-width:480px){.publication-times{gap:12px 20px}}
 
 .site-footer .footer-reading{gap:12px;font-size:12px;color:var(--blue);align-items:center}.footer-reading a{display:inline-flex;align-items:center;min-height:32px}.footer-reading a:hover{text-decoration:underline}@media(max-width:560px){.site-footer .footer-reading{width:100%;flex-wrap:wrap}.resource-card h3{font-size:22px}.resource-card p{font-size:14px}}
+
+.main-nav a[aria-current="page"]{color:var(--blue);font-weight:600}
+.stats-board .section-heading h1{font-size:29px;font-weight:650;line-height:1.45;margin:0;letter-spacing:-.6px}
+.stats-summary{flex-wrap:wrap;margin-top:8px}
+.stats-panel{margin-top:36px;padding:28px 28px 12px;background:var(--surface);border:1px solid var(--line);border-radius:8px}
+.stats-panel h2{font-size:22px;font-weight:650;letter-spacing:-.4px;margin:0 0 18px}
+.stats-panel .status{margin:0 0 18px}
+.visit-bars{list-style:none;margin:0;padding:0;display:grid}
+.visit-row{display:grid;grid-template-columns:minmax(16rem,1.15fr) minmax(6rem,1fr) auto;gap:16px;align-items:center;padding:14px 0;border-top:1px solid var(--line)}
+.visit-label{font-size:14px;line-height:1.6;overflow-wrap:anywhere}
+.visit-track{height:10px;border-radius:6px;background:var(--blue-soft);overflow:hidden}
+.visit-fill{display:block;height:100%;width:0;border-radius:inherit;background:var(--blue)}
+.visit-num{min-width:3.5rem;text-align:right;font-variant-numeric:tabular-nums;font-size:16px;font-weight:600}
+.stats-note{margin:22px 0 0;color:var(--muted);font-size:13px;line-height:1.9}
+@media(max-width:800px){.stats-board .section-heading h1{font-size:25px}.stats-panel{padding:22px 20px 8px}}
+@media(max-width:560px){.visit-row{grid-template-columns:1fr auto;gap:8px 16px}.visit-label{grid-column:1 / -1}.visit-track{grid-column:1 / 2}}

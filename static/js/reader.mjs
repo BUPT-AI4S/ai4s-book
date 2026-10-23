@@ -1,4 +1,5 @@
 import {$,node,link,setup,tr,json,localResource,chapterUrl} from './shared.mjs';
+import {recordChapter} from './metrics.mjs';
 import {PagePreview} from './page-preview.mjs?v=links-1';
 let catalog,chapter,preview,mode=new URLSearchParams(location.search).get('view')==='pdf'?'pdf':'html';
 function renderChrome(){
@@ -18,7 +19,7 @@ $('view-html').onclick=()=>setMode('html');$('view-pdf').onclick=()=>setMode('pd
 setup(renderChrome);
 try{
  catalog=await json('data/textbook/catalog.json');const entry=catalog.chapters.find(item=>item.id===new URLSearchParams(location.search).get('chapter'));if(!entry)throw new Error('missing');chapter=await json(localResource(entry.contentUrl,'chapter'));if(chapter.id!==entry.id||chapter.sourceHash!==catalog.sourceHash)throw new Error('Chapter version mismatch');
- const template=document.createElement('template');template.innerHTML=chapter.html;template.content.querySelectorAll('script,iframe,embed,object').forEach(el=>el.remove());$('chapter-body').replaceChildren(template.content);$('chapter-body').querySelectorAll('table').forEach(table=>{const wrap=node('div',undefined,'table-scroll');table.before(wrap);wrap.append(table);});$('chapter-status').hidden=true;renderChrome();
+ const template=document.createElement('template');template.innerHTML=chapter.html;template.content.querySelectorAll('script,iframe,embed,object').forEach(el=>el.remove());$('chapter-body').replaceChildren(template.content);$('chapter-body').querySelectorAll('table').forEach(table=>{const wrap=node('div',undefined,'table-scroll');table.before(wrap);wrap.append(table);});$('chapter-status').hidden=true;renderChrome();recordChapter(chapter.id);
  const observer=new IntersectionObserver(entries=>{for(const entry of entries){if(entry.isIntersecting)$('chapter-toc').querySelectorAll('a').forEach(a=>{if(decodeURIComponent(a.hash.slice(1))===entry.target.id)a.setAttribute('aria-current','location');else a.removeAttribute('aria-current');});}},{rootMargin:'-15% 0px -70% 0px'});$('chapter-body').querySelectorAll('h2[id],h3[id]').forEach(el=>observer.observe(el));
  if(location.hash&&mode==='html')requestAnimationFrame(()=>document.getElementById(decodeURIComponent(location.hash.slice(1)))?.scrollIntoView());
 }catch(error){console.error(error);$('chapter-title').textContent=tr('章节暂不可用','Chapter unavailable');$('chapter-status').replaceChildren(node('span',error.message==='missing'?tr('未找到该章节。','Chapter not found.'):tr('章节加载失败，请刷新重试。','The chapter could not be loaded.')),link(tr('返回目录 →','All chapters →'),'index.html#chapters'));$('reader-controls').hidden=true;}
