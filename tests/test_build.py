@@ -14,13 +14,42 @@ SPEC.loader.exec_module(book)
 
 
 class BookBuildTests(unittest.TestCase):
+    def test_long_chapter_title_uses_required_argument(self):
+        self.assertEqual(book.command_arg(r'\chapter[短标题]{完整标题}', 'chapter'), '完整标题')
+        with self.assertRaisesRegex(ValueError, 'Unclosed optional'):
+            book.command_arg(r'\chapter[短标题{完整标题}', 'chapter')
+
+    def test_section_label_alias_targets_existing_section(self):
+        ast = dict(blocks=[
+            dict(t='Header', c=[2, ['sec:primary', [], []], [dict(t='Str', c='模型')]]),
+            dict(t='RawBlock', c=['latex', r'\label{sec:alias}']),
+        ])
+        chapter = dict(id='model', number=3, source='chapters/model.tex')
+        with patch.object(book, 'expand_inputs', return_value=''), patch.object(book, 'run', return_value=json.dumps(ast)):
+            converted, references = book.parse_chapter(chapter, ROOT, 'pandoc')
+        self.assertEqual(references['sec:alias'], dict(text='3.1', chapter='model', anchor='sec:primary'))
+        self.assertEqual(converted['blocks'][1], dict(t='Para', c=[]))
+
+    def test_captioned_minipage_is_one_figure_with_notes(self):
+        caption = [None, [dict(t='Plain', c=[dict(t='Str', c='流程')])]]
+        image = dict(t='Plain', c=[dict(t='Image', c=[['', [], []], [], ['image.png', '']])])
+        inner = dict(t='Figure', c=[['fig:workflow', [], []], caption, [image]])
+        note = dict(t='BlockQuote', c=[dict(t='Para', c=[dict(t='Str', c='阅读说明')])])
+        ast = dict(blocks=[dict(t='Figure', c=[['fig:workflow', [], []], caption, [inner, note]])])
+        with patch.object(book, 'expand_inputs', return_value=''), patch.object(book, 'run', return_value=json.dumps(ast)):
+            converted, references = book.parse_chapter(dict(id='data', number=1, source='data.tex'), ROOT, 'pandoc')
+        figures = [value for value in book.walk(converted) if value.get('t') == 'Figure']
+        self.assertEqual(len(figures), 1)
+        self.assertEqual(references['fig:workflow']['text'], '1.1')
+        self.assertIn(note, figures[0]['c'][2])
+
     def test_current_order_and_count(self):
         source = book.SOURCE
         if not source.exists():
             self.skipTest('the pinned source snapshot is not required in CI')
         chapters = book.read_book(source)
-        self.assertEqual([c['number'] for c in chapters], [1, 2, 3])
-        self.assertEqual([c['id'] for c in chapters], ['ch13-knowledge-rag', 'ch16-autonomous-laboratory', 'ch03-evaluation'])
+        self.assertEqual([c['number'] for c in chapters], [1, 2, 3, 4, 5, 6])
+        self.assertEqual([c['id'] for c in chapters], ['ch06-scientific-data', 'ch13-knowledge-rag', 'ch04-pretraining', 'ch05-scientific-agents', 'ch03-evaluation', 'ch16-autonomous-laboratory'])
         self.assertTrue(all(c['part'] for c in chapters))
 
     def test_reader_edition_removes_authoring_notes_preserving_scientific_limits(self):
@@ -69,10 +98,11 @@ class BookBuildTests(unittest.TestCase):
 
     def test_public_outputs(self):
         catalog = book.validate_outputs(ROOT)
-        self.assertEqual(len(catalog['chapters']), 3)
+        self.assertEqual(len(catalog['chapters']), 6)
         details = [json.loads((ROOT / c['contentUrl']).read_text(encoding='utf-8')) for c in catalog['chapters']]
-        self.assertEqual(sum(d['html'].count('<figure') for d in details), 32)
-        self.assertEqual(sum(d['html'].count('<table') for d in details), 2)
+        self.assertEqual(sum(d['html'].count('<figure') for d in details), 66)
+        self.assertEqual(sum(d['html'].count('<table') for d in details), 12)
+        self.assertEqual(catalog['statistics'], dict(chapters=6, figures=66, tables=12))
         self.assertTrue(all('??' not in d['html'] for d in details))
         for chapter in details:
             self.assertNotIn('data-reference-unresolved', chapter['html'])
@@ -85,10 +115,12 @@ class BookBuildTests(unittest.TestCase):
         class Anchors(HTMLParser):
             def __init__(self):
                 super().__init__()
-                self.ids, self.links = {'chapter-title'}, []
+                self.ids, self.links, self.duplicates = {'chapter-title'}, [], []
             def handle_starttag(self, tag, attrs):
                 attrs = dict(attrs)
                 if attrs.get('id'):
+                    if attrs['id'] in self.ids:
+                        self.duplicates.append(attrs['id'])
                     self.ids.add(attrs['id'])
                 if tag == 'a' and attrs.get('href', '').startswith('#'):
                     self.links.append(attrs['href'][1:])
@@ -96,6 +128,7 @@ class BookBuildTests(unittest.TestCase):
             parser = Anchors()
             parser.feed(json.loads(path.read_text(encoding='utf-8'))['html'])
             self.assertTrue(set(parser.links).issubset(parser.ids), path.name)
+            self.assertEqual(parser.duplicates, [], path.name)
 
     def test_staged_files_exclude_private_materials(self):
         staged = ROOT / '_site'
@@ -128,7 +161,7 @@ class BookBuildTests(unittest.TestCase):
     def test_all_original_preview_pages_are_present(self):
         catalog = json.loads((ROOT / 'data/textbook/catalog.json').read_text(encoding='utf-8'))
         index = book.validate_previews(ROOT, catalog)
-        self.assertEqual([index['chapters'][c['id']]['pageCount'] for c in catalog['chapters']], [47, 35, 33])
+        self.assertEqual([index['chapters'][c['id']]['pageCount'] for c in catalog['chapters']], [66, 48, 42, 30, 38, 33])
 
     def test_preview_version_mismatch_is_rejected(self):
         catalog = json.loads((ROOT / 'data/textbook/catalog.json').read_text(encoding='utf-8'))

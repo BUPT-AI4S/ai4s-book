@@ -31,7 +31,7 @@
 
 科学智能不仅需要选择模型，也需要说明科学问题如何表达、知识如何组织、实验结果怎样反馈，以及什么样的评价能够支撑结论。《科学智能原理与实践》围绕这些问题，连接科学研究中的知识、行动与评价。
 
-本书围绕**科学知识建模与大模型推理、自主实验室与干湿闭环、科学智能的测评数据构建与可信评价**三个主题展开，结合研究案例、32 幅配图、2 张表格及参考文献，系统介绍科学智能的方法与实践。
+本书围绕**科学数据、科学知识建模、基础模型预训练、科学智能体、可信测评与自主实验室**六个主题展开，结合研究案例、66 幅配图、12 张表格及参考文献，系统介绍从数据基础到科研闭环的方法与实践。
 
 ## 你将学习什么
 
@@ -43,11 +43,14 @@
 
 各章均提供在线阅读，可按顺序学习，也可根据研究兴趣选择主题。
 
-| 章节 | 主要内容 | 状态 | 阅读资源 |
-| --- | --- | --- | --- |
-| 第 1 章 科学知识建模与大模型推理 | 科学知识的表示、建模、使用与推理；13 幅图 | 开放阅读 | [在线阅读](https://bupt-ai4s.github.io/ai4s-book/read.html?chapter=ch13-knowledge-rag) · [PDF 预览](https://bupt-ai4s.github.io/ai4s-book/read.html?chapter=ch13-knowledge-rag&view=pdf) |
-| 第 2 章 自主实验室与干湿闭环 | 计算决策、实验执行、测量反馈与跨领域案例；10 幅图 | 开放阅读 | [在线阅读](https://bupt-ai4s.github.io/ai4s-book/read.html?chapter=ch16-autonomous-laboratory) · [PDF 预览](https://bupt-ai4s.github.io/ai4s-book/read.html?chapter=ch16-autonomous-laboratory&view=pdf) |
-| 第 3 章 科学智能的测评数据构建与可信评价 | 测评目标、测试数据、评价依据、指标及运行协议；9 幅图、2 张表 | 开放阅读 | [在线阅读](https://bupt-ai4s.github.io/ai4s-book/read.html?chapter=ch03-evaluation) · [PDF 预览](https://bupt-ai4s.github.io/ai4s-book/read.html?chapter=ch03-evaluation&view=pdf) |
+| 章节 | 主要内容 | 阅读资源 |
+| --- | --- | --- |
+| 第 1 章 科学数据与AI4S研究闭环 | 科学数据的治理、组织、表征与研究闭环 | [在线阅读](https://bupt-ai4s.github.io/ai4s-book/read.html?chapter=ch06-scientific-data) · [PDF 预览](https://bupt-ai4s.github.io/ai4s-book/read.html?chapter=ch06-scientific-data&view=pdf) |
+| 第 2 章 科学知识建模与大模型推理 | 知识表示、检索增强与大模型推理 | [在线阅读](https://bupt-ai4s.github.io/ai4s-book/read.html?chapter=ch13-knowledge-rag) · [PDF 预览](https://bupt-ai4s.github.io/ai4s-book/read.html?chapter=ch13-knowledge-rag&view=pdf) |
+| 第 3 章 科学基础模型的预训练原理与方法 | 基础模型预训练的目标、方法与科学应用 | [在线阅读](https://bupt-ai4s.github.io/ai4s-book/read.html?chapter=ch04-pretraining) · [PDF 预览](https://bupt-ai4s.github.io/ai4s-book/read.html?chapter=ch04-pretraining&view=pdf) |
+| 第 4 章 科学智能体：从基本概念到科研应用与研究版图 | 智能体架构、科研工作流与应用案例 | [在线阅读](https://bupt-ai4s.github.io/ai4s-book/read.html?chapter=ch05-scientific-agents) · [PDF 预览](https://bupt-ai4s.github.io/ai4s-book/read.html?chapter=ch05-scientific-agents&view=pdf) |
+| 第 5 章 科学智能的测评数据构建与可信评价 | 测评数据、评价指标与可信结论 | [在线阅读](https://bupt-ai4s.github.io/ai4s-book/read.html?chapter=ch03-evaluation) · [PDF 预览](https://bupt-ai4s.github.io/ai4s-book/read.html?chapter=ch03-evaluation&view=pdf) |
+| 第 6 章 自主实验室与干湿闭环 | 计算决策、实验执行与测量反馈 | [在线阅读](https://bupt-ai4s.github.io/ai4s-book/read.html?chapter=ch16-autonomous-laboratory) · [PDF 预览](https://bupt-ai4s.github.io/ai4s-book/read.html?chapter=ch16-autonomous-laboratory&view=pdf) |
 
 ## 如何阅读
 
@@ -55,11 +58,10 @@
 
 <strong>建议基础：</strong>基础数学与统计、机器学习概念，以及基本 Python 阅读能力。具体先修知识见各章学习目标。
 
-- 关注知识组织与推理，从第 1 章开始。
-- 关注实验执行与反馈，从第 2 章开始。
-- 关注测评数据与结论可信度，从第 3 章开始。
+- 第 1—3 章：从科学数据、知识组织到基础模型，建立方法基础。
+- 第 4—6 章：通过科学智能体、可信测评与自主实验室，理解科研任务与实验闭环。
 
-网站提供适合手机、平板和电脑屏幕的网页正文，以及保留原版排版的 PDF 预览。预览支持翻页、页码跳转和缩放。教材正文为中文，项目介绍与网站导航提供中英文切换。
+网站提供适合手机、平板和电脑屏幕的网页正文，以及保留原版排版的 PDF 预览。预览支持连续滚动、翻页、页码跳转和缩放。教材正文为中文，项目介绍与网站导航提供中英文切换。
 
 ## 配套资源
 
@@ -70,6 +72,7 @@
 
 | 日期 | 公开更新 |
 | --- | --- |
+| 2026-10-23 | 更新六章网页与原版预览，包含 66 幅图与 12 张表格；加入连续滚动阅读。 |
 | 2026-10-22 | 上线三章网页、32 幅图与 2 张表格，提供书籍介绍和阅读导航。 |
 
 ## 反馈与参与
@@ -113,3 +116,23 @@
 ---
 
 如果本书对你的学习或教学有所帮助，欢迎在仓库右上角点亮 **Star ⭐**，方便以后再次找到它。
+
+## Reasoning Lab
+
+欢迎扫码关注 **Reasoning Lab**，了解实验室的研究与交流。
+
+<div align="center">
+<img src="static/images/reasoning-lab-qr.jpg" width="240" alt="Reasoning Lab 二维码">
+</div>
+
+## Star History
+
+如果本书对你有帮助，欢迎点亮 **Star ⭐**。下图根据本仓库的真实 GitHub Star 数据生成，每日自动更新。
+
+<a href="https://github.com/BUPT-AI4S/ai4s-book/stargazers">
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="static/images/star-history-dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset="static/images/star-history-light.svg">
+  <img src="static/images/star-history-light.svg" alt="Star History · BUPT-AI4S/ai4s-book" width="900">
+</picture>
+</a>

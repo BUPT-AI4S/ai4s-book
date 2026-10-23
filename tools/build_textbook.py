@@ -74,7 +74,20 @@ def argument(text, start):
 
 def command_arg(text, name):
     match = re.search(r'\\' + name + r'\b\s*', text)
-    return argument(text, match.end())[0] if match else ''
+    if not match:
+        return ''
+    position = match.end()
+    if text[position:position + 1] == '[':
+        depth, position = 1, position + 1
+        while position < len(text) and depth:
+            if text[position] == '\\':
+                position += 2
+                continue
+            depth += (text[position] == '[') - (text[position] == ']')
+            position += 1
+        if depth:
+            raise ValueError('Unclosed optional LaTeX argument')
+    return argument(text, position)[0]
 
 
 def read_book(source):
@@ -88,7 +101,7 @@ def read_book(source):
             filename = match[2] + '.tex'
             path = inside(source / filename, source)
             text = expand_inputs(path, source)
-            title = command_arg(text, 'chapter')
+            title = re.sub(r'\\\\\s*', '', command_arg(text, 'chapter'))
             if not title:
                 raise ValueError(f'Missing chapter title: {filename}')
             slug = path.stem
@@ -96,6 +109,12 @@ def read_book(source):
                 raise ValueError(f'Unsafe chapter slug: {slug}')
             summary = command_arg(text, 'chapter(?:intro|plan)')
             summary = re.sub(r'\\[a-zA-Z]+|[{}]', '', summary)
+            if not summary:
+                summary = {
+                    'ch06-scientific-data': '理解科学数据的分类、资源、质量与治理，建立从科学问题到 AI-ready 数据与研究反馈的完整路径。',
+                    'ch13-knowledge-rag': '理解科学知识的组织、表示与建模，以及检索、推理和科研任务中知识的使用方法。',
+                    'ch16-autonomous-laboratory': '理解计算决策、实验执行和测量反馈如何形成闭环，并比较不同领域自主实验室的实现。',
+                }.get(slug, title)
             chapters.append(dict(id=slug, number=len(chapters) + 1, title=title,
                                  part=part, partNumber=part_number, source=filename,
                                  status='available',
@@ -129,6 +148,7 @@ def reader_tex(text):
                         '：第一章讨论科学数据作为研究资源的一般质量，包括准确性、完整性、组织方式和可复用性；本章讨论这些数据作为能力测量工具是否合适。',
                         '这一视角也明确了科学数据质量与测评数据适用性的区别：科学数据作为研究资源的一般质量包括准确性、完整性、组织方式和可复用性；本章讨论这些数据作为能力测量工具是否合适。')
     text = text.replace(r'\newcommand{\BookEdition}{协作编写稿}', r'\newcommand{\BookEdition}{2026年10月版}')
+    text = text.replace(r'\newcommand{\BookEnglishTitle}{SCIENTIFIC INTELLIGENCE', r'\newcommand{\BookEnglishTitle}{AI FOR SCIENCE')
     return text
 
 
@@ -164,7 +184,8 @@ def prepare_tex(text):
     # Presentation-only commands have no semantic content in a flowing webpage.
     text = re.sub(r'\\(?:captionsetup|color)\s*\{[^{}]*\}', ' ', text)
     text = re.sub(r'\\setlength\s*\{[^{}]*\}\s*\{[^{}]*\}', ' ', text)
-    text = re.sub(r'\\(?:clearpage|cleardoublepage|centering|raggedright|arraybackslash|footnotesize|small|selectfont|noindent|begingroup|endgroup)(?![A-Za-z])', ' ', text)
+    text = re.sub(r'\\hsize\s*=\s*[0-9.]+\\hsize|\\linewidth\s*=\s*\\hsize', '', text)
+    text = re.sub(r'\\(?:normalfont|clearpage|cleardoublepage|centering|raggedright|arraybackslash|footnotesize|small|selectfont|noindent|begingroup|endgroup)(?![A-Za-z])', ' ', text)
     return PREAMBLE + '\n' + text
 
 
@@ -265,10 +286,27 @@ class Contents(HTMLParser):
 def parse_chapter(chapter, source, pandoc):
     text = prepare_tex(expand_inputs(source / chapter['source'], source))
     ast = json.loads(run([pandoc, '--from=latex+latex_macros+raw_tex', '--to=json', '--fail-if-warnings'], source, text))
+    # Pandoc can duplicate a captioned minipage inside its surrounding figure.
+    # Keep one semantic figure while preserving its image and reading notes.
+    for element in walk(ast):
+        if element.get('t') == 'Figure':
+            identity, caption, blocks = element['c']
+            flattened = []
+            for child in blocks:
+                if child.get('t') == 'Figure' and child['c'][0][0] == identity[0] and child['c'][1] == caption:
+                    flattened.extend(child['c'][2])
+                else:
+                    flattened.append(child)
+            blocks[:] = flattened
     section_numbers, figure_number, table_number = [chapter['number'], 0, 0, 0, 0, 0], 0, 0
-    references = {}
+    references, last_reference = {}, None
     for element in walk(ast):
         kind, content = element.get('t'), element.get('c')
+        alias = re.fullmatch(r'\\label\{([^{}]+)\}', content[1].strip()) if kind in {'RawBlock', 'RawInline'} and content[0] in {'latex', 'tex'} else None
+        if alias and last_reference:
+            references[alias[1]] = dict(last_reference)
+            element['t'], element['c'] = ('Para', []) if kind == 'RawBlock' else ('Str', '')
+            continue
         if kind == 'Div' and content[0][0]:
             for child in content[1]:
                 if child.get('t') == 'Table':
@@ -300,6 +338,9 @@ def parse_chapter(chapter, source, pandoc):
                 caption[0]['c'][:0] = [{'t': 'Str', 'c': f'表 {chapter["number"]}.{table_number}'}, {'t': 'Space'}]
             if content[0][0]:
                 references[content[0][0]] = dict(text=f'{chapter["number"]}.{table_number}', chapter=chapter['id'])
+        identity = content[1][0] if kind == 'Header' else content[0][0] if kind in {'Figure', 'Table'} else None
+        if identity in references:
+            last_reference = dict(references[identity], anchor=references[identity].get('anchor', identity))
     return ast, references
 
 
@@ -401,7 +442,7 @@ def compile_and_split(source, work, output, chapters, engine, reuse_verified_pdf
 
 
 
-def build_book(source=SOURCE, root=ROOT, pdf_engine=None, html_only=False):
+def build_book(source=SOURCE, root=ROOT, pdf_engine=None, html_only=False, preview_pdf_engine=None):
     if not PDF_PUBLICATION_ENABLED:
         html_only = True
     source, root = Path(source).resolve(), Path(root).resolve()
@@ -453,7 +494,23 @@ def build_book(source=SOURCE, root=ROOT, pdf_engine=None, html_only=False):
         converted_chapters = {chapter['id']: convert_chapter(chapter, source, output, pandoc, documents[chapter['id']], references) for chapter in chapters}
         full_pdf = output / 'pdf/scientific-intelligence.pdf'
         cached = PDF_PUBLICATION_ENABLED and html_only and previous.get('sourceHash') == fingerprint and previous.get('pdfVersion') == 4 and bool(previous.get('bookPdfUrl'))
-        total_pages = 0
+        total_pages = previous.get('pages', 0) if previous.get('sourceHash') == fingerprint else 0
+        if preview_pdf_engine:
+            private = Path(temp) / 'preview-sources'
+            (private / 'pdf').mkdir(parents=True)
+            print('Compiling local preview sources; PDF files remain outside public output', flush=True)
+            total_pages = compile_and_split(source, work, private, chapters, preview_pdf_engine)
+            private_catalog = dict(sourceHash=fingerprint, sourceCommit=provenance.get('commit'),
+                                   chapters=[dict(chapter, pdfSha256=hashlib.sha256((private / 'pdf' / (chapter['id'] + '.pdf')).read_bytes()).hexdigest()) for chapter in chapters])
+            (private / 'catalog.json').write_text(json.dumps(private_catalog, ensure_ascii=False, indent=2) + '\n', encoding='utf-8', newline='\n')
+            archive = root / '.tmp/preview-sources'
+            if archive.is_symlink() or archive.resolve() != root / '.tmp/preview-sources':
+                raise ValueError('Unsafe local preview source directory')
+            if archive.exists():
+                if not (archive / 'catalog.json').is_file():
+                    raise ValueError('Local preview sources lack their catalog')
+                shutil.rmtree(archive)
+            shutil.copytree(private, archive)
         if not html_only:
             print('Compiling complete manuscript and splitting chapter PDFs', flush=True)
             previous_pdf = destination / 'pdf/scientific-intelligence.pdf'
@@ -479,7 +536,9 @@ def build_book(source=SOURCE, root=ROOT, pdf_engine=None, html_only=False):
         info = (source / 'book-info.tex').read_text(encoding='utf-8')
         title_match = re.search(r'\\newcommand\{\\BookTitle\}', info)
         title = argument(info, title_match.end())[0] if title_match else '科学智能原理与实践'
-        catalog = dict(schemaVersion=1, publicationMode='web-only', pdfVersion=4, title=title, sourceHash=fingerprint, buildHash=build_hash,
+        statistics = dict(chapters=len(chapters), figures=sum(value['html'].count('<figure') for value in converted_chapters.values()),
+                          tables=sum(value['html'].count('<table') for value in converted_chapters.values()))
+        catalog = dict(schemaVersion=1, publicationMode='web-only', pdfVersion=4, title=title, sourceHash=fingerprint, buildHash=build_hash, statistics=statistics,
                        sourceRepository=provenance['repository'], sourceCommit=provenance.get('commit'),
                        pages=total_pages, bookPdfUrl='data/textbook/pdf/scientific-intelligence.pdf' if full_pdf.is_file() else None,
                        bookPdfSha256=hashlib.sha256(full_pdf.read_bytes()).hexdigest() if full_pdf.is_file() else None, chapters=chapters)
@@ -580,6 +639,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--sync-from', type=Path, help='Explicitly refresh source snapshot from local AI4SBook')
     parser.add_argument('--pdf-engine', help='Path to latexmk or tectonic')
+    parser.add_argument('--preview-pdf-engine', help='Compile local PDF sources for page previews without publishing PDF files')
     parser.add_argument('--html-only', action='store_true', help='Preview HTML; do not advertise missing/stale PDFs')
     parser.add_argument('--check', action='store_true', help='Validate published outputs without private source or a LaTeX engine')
     args = parser.parse_args()
@@ -590,6 +650,6 @@ if __name__ == '__main__':
         else:
             if args.sync_from:
                 sync_source(args.sync_from)
-            build_book(pdf_engine=args.pdf_engine, html_only=args.html_only)
+            build_book(pdf_engine=args.pdf_engine, html_only=args.html_only, preview_pdf_engine=args.preview_pdf_engine)
     except (ValueError, OSError) as error:
         parser.exit(1, f'Textbook build failed: {error}\n')

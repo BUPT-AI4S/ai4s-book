@@ -1,0 +1,35 @@
+name: Update Star History
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 0 * * *'
+  push:
+    branches: [main]
+    paths:
+      - tools/update_star_history.py
+      - .github/workflows/star-history.yml
+permissions:
+  contents: write
+concurrency:
+  group: star-history
+  cancel-in-progress: false
+jobs:
+  chart:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - name: Refresh chart from GitHub
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: python tools/update_star_history.py
+      - name: Save chart
+        run: |
+          git add static/images/star-history-light.svg static/images/star-history-dark.svg data/project/star-history.json
+          if ! git diff --cached --quiet; then
+            git -c user.name='github-actions[bot]' -c user.email='41898282+github-actions[bot]@users.noreply.github.com' commit -m 'Update Star History chart'
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi

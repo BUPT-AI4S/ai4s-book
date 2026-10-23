@@ -1,715 +1,1588 @@
 {
   "schemaVersion": 1,
-  "sourceHash": "4b9f08d95b35636035d6f7effc702119a1b6c0ec0e6aa7e6f023a21f2c32290f",
+  "sourceHash": "329de08e2f95ee5d2305ed83c17b79469973bf3c91e627c663a69dbced97016c",
   "chapters": {
-    "ch13-knowledge-rag": {
-      "title": "科学知识建模与大模型推理",
-      "pageCount": 47,
-      "pdfSha256": "b89c341f31e1c70d0f89b7eeb282f727b28b48c74a8a7f5015412668c51c930f",
+    "ch06-scientific-data": {
+      "title": "科学数据与AI4S研究闭环",
+      "pageCount": 66,
+      "pdfSha256": "90d637c86f1566dceccc20a94e7d1edc6819e419408ed47f919c60e6040a0f61",
       "pages": [
         {
-          "image": "data/textbook/previews/pages/c50daf463d184b1e89bd67c9fe5fbcfcc11c32b622736e02766485c9c210d645.webp",
+          "image": "data/textbook/previews/pages/414fd30b6e671f1dff52655c4cff8b91c699f9b4d213d0b4c5ea8b6d244cbb6c.webp",
           "width": 1600,
           "height": 2273,
-          "sha256": "c50daf463d184b1e89bd67c9fe5fbcfcc11c32b622736e02766485c9c210d645"
+          "sha256": "414fd30b6e671f1dff52655c4cff8b91c699f9b4d213d0b4c5ea8b6d244cbb6c"
         },
         {
-          "image": "data/textbook/previews/pages/d3609245a2912558bfdf46504010678ff0cb755aca9dee4e927c86b318d6ea4e.webp",
+          "image": "data/textbook/previews/pages/3ca6d82e598e45ad1d7c7c850644af30a94fefe6cbbb2c886233c75827eb5542.webp",
           "width": 1600,
           "height": 2273,
-          "sha256": "d3609245a2912558bfdf46504010678ff0cb755aca9dee4e927c86b318d6ea4e"
+          "sha256": "3ca6d82e598e45ad1d7c7c850644af30a94fefe6cbbb2c886233c75827eb5542"
         },
         {
-          "image": "data/textbook/previews/pages/883c4acb17df60f57b6b294fce1b4892cda5aa38790114df45097c83b8166695.webp",
+          "image": "data/textbook/previews/pages/134ac81aa597efb979f4fb4eae489b326916d832a25533e3a73b9db3a35f85c3.webp",
           "width": 1600,
           "height": 2273,
-          "sha256": "883c4acb17df60f57b6b294fce1b4892cda5aa38790114df45097c83b8166695"
+          "sha256": "134ac81aa597efb979f4fb4eae489b326916d832a25533e3a73b9db3a35f85c3"
         },
         {
-          "image": "data/textbook/previews/pages/e6f5a598120f4664d36ca70c64e9b8b71670d6af325ae779b9ea3b32a2c3af63.webp",
+          "image": "data/textbook/previews/pages/c2bd59d9c72da08917a32139bcccb96372a77a3214849eba8dd7f21a9b51dbe7.webp",
           "width": 1600,
           "height": 2273,
-          "sha256": "e6f5a598120f4664d36ca70c64e9b8b71670d6af325ae779b9ea3b32a2c3af63"
+          "sha256": "c2bd59d9c72da08917a32139bcccb96372a77a3214849eba8dd7f21a9b51dbe7"
         },
         {
-          "image": "data/textbook/previews/pages/508b4fe2660f1bec4c5cb65dd1a1551b75fceeb09f57648c5a3dff6e95d76547.webp",
+          "image": "data/textbook/previews/pages/882db6af656ce5f8b8fbaaf8c87450fc3757ee53431d42e8da9c198417ec1b9b.webp",
           "width": 1600,
           "height": 2273,
-          "sha256": "508b4fe2660f1bec4c5cb65dd1a1551b75fceeb09f57648c5a3dff6e95d76547"
+          "sha256": "882db6af656ce5f8b8fbaaf8c87450fc3757ee53431d42e8da9c198417ec1b9b"
         },
         {
-          "image": "data/textbook/previews/pages/1c47ff853a67e0034bd117d9c6094979523523bf042e611d5028d8ea7c51af01.webp",
+          "image": "data/textbook/previews/pages/9da366bf726603286090200e69c6c840450b179f6d1c6dc8d4ab71e5641db3df.webp",
           "width": 1600,
           "height": 2273,
-          "sha256": "1c47ff853a67e0034bd117d9c6094979523523bf042e611d5028d8ea7c51af01"
+          "sha256": "9da366bf726603286090200e69c6c840450b179f6d1c6dc8d4ab71e5641db3df"
         },
         {
-          "image": "data/textbook/previews/pages/476c945b75e982087a4aab42e1a85dbe657fa617ae2c60a86b3a143b4e0e0f8b.webp",
+          "image": "data/textbook/previews/pages/0a4b46222ea691d62f36d2053dcf9e08f494c66867ff00b76ee487f64ef39a87.webp",
           "width": 1600,
           "height": 2273,
-          "sha256": "476c945b75e982087a4aab42e1a85dbe657fa617ae2c60a86b3a143b4e0e0f8b"
+          "sha256": "0a4b46222ea691d62f36d2053dcf9e08f494c66867ff00b76ee487f64ef39a87"
         },
         {
-          "image": "data/textbook/previews/pages/b757da8ee9758ab520df5d796de3debc281f0363286c9997b0cf6e7f4b5e0675.webp",
+          "image": "data/textbook/previews/pages/2fd64566f63123e0fee2cd6aa678578cbdb211b38f520555c15a1836abfcbc18.webp",
           "width": 1600,
           "height": 2273,
-          "sha256": "b757da8ee9758ab520df5d796de3debc281f0363286c9997b0cf6e7f4b5e0675"
+          "sha256": "2fd64566f63123e0fee2cd6aa678578cbdb211b38f520555c15a1836abfcbc18"
         },
         {
-          "image": "data/textbook/previews/pages/d794b23577740c293b914203556bb954deb41784853465148d623588fb46abf7.webp",
+          "image": "data/textbook/previews/pages/8c2b4471d012967c00e3865ac280514693439e29b7729e8bfb23c388735f4cd2.webp",
           "width": 1600,
           "height": 2273,
-          "sha256": "d794b23577740c293b914203556bb954deb41784853465148d623588fb46abf7"
+          "sha256": "8c2b4471d012967c00e3865ac280514693439e29b7729e8bfb23c388735f4cd2"
         },
         {
-          "image": "data/textbook/previews/pages/a739177299a16f9ac67ad6d9500e87c5cccd35f9a05498294d0c45f3306618e9.webp",
+          "image": "data/textbook/previews/pages/28315083808919146e1d1d56a36fd65dd5a88f1ae94ecd92ffafb7915a58d6a7.webp",
           "width": 1600,
           "height": 2273,
-          "sha256": "a739177299a16f9ac67ad6d9500e87c5cccd35f9a05498294d0c45f3306618e9"
+          "sha256": "28315083808919146e1d1d56a36fd65dd5a88f1ae94ecd92ffafb7915a58d6a7"
         },
         {
-          "image": "data/textbook/previews/pages/63d45729249feb8b4521094124b5c8653e6104de05d3a03a824df1ef6a66b805.webp",
+          "image": "data/textbook/previews/pages/de73077d1fa14a5ea5ec2c203d6677d111a2db2e6d6f236bd441de43a3a84d3f.webp",
           "width": 1600,
           "height": 2273,
-          "sha256": "63d45729249feb8b4521094124b5c8653e6104de05d3a03a824df1ef6a66b805"
+          "sha256": "de73077d1fa14a5ea5ec2c203d6677d111a2db2e6d6f236bd441de43a3a84d3f"
         },
         {
-          "image": "data/textbook/previews/pages/645873000fab03ae35cfbbf38585a3ded57ee4d951a5a352c0d1c6e941488f8c.webp",
+          "image": "data/textbook/previews/pages/0cf387084f1578e189e22597dbebca8d94764e0334223de8289a0cc08afc545a.webp",
           "width": 1600,
           "height": 2273,
-          "sha256": "645873000fab03ae35cfbbf38585a3ded57ee4d951a5a352c0d1c6e941488f8c"
+          "sha256": "0cf387084f1578e189e22597dbebca8d94764e0334223de8289a0cc08afc545a"
         },
         {
-          "image": "data/textbook/previews/pages/138085ffc0fb1bc66ee65ac3e68570b7d9c2cc75dba8c5b4e48709500d78147c.webp",
+          "image": "data/textbook/previews/pages/32f7494c228c5e8975073f4b85df03e3620a6b697a99af95e762f15d1a8559a1.webp",
           "width": 1600,
           "height": 2273,
-          "sha256": "138085ffc0fb1bc66ee65ac3e68570b7d9c2cc75dba8c5b4e48709500d78147c"
+          "sha256": "32f7494c228c5e8975073f4b85df03e3620a6b697a99af95e762f15d1a8559a1"
         },
         {
-          "image": "data/textbook/previews/pages/b6baf5eab099c69fb52cc4834d4f0f2769b0589700109aaad1b5d20b1c5bfe80.webp",
+          "image": "data/textbook/previews/pages/a4c10c594c9cc5924dc84d7d4988ee4dc6bdc29c2b42728ee8284d30db284e5a.webp",
           "width": 1600,
           "height": 2273,
-          "sha256": "b6baf5eab099c69fb52cc4834d4f0f2769b0589700109aaad1b5d20b1c5bfe80"
+          "sha256": "a4c10c594c9cc5924dc84d7d4988ee4dc6bdc29c2b42728ee8284d30db284e5a"
         },
         {
-          "image": "data/textbook/previews/pages/93779d1c47cbc5fb01a894a0500a9088eaa79b00d1f72c251c8016f24f58a19e.webp",
+          "image": "data/textbook/previews/pages/b95e6e2e0b68d34ec7f8590d3905df0f9094daa98d1a719767dee511f7aca794.webp",
           "width": 1600,
           "height": 2273,
-          "sha256": "93779d1c47cbc5fb01a894a0500a9088eaa79b00d1f72c251c8016f24f58a19e"
+          "sha256": "b95e6e2e0b68d34ec7f8590d3905df0f9094daa98d1a719767dee511f7aca794"
         },
         {
-          "image": "data/textbook/previews/pages/37a341bf7da06abbd1ba60c2bd4009dcc03f829cc8f935f9cd854d1030da67f2.webp",
+          "image": "data/textbook/previews/pages/91228b150ba5bcac3c5edf5524e3d89a18faf37c93f7b388c37e075e9f2b60ba.webp",
           "width": 1600,
           "height": 2273,
-          "sha256": "37a341bf7da06abbd1ba60c2bd4009dcc03f829cc8f935f9cd854d1030da67f2"
+          "sha256": "91228b150ba5bcac3c5edf5524e3d89a18faf37c93f7b388c37e075e9f2b60ba"
         },
         {
-          "image": "data/textbook/previews/pages/44a2450160c75f213f07f47ea4ddd4dd41185ad04a76f0fad855c72e5221881b.webp",
+          "image": "data/textbook/previews/pages/d01c1b5a79a4c156f1bc362d98367d37030016647077bdeb66b5980e50c0482a.webp",
           "width": 1600,
           "height": 2273,
-          "sha256": "44a2450160c75f213f07f47ea4ddd4dd41185ad04a76f0fad855c72e5221881b"
+          "sha256": "d01c1b5a79a4c156f1bc362d98367d37030016647077bdeb66b5980e50c0482a"
         },
         {
-          "image": "data/textbook/previews/pages/ea1e9e0df04c502104395d1f3e934d3bd1b05ec022061fb7ae9dad622d6fc0b1.webp",
+          "image": "data/textbook/previews/pages/a23e7f333ab8d62f32818a4bd2bd5fe587c3d7050a00bd27053e65ed73975096.webp",
           "width": 1600,
           "height": 2273,
-          "sha256": "ea1e9e0df04c502104395d1f3e934d3bd1b05ec022061fb7ae9dad622d6fc0b1"
+          "sha256": "a23e7f333ab8d62f32818a4bd2bd5fe587c3d7050a00bd27053e65ed73975096"
         },
         {
-          "image": "data/textbook/previews/pages/e931c4c9d04fbb1c9fdd8e1611656f5be6203265c7d4568f848305cfffcb6543.webp",
+          "image": "data/textbook/previews/pages/82af2747dd5e0757ed3693d86dbdc6175b5e2abc11e19f213805872b37f3ecf0.webp",
           "width": 1600,
           "height": 2273,
-          "sha256": "e931c4c9d04fbb1c9fdd8e1611656f5be6203265c7d4568f848305cfffcb6543"
+          "sha256": "82af2747dd5e0757ed3693d86dbdc6175b5e2abc11e19f213805872b37f3ecf0"
         },
         {
-          "image": "data/textbook/previews/pages/7a9b206f8e3c734123947eee01bf5308bd45733b71455782a5eab089cb2ef850.webp",
+          "image": "data/textbook/previews/pages/535bdbcc1ad412e0dda44e2ff85af5a7600ce23859144628abe0798416065695.webp",
           "width": 1600,
           "height": 2273,
-          "sha256": "7a9b206f8e3c734123947eee01bf5308bd45733b71455782a5eab089cb2ef850"
+          "sha256": "535bdbcc1ad412e0dda44e2ff85af5a7600ce23859144628abe0798416065695"
         },
         {
-          "image": "data/textbook/previews/pages/136a51ca86c522b3ebb234f925d74924126f45084cf03403d978715849542cbc.webp",
+          "image": "data/textbook/previews/pages/4c774461f13e00dd5d9515b163e1e1612cd685d29290a1c11ff7bf7db8b49dd6.webp",
           "width": 1600,
           "height": 2273,
-          "sha256": "136a51ca86c522b3ebb234f925d74924126f45084cf03403d978715849542cbc"
+          "sha256": "4c774461f13e00dd5d9515b163e1e1612cd685d29290a1c11ff7bf7db8b49dd6"
         },
         {
-          "image": "data/textbook/previews/pages/9bba5a4f64f67b4477f95c9a1c8b37604b1f89c01c0d705e1481853ee225a895.webp",
+          "image": "data/textbook/previews/pages/d4131e608e280d54d82d3551c1c7e0b435a830636bdb836045b6367a265850f6.webp",
           "width": 1600,
           "height": 2273,
-          "sha256": "9bba5a4f64f67b4477f95c9a1c8b37604b1f89c01c0d705e1481853ee225a895"
+          "sha256": "d4131e608e280d54d82d3551c1c7e0b435a830636bdb836045b6367a265850f6"
         },
         {
-          "image": "data/textbook/previews/pages/2485207ca545808656c1df4c2c83d9f9db9598d213403822d73b35b18fe1b388.webp",
+          "image": "data/textbook/previews/pages/63ade60a3f271795d755cba6e81be081dcebaf985c7ef32591097bfceb6f0829.webp",
           "width": 1600,
           "height": 2273,
-          "sha256": "2485207ca545808656c1df4c2c83d9f9db9598d213403822d73b35b18fe1b388"
+          "sha256": "63ade60a3f271795d755cba6e81be081dcebaf985c7ef32591097bfceb6f0829"
         },
         {
-          "image": "data/textbook/previews/pages/88881527baa1eadf0598bd107b64642e19e33365f747046d3a4c817a9ab00d81.webp",
+          "image": "data/textbook/previews/pages/a066cdaa649590ae2767153870dcd80e7c499c72125174075e3b0469c2648a7d.webp",
           "width": 1600,
           "height": 2273,
-          "sha256": "88881527baa1eadf0598bd107b64642e19e33365f747046d3a4c817a9ab00d81"
+          "sha256": "a066cdaa649590ae2767153870dcd80e7c499c72125174075e3b0469c2648a7d"
         },
         {
-          "image": "data/textbook/previews/pages/6f553f93c318e68fedb484cdf7667c0d66cc1fde3ee47d38a765dcb355970843.webp",
+          "image": "data/textbook/previews/pages/2f55e96924ce86a059055e417b8ed9a1cfaa007402fd77e4039807d2a7e12231.webp",
           "width": 1600,
           "height": 2273,
-          "sha256": "6f553f93c318e68fedb484cdf7667c0d66cc1fde3ee47d38a765dcb355970843"
+          "sha256": "2f55e96924ce86a059055e417b8ed9a1cfaa007402fd77e4039807d2a7e12231"
         },
         {
-          "image": "data/textbook/previews/pages/970cfd33e99ba44523d834776d118e7b69f6dbe9840ca14cf97f2c09a5b143fd.webp",
+          "image": "data/textbook/previews/pages/683eddc54b79beab39b3f27e12ea1aa184ab9dc11d43dcdc088da30819385f39.webp",
           "width": 1600,
           "height": 2273,
-          "sha256": "970cfd33e99ba44523d834776d118e7b69f6dbe9840ca14cf97f2c09a5b143fd"
+          "sha256": "683eddc54b79beab39b3f27e12ea1aa184ab9dc11d43dcdc088da30819385f39"
         },
         {
-          "image": "data/textbook/previews/pages/fef331094ba2ddf486d1294b3113575e58fca61932d6969f078e658b2647e3a9.webp",
+          "image": "data/textbook/previews/pages/1942d4ae807518d7c8abab26e093a65c785f48a7847a2a108a8e8b0bc102f19c.webp",
           "width": 1600,
           "height": 2273,
-          "sha256": "fef331094ba2ddf486d1294b3113575e58fca61932d6969f078e658b2647e3a9"
+          "sha256": "1942d4ae807518d7c8abab26e093a65c785f48a7847a2a108a8e8b0bc102f19c"
         },
         {
-          "image": "data/textbook/previews/pages/9b94065bedb3fe54b4ed031c79f2b33dd6a5c7d79e026fd8fb88e229ca3049e4.webp",
+          "image": "data/textbook/previews/pages/18e8f428ae309ecd7cf1be1db44a93862a90640ef3883dc39f306dabce56903a.webp",
           "width": 1600,
           "height": 2273,
-          "sha256": "9b94065bedb3fe54b4ed031c79f2b33dd6a5c7d79e026fd8fb88e229ca3049e4"
+          "sha256": "18e8f428ae309ecd7cf1be1db44a93862a90640ef3883dc39f306dabce56903a"
         },
         {
-          "image": "data/textbook/previews/pages/6ddd89cf27915d4f2c687aa654ed654e3885f264b305f81a4561d712a3bac9ad.webp",
+          "image": "data/textbook/previews/pages/c3fe24d8ad7b0d62555448a3de760726e97df5814d59496f2475305711675b00.webp",
           "width": 1600,
           "height": 2273,
-          "sha256": "6ddd89cf27915d4f2c687aa654ed654e3885f264b305f81a4561d712a3bac9ad"
+          "sha256": "c3fe24d8ad7b0d62555448a3de760726e97df5814d59496f2475305711675b00"
         },
         {
-          "image": "data/textbook/previews/pages/4566104c31624f8c0ac0097635a7eb89afe3cf36a26b980ef94f7fccd2cfc868.webp",
+          "image": "data/textbook/previews/pages/e4ef3ac34026fe3d93abe413769be20a14b60ea6ed084f96046158d21da5449a.webp",
           "width": 1600,
           "height": 2273,
-          "sha256": "4566104c31624f8c0ac0097635a7eb89afe3cf36a26b980ef94f7fccd2cfc868"
+          "sha256": "e4ef3ac34026fe3d93abe413769be20a14b60ea6ed084f96046158d21da5449a"
         },
         {
-          "image": "data/textbook/previews/pages/6a5be0af9b54103096586fd14725071285de20b716f439b89fe272511db88c8a.webp",
+          "image": "data/textbook/previews/pages/c3e197ebb6f6aa7dd4d88f4df18811f5c64aa260273157253dc26e041bea6ab1.webp",
           "width": 1600,
           "height": 2273,
-          "sha256": "6a5be0af9b54103096586fd14725071285de20b716f439b89fe272511db88c8a"
+          "sha256": "c3e197ebb6f6aa7dd4d88f4df18811f5c64aa260273157253dc26e041bea6ab1"
         },
         {
-          "image": "data/textbook/previews/pages/abde568cd92b18a9f836b1e49dc72b4664cebbb65e8c8431e3e023f6e93105e6.webp",
+          "image": "data/textbook/previews/pages/f4b8c0841e7696e70a753d5f17f2d560c93adaeb79d43e2b7179b519cf38f815.webp",
           "width": 1600,
           "height": 2273,
-          "sha256": "abde568cd92b18a9f836b1e49dc72b4664cebbb65e8c8431e3e023f6e93105e6"
+          "sha256": "f4b8c0841e7696e70a753d5f17f2d560c93adaeb79d43e2b7179b519cf38f815"
         },
         {
-          "image": "data/textbook/previews/pages/51b4ac93446e5352c0b2a0543f292351157a80202da826818d6079d1d696e2e1.webp",
+          "image": "data/textbook/previews/pages/dfbf79a80e74fe8b8491575b1d06a59bc6d113e74c71bd5d5c734ff5485b2a07.webp",
           "width": 1600,
           "height": 2273,
-          "sha256": "51b4ac93446e5352c0b2a0543f292351157a80202da826818d6079d1d696e2e1"
+          "sha256": "dfbf79a80e74fe8b8491575b1d06a59bc6d113e74c71bd5d5c734ff5485b2a07"
         },
         {
-          "image": "data/textbook/previews/pages/9f790c8cdd18f8695c36402b3b70b57ef424f7dfabedb168bd0a63a5ca44dca1.webp",
+          "image": "data/textbook/previews/pages/b97dc0938fb83fa05f477d08744df3fe160b2cbf8f9a39e3ee530571fe60f2bb.webp",
           "width": 1600,
           "height": 2273,
-          "sha256": "9f790c8cdd18f8695c36402b3b70b57ef424f7dfabedb168bd0a63a5ca44dca1"
+          "sha256": "b97dc0938fb83fa05f477d08744df3fe160b2cbf8f9a39e3ee530571fe60f2bb"
         },
         {
-          "image": "data/textbook/previews/pages/6472a465ec9256672c3617de99152496ccc8a4ced3da2a5c6e68b0be321401e8.webp",
+          "image": "data/textbook/previews/pages/5a1a8e901f341b8e091967d99b676511bd57e0b323cbcb8877f92f2e9dc76814.webp",
           "width": 1600,
           "height": 2273,
-          "sha256": "6472a465ec9256672c3617de99152496ccc8a4ced3da2a5c6e68b0be321401e8"
+          "sha256": "5a1a8e901f341b8e091967d99b676511bd57e0b323cbcb8877f92f2e9dc76814"
         },
         {
-          "image": "data/textbook/previews/pages/0dab8cb6f5721098884611edca8a262350ab1cfc711dfc3fa1020b06cfaabc50.webp",
+          "image": "data/textbook/previews/pages/f11f6cf3dc1f949fc0a2789e012f30068bbc2ece4409c2ce61ec96b227d44bef.webp",
           "width": 1600,
           "height": 2273,
-          "sha256": "0dab8cb6f5721098884611edca8a262350ab1cfc711dfc3fa1020b06cfaabc50"
+          "sha256": "f11f6cf3dc1f949fc0a2789e012f30068bbc2ece4409c2ce61ec96b227d44bef"
         },
         {
-          "image": "data/textbook/previews/pages/49e35099c23027af665c1a0862ca02bd6567e5752e20d5670c588efaf3739d7a.webp",
+          "image": "data/textbook/previews/pages/6d1b38b7200a4a36382e8f1a36297acfee7b036d728d38c4238995edc6209d31.webp",
           "width": 1600,
           "height": 2273,
-          "sha256": "49e35099c23027af665c1a0862ca02bd6567e5752e20d5670c588efaf3739d7a"
+          "sha256": "6d1b38b7200a4a36382e8f1a36297acfee7b036d728d38c4238995edc6209d31"
         },
         {
-          "image": "data/textbook/previews/pages/b2e670398cb53f192429df7c8d04177d5e0adcd6e1e8e375b1b5283bef455549.webp",
+          "image": "data/textbook/previews/pages/241dc4dfc64cef59cd134df7309596042bb496bfdb2ba2536dc49502fc65c5b6.webp",
           "width": 1600,
           "height": 2273,
-          "sha256": "b2e670398cb53f192429df7c8d04177d5e0adcd6e1e8e375b1b5283bef455549"
+          "sha256": "241dc4dfc64cef59cd134df7309596042bb496bfdb2ba2536dc49502fc65c5b6"
         },
         {
-          "image": "data/textbook/previews/pages/3f14c9d545f62d67bab444e2deff567c526d9699b86ddbbe70aad673df44cff4.webp",
+          "image": "data/textbook/previews/pages/f7c8c40dea25d9971c5f1aa483dd9d3e496836072ec9b5c65bcf45f8d275ea2d.webp",
           "width": 1600,
           "height": 2273,
-          "sha256": "3f14c9d545f62d67bab444e2deff567c526d9699b86ddbbe70aad673df44cff4"
+          "sha256": "f7c8c40dea25d9971c5f1aa483dd9d3e496836072ec9b5c65bcf45f8d275ea2d"
         },
         {
-          "image": "data/textbook/previews/pages/1067e687f2f67e2099ccbcd181b38ab869e3979953bf73d124f178ea3d9a9f9d.webp",
+          "image": "data/textbook/previews/pages/82bbbd5287727447762363a7835099903512f81ec3c356d8b3932e462c3df526.webp",
           "width": 1600,
           "height": 2273,
-          "sha256": "1067e687f2f67e2099ccbcd181b38ab869e3979953bf73d124f178ea3d9a9f9d"
+          "sha256": "82bbbd5287727447762363a7835099903512f81ec3c356d8b3932e462c3df526"
         },
         {
-          "image": "data/textbook/previews/pages/1b3b76d25f23d4ae27736ea81dfae888fa9ee1af420eeb7ae3a878793166425a.webp",
+          "image": "data/textbook/previews/pages/0272900a1e97a3a4347f4584ed1d5d2055c9bef59b975ec086c7a175ad525d17.webp",
           "width": 1600,
           "height": 2273,
-          "sha256": "1b3b76d25f23d4ae27736ea81dfae888fa9ee1af420eeb7ae3a878793166425a"
+          "sha256": "0272900a1e97a3a4347f4584ed1d5d2055c9bef59b975ec086c7a175ad525d17"
         },
         {
-          "image": "data/textbook/previews/pages/4fed44540e7b3dea0965c3ef4a2df68ca0c6f492c2587bffe301530eb5723bc9.webp",
+          "image": "data/textbook/previews/pages/7f1407fca2f8f5fc3f880d82e54fb598567695c4d406045d2aa3d4e9d7e193e7.webp",
           "width": 1600,
           "height": 2273,
-          "sha256": "4fed44540e7b3dea0965c3ef4a2df68ca0c6f492c2587bffe301530eb5723bc9"
+          "sha256": "7f1407fca2f8f5fc3f880d82e54fb598567695c4d406045d2aa3d4e9d7e193e7"
         },
         {
-          "image": "data/textbook/previews/pages/e26e9e7dc50ec1e112cdc474042edbe668cf732e97bde733052f2b99dd02a98f.webp",
+          "image": "data/textbook/previews/pages/a63fecbef2eb906e301de052ec341c43cfbd40cb3ab0c031e1a37a14fb05d44a.webp",
           "width": 1600,
           "height": 2273,
-          "sha256": "e26e9e7dc50ec1e112cdc474042edbe668cf732e97bde733052f2b99dd02a98f"
+          "sha256": "a63fecbef2eb906e301de052ec341c43cfbd40cb3ab0c031e1a37a14fb05d44a"
         },
         {
-          "image": "data/textbook/previews/pages/e0cdee6b2d345522854a4358ece6d1aff745376212db0df7331d0b661163dc66.webp",
+          "image": "data/textbook/previews/pages/a042db7f2ab893392be2250d383aa8606be250856d030f246dad63cf65c82818.webp",
           "width": 1600,
           "height": 2273,
-          "sha256": "e0cdee6b2d345522854a4358ece6d1aff745376212db0df7331d0b661163dc66"
+          "sha256": "a042db7f2ab893392be2250d383aa8606be250856d030f246dad63cf65c82818"
         },
         {
-          "image": "data/textbook/previews/pages/b6365914ae58530f42e03342f2666ea4f84cdbcbc8da065d6ce5b7e1444a5b46.webp",
+          "image": "data/textbook/previews/pages/b66a5ec255a65f7684e989536afad52f2312e14e274c8db483b7dd1d329bdb70.webp",
           "width": 1600,
           "height": 2273,
-          "sha256": "b6365914ae58530f42e03342f2666ea4f84cdbcbc8da065d6ce5b7e1444a5b46"
+          "sha256": "b66a5ec255a65f7684e989536afad52f2312e14e274c8db483b7dd1d329bdb70"
         },
         {
-          "image": "data/textbook/previews/pages/2cf4aca6d72453b673e79e7755d7dbca5cdbe65937294c478c6afe9fd55489f3.webp",
+          "image": "data/textbook/previews/pages/7552f22f27ad63fcd3d1da6e083231af8f0024d795f6bfd2d64703b60d691fc2.webp",
           "width": 1600,
           "height": 2273,
-          "sha256": "2cf4aca6d72453b673e79e7755d7dbca5cdbe65937294c478c6afe9fd55489f3"
+          "sha256": "7552f22f27ad63fcd3d1da6e083231af8f0024d795f6bfd2d64703b60d691fc2"
         },
         {
-          "image": "data/textbook/previews/pages/221b68337b2c54cb8845d7b492390243f6599a27ac8a3375181017a6f8b90ed8.webp",
+          "image": "data/textbook/previews/pages/bb54b27581244a34f14195cc9c3921898a5c6fdf4d64f84d2f107db5fef321f7.webp",
           "width": 1600,
           "height": 2273,
-          "sha256": "221b68337b2c54cb8845d7b492390243f6599a27ac8a3375181017a6f8b90ed8"
+          "sha256": "bb54b27581244a34f14195cc9c3921898a5c6fdf4d64f84d2f107db5fef321f7"
+        },
+        {
+          "image": "data/textbook/previews/pages/79cbf59304fb443290edde9ed758eb0bf889b19aa94517ed2327bd9f4fc1b538.webp",
+          "width": 1600,
+          "height": 2273,
+          "sha256": "79cbf59304fb443290edde9ed758eb0bf889b19aa94517ed2327bd9f4fc1b538"
+        },
+        {
+          "image": "data/textbook/previews/pages/d9ba30eebd45a944ca2e22226dedb14f498ace342d1d99f24417d48ffc23d9db.webp",
+          "width": 1600,
+          "height": 2273,
+          "sha256": "d9ba30eebd45a944ca2e22226dedb14f498ace342d1d99f24417d48ffc23d9db"
+        },
+        {
+          "image": "data/textbook/previews/pages/bb1568e7aedca1c7e8c832c208623493f3dd75652ce7128488559be9fde41847.webp",
+          "width": 1600,
+          "height": 2273,
+          "sha256": "bb1568e7aedca1c7e8c832c208623493f3dd75652ce7128488559be9fde41847"
+        },
+        {
+          "image": "data/textbook/previews/pages/838eb76d8f49c1b3d6453fd66787e39d603db516e506319d0b21a4b2de9ccb44.webp",
+          "width": 1600,
+          "height": 2273,
+          "sha256": "838eb76d8f49c1b3d6453fd66787e39d603db516e506319d0b21a4b2de9ccb44"
+        },
+        {
+          "image": "data/textbook/previews/pages/f38a9ba8a6021b16db095fdc1b65fa40d90f944b42d70d3a85add15eedf1b8aa.webp",
+          "width": 1600,
+          "height": 2273,
+          "sha256": "f38a9ba8a6021b16db095fdc1b65fa40d90f944b42d70d3a85add15eedf1b8aa"
+        },
+        {
+          "image": "data/textbook/previews/pages/bdf645250080cd9b8ccd264e0913917a4c7416e11187b05f182e19092216d9e3.webp",
+          "width": 1600,
+          "height": 2273,
+          "sha256": "bdf645250080cd9b8ccd264e0913917a4c7416e11187b05f182e19092216d9e3"
+        },
+        {
+          "image": "data/textbook/previews/pages/60b13fb263c67c3e96aa27011e83e14de6476dfc8fb17e426ca83988ad9f287a.webp",
+          "width": 1600,
+          "height": 2273,
+          "sha256": "60b13fb263c67c3e96aa27011e83e14de6476dfc8fb17e426ca83988ad9f287a"
+        },
+        {
+          "image": "data/textbook/previews/pages/f468efca9d2e523ba34a4482e3ed785d75d2de256bedbba1189671c41333c79a.webp",
+          "width": 1600,
+          "height": 2273,
+          "sha256": "f468efca9d2e523ba34a4482e3ed785d75d2de256bedbba1189671c41333c79a"
+        },
+        {
+          "image": "data/textbook/previews/pages/e73fd784b5fc710a68018fd4c5dc8b8ec2e3c6f93b36f415199fdbf0591b6c46.webp",
+          "width": 1600,
+          "height": 2273,
+          "sha256": "e73fd784b5fc710a68018fd4c5dc8b8ec2e3c6f93b36f415199fdbf0591b6c46"
+        },
+        {
+          "image": "data/textbook/previews/pages/39bfbeeefe91e39aa88d26580ad98b336bf3b41fd854df3e96ab6b44b03e89c8.webp",
+          "width": 1600,
+          "height": 2273,
+          "sha256": "39bfbeeefe91e39aa88d26580ad98b336bf3b41fd854df3e96ab6b44b03e89c8"
+        },
+        {
+          "image": "data/textbook/previews/pages/a06750c04f91ff6ce6baefe0c3a52005581675ee6c3c93d461b2ac31e39513c8.webp",
+          "width": 1600,
+          "height": 2273,
+          "sha256": "a06750c04f91ff6ce6baefe0c3a52005581675ee6c3c93d461b2ac31e39513c8"
+        },
+        {
+          "image": "data/textbook/previews/pages/f9ab85f25161ddda49f769cfdca5ab5604ed6a2562a301af47800eff4d594b46.webp",
+          "width": 1600,
+          "height": 2273,
+          "sha256": "f9ab85f25161ddda49f769cfdca5ab5604ed6a2562a301af47800eff4d594b46"
+        },
+        {
+          "image": "data/textbook/previews/pages/1aaa79b4a3b6cc6bf82963c06f5bb9bd65420afa8b15fa96c3b4ac06da4a8134.webp",
+          "width": 1600,
+          "height": 2273,
+          "sha256": "1aaa79b4a3b6cc6bf82963c06f5bb9bd65420afa8b15fa96c3b4ac06da4a8134"
+        },
+        {
+          "image": "data/textbook/previews/pages/260b3ccc6e5059e8cfb69dface80bc64ba3de57de2c2c4da79e7ec62c5b36e2b.webp",
+          "width": 1600,
+          "height": 2273,
+          "sha256": "260b3ccc6e5059e8cfb69dface80bc64ba3de57de2c2c4da79e7ec62c5b36e2b"
+        },
+        {
+          "image": "data/textbook/previews/pages/2755e155362fe8be083f95c8360e75197c818dba1e761489cb5be77cf62dbe10.webp",
+          "width": 1600,
+          "height": 2273,
+          "sha256": "2755e155362fe8be083f95c8360e75197c818dba1e761489cb5be77cf62dbe10"
+        },
+        {
+          "image": "data/textbook/previews/pages/692c554e31a186695a2994f08abf8744263f01a0ff08fb9bb3854c7397834720.webp",
+          "width": 1600,
+          "height": 2273,
+          "sha256": "692c554e31a186695a2994f08abf8744263f01a0ff08fb9bb3854c7397834720"
+        },
+        {
+          "image": "data/textbook/previews/pages/ada1426fca556d12ae30a40e2ad9442db6a58c39f0ce6f139a7c2cbb69e3d158.webp",
+          "width": 1600,
+          "height": 2273,
+          "sha256": "ada1426fca556d12ae30a40e2ad9442db6a58c39f0ce6f139a7c2cbb69e3d158"
+        },
+        {
+          "image": "data/textbook/previews/pages/63f19884ac07ec72a1f77d24d18e7839cd807519751686c3cce09053535713d7.webp",
+          "width": 1600,
+          "height": 2273,
+          "sha256": "63f19884ac07ec72a1f77d24d18e7839cd807519751686c3cce09053535713d7"
+        },
+        {
+          "image": "data/textbook/previews/pages/4bc595cffc095a32f7e27ff1c60288105a831695696a8141c9031fd30a331ee3.webp",
+          "width": 1600,
+          "height": 2273,
+          "sha256": "4bc595cffc095a32f7e27ff1c60288105a831695696a8141c9031fd30a331ee3"
         }
       ]
     },
-    "ch16-autonomous-laboratory": {
-      "title": "自主实验室与干湿闭环",
-      "pageCount": 35,
-      "pdfSha256": "cb83fa6c1288176ae16a40e899060e8bdd4ffc81c730ef8d428f57e54e81aa8d",
+    "ch13-knowledge-rag": {
+      "title": "科学知识建模与大模型推理",
+      "pageCount": 48,
+      "pdfSha256": "e11c29d49b922bf747a89a5aa4f436f5804f978f94e41454dbd034a671bf18a8",
       "pages": [
         {
-          "image": "data/textbook/previews/pages/86080582f035788b59752e18380e4972579cf42b5cd853b85c858e7f041c7368.webp",
+          "image": "data/textbook/previews/pages/db953b985450a3889d31b18724587e5fb25f6d7565f180d6abc21e3f9a663431.webp",
           "width": 1600,
           "height": 2273,
-          "sha256": "86080582f035788b59752e18380e4972579cf42b5cd853b85c858e7f041c7368"
+          "sha256": "db953b985450a3889d31b18724587e5fb25f6d7565f180d6abc21e3f9a663431"
         },
         {
-          "image": "data/textbook/previews/pages/a4b46812ff3694f495eb09c0611d9aa87fdeadad93762e1620d03bce65feffbe.webp",
+          "image": "data/textbook/previews/pages/1060b5f2647b10ce87429e0abf91cd08188365388d8b68fedafcf7f50174408d.webp",
           "width": 1600,
           "height": 2273,
-          "sha256": "a4b46812ff3694f495eb09c0611d9aa87fdeadad93762e1620d03bce65feffbe"
+          "sha256": "1060b5f2647b10ce87429e0abf91cd08188365388d8b68fedafcf7f50174408d"
         },
         {
-          "image": "data/textbook/previews/pages/402d676bb26c27fada9abc5c715d5ddc29b03eb2b1a9a6ed751244be7fa3a31b.webp",
+          "image": "data/textbook/previews/pages/1ace2e8d6fb05623ae30a095d59ba10f0c61a47c50b464f9c9687a1f2223e02f.webp",
           "width": 1600,
           "height": 2273,
-          "sha256": "402d676bb26c27fada9abc5c715d5ddc29b03eb2b1a9a6ed751244be7fa3a31b"
+          "sha256": "1ace2e8d6fb05623ae30a095d59ba10f0c61a47c50b464f9c9687a1f2223e02f"
         },
         {
-          "image": "data/textbook/previews/pages/122b8f5d43318340318cb1ba0eb1b895adf7f8ec26c0bc21ae6a90dc8b054cab.webp",
+          "image": "data/textbook/previews/pages/fd11a66ead192c14752a60492d00114681ac666350cc269a778d7d84f2750f5b.webp",
           "width": 1600,
           "height": 2273,
-          "sha256": "122b8f5d43318340318cb1ba0eb1b895adf7f8ec26c0bc21ae6a90dc8b054cab"
+          "sha256": "fd11a66ead192c14752a60492d00114681ac666350cc269a778d7d84f2750f5b"
         },
         {
-          "image": "data/textbook/previews/pages/e75c87698484ae53a2b7060670f4ab03457dac40d49784851650b07030075f0b.webp",
+          "image": "data/textbook/previews/pages/c448f9f72d020895631a322842118b4c16ad6c09640146c523fd284b9a9c4ed4.webp",
           "width": 1600,
           "height": 2273,
-          "sha256": "e75c87698484ae53a2b7060670f4ab03457dac40d49784851650b07030075f0b"
+          "sha256": "c448f9f72d020895631a322842118b4c16ad6c09640146c523fd284b9a9c4ed4"
         },
         {
-          "image": "data/textbook/previews/pages/dc6586b4460a1a3784dde0f05488d8a24f7bb8bc337c3982ab7d5a496b27215f.webp",
+          "image": "data/textbook/previews/pages/d01dd7523889223bf6bb0190d0ec52af227eb10023b29a2865ad3c690af9467d.webp",
           "width": 1600,
           "height": 2273,
-          "sha256": "dc6586b4460a1a3784dde0f05488d8a24f7bb8bc337c3982ab7d5a496b27215f"
+          "sha256": "d01dd7523889223bf6bb0190d0ec52af227eb10023b29a2865ad3c690af9467d"
         },
         {
-          "image": "data/textbook/previews/pages/5b648b3a54a91afc237e5aa9100752cbbe606dc4fa7a96b60415b1ac5ada9fe5.webp",
+          "image": "data/textbook/previews/pages/06abc23ce9d830a10ad959273ff89f26689b202741f1a4b4d9d83bbaf8613c80.webp",
           "width": 1600,
           "height": 2273,
-          "sha256": "5b648b3a54a91afc237e5aa9100752cbbe606dc4fa7a96b60415b1ac5ada9fe5"
+          "sha256": "06abc23ce9d830a10ad959273ff89f26689b202741f1a4b4d9d83bbaf8613c80"
         },
         {
-          "image": "data/textbook/previews/pages/3be69eca9624f7a1c0d25b17e4b17c3b28e09587b8815283141bbb441720b40c.webp",
+          "image": "data/textbook/previews/pages/4c3ad73f06534e9ecc09f89997c4fb41d79c0d9fd54479a597c62b811de5b986.webp",
           "width": 1600,
           "height": 2273,
-          "sha256": "3be69eca9624f7a1c0d25b17e4b17c3b28e09587b8815283141bbb441720b40c"
+          "sha256": "4c3ad73f06534e9ecc09f89997c4fb41d79c0d9fd54479a597c62b811de5b986"
         },
         {
-          "image": "data/textbook/previews/pages/91899d58203c3452078d44c73e90f8b52cbda381b50d81d96cd74d10a8d9430f.webp",
+          "image": "data/textbook/previews/pages/bba454003b8c12c78d435ba37ea593a219f4481bf985b5e755348df4ea807864.webp",
           "width": 1600,
           "height": 2273,
-          "sha256": "91899d58203c3452078d44c73e90f8b52cbda381b50d81d96cd74d10a8d9430f"
+          "sha256": "bba454003b8c12c78d435ba37ea593a219f4481bf985b5e755348df4ea807864"
         },
         {
-          "image": "data/textbook/previews/pages/49f8270867af0daa270c0db2ed494eb8d1723fa9c99b8ebd7185580314966f80.webp",
+          "image": "data/textbook/previews/pages/ae0331eceb0f80e1a2af67443a3d129159aa1ece4c25692277e3bdf9c57767f9.webp",
           "width": 1600,
           "height": 2273,
-          "sha256": "49f8270867af0daa270c0db2ed494eb8d1723fa9c99b8ebd7185580314966f80"
+          "sha256": "ae0331eceb0f80e1a2af67443a3d129159aa1ece4c25692277e3bdf9c57767f9"
         },
         {
-          "image": "data/textbook/previews/pages/bb8fd97a35a3181ed2b0710daa3e5a6f249a9dea699d868bf2381d6e557e0da5.webp",
+          "image": "data/textbook/previews/pages/0abed46696b57a0fdeeb2d01c4aaf094a0cfaee6b5ec111b30889fe3dec17c38.webp",
           "width": 1600,
           "height": 2273,
-          "sha256": "bb8fd97a35a3181ed2b0710daa3e5a6f249a9dea699d868bf2381d6e557e0da5"
+          "sha256": "0abed46696b57a0fdeeb2d01c4aaf094a0cfaee6b5ec111b30889fe3dec17c38"
         },
         {
-          "image": "data/textbook/previews/pages/72243ea5c462a8eff9ff788798e9f5e77c55221ec02992d156796090c5de944a.webp",
+          "image": "data/textbook/previews/pages/46b30f4ee1bd233a85a933b2ca9a01898e6c267f39a6e5cf46b4741e18c48719.webp",
           "width": 1600,
           "height": 2273,
-          "sha256": "72243ea5c462a8eff9ff788798e9f5e77c55221ec02992d156796090c5de944a"
+          "sha256": "46b30f4ee1bd233a85a933b2ca9a01898e6c267f39a6e5cf46b4741e18c48719"
         },
         {
-          "image": "data/textbook/previews/pages/16285a1bcc9a2a7f4c59e63a2fcab9a27938a218777c4e733bcc48476d70ece6.webp",
+          "image": "data/textbook/previews/pages/585b74be7870e0ee76aa8b5b5c6d0cba2ec3bef2ef91f7f1963f21b260643b40.webp",
           "width": 1600,
           "height": 2273,
-          "sha256": "16285a1bcc9a2a7f4c59e63a2fcab9a27938a218777c4e733bcc48476d70ece6"
+          "sha256": "585b74be7870e0ee76aa8b5b5c6d0cba2ec3bef2ef91f7f1963f21b260643b40"
         },
         {
-          "image": "data/textbook/previews/pages/808b6a13832cb7be087124f4062a4c344a37751393182e7013831bfcff42ae7e.webp",
+          "image": "data/textbook/previews/pages/a7c148bb5849762b77b5fcc5742c39c96a723b10cb1c0ca205873bc67b07ccdb.webp",
           "width": 1600,
           "height": 2273,
-          "sha256": "808b6a13832cb7be087124f4062a4c344a37751393182e7013831bfcff42ae7e"
+          "sha256": "a7c148bb5849762b77b5fcc5742c39c96a723b10cb1c0ca205873bc67b07ccdb"
         },
         {
-          "image": "data/textbook/previews/pages/eb99815daffcadc33c768022a04b85fd320bc3d741e4209fde9b020fe28cb670.webp",
+          "image": "data/textbook/previews/pages/14bb87d9461bcb9fc896ba8ee527ec97faff30d23a354c13d7e6459b07ae60c1.webp",
           "width": 1600,
           "height": 2273,
-          "sha256": "eb99815daffcadc33c768022a04b85fd320bc3d741e4209fde9b020fe28cb670"
+          "sha256": "14bb87d9461bcb9fc896ba8ee527ec97faff30d23a354c13d7e6459b07ae60c1"
         },
         {
-          "image": "data/textbook/previews/pages/e979ca7a4e42a86c9359b532f251d393d9f4a4265fdf84d8af342cd34ddd0281.webp",
+          "image": "data/textbook/previews/pages/01b5462cad5247c35a54ac04a33c8e480bc31b633d394854a6731edb5b71d2ab.webp",
           "width": 1600,
           "height": 2273,
-          "sha256": "e979ca7a4e42a86c9359b532f251d393d9f4a4265fdf84d8af342cd34ddd0281"
+          "sha256": "01b5462cad5247c35a54ac04a33c8e480bc31b633d394854a6731edb5b71d2ab"
         },
         {
-          "image": "data/textbook/previews/pages/050543f399e6f7c55fcc4c3e72fbb861c21c3f1cc22b33bf3aa63d6d13e6911c.webp",
+          "image": "data/textbook/previews/pages/eca77c301721a0a83a290678ed8879d376ec7330331c505b152d2011173c6132.webp",
           "width": 1600,
           "height": 2273,
-          "sha256": "050543f399e6f7c55fcc4c3e72fbb861c21c3f1cc22b33bf3aa63d6d13e6911c"
+          "sha256": "eca77c301721a0a83a290678ed8879d376ec7330331c505b152d2011173c6132"
         },
         {
-          "image": "data/textbook/previews/pages/8712183e5e5810dd92c9a9c466d27d3ced141d4ba878fd97660a0bde168d31c2.webp",
+          "image": "data/textbook/previews/pages/f747ee435334415b5f06ec4b79296cb713b5c58d0bb3912c85ffe21319237597.webp",
           "width": 1600,
           "height": 2273,
-          "sha256": "8712183e5e5810dd92c9a9c466d27d3ced141d4ba878fd97660a0bde168d31c2"
+          "sha256": "f747ee435334415b5f06ec4b79296cb713b5c58d0bb3912c85ffe21319237597"
         },
         {
-          "image": "data/textbook/previews/pages/dc4cb8ecfdcf63cb956e3a1f648fdf7d0d9c15b0cced5f5c70c831583143e6e0.webp",
+          "image": "data/textbook/previews/pages/273f09f4fa1c96e00b2b0e585759f3f323b90de5ea45a62fd3c90fb5e441abeb.webp",
           "width": 1600,
           "height": 2273,
-          "sha256": "dc4cb8ecfdcf63cb956e3a1f648fdf7d0d9c15b0cced5f5c70c831583143e6e0"
+          "sha256": "273f09f4fa1c96e00b2b0e585759f3f323b90de5ea45a62fd3c90fb5e441abeb"
         },
         {
-          "image": "data/textbook/previews/pages/5b32b6fe196245e12960e0aea8f915474b7aba720e9fadd6182c766a6ce83b57.webp",
+          "image": "data/textbook/previews/pages/5da2dfe167caf0d41b3c23a5360f2f5b89b68d9a3df74140c576a997d42e88f9.webp",
           "width": 1600,
           "height": 2273,
-          "sha256": "5b32b6fe196245e12960e0aea8f915474b7aba720e9fadd6182c766a6ce83b57"
+          "sha256": "5da2dfe167caf0d41b3c23a5360f2f5b89b68d9a3df74140c576a997d42e88f9"
         },
         {
-          "image": "data/textbook/previews/pages/7ae02c2e25e2e473bd3b7e7b5888afa150d187217bcdd925fdf2c8860ad4e9e8.webp",
+          "image": "data/textbook/previews/pages/184c62bcc9109fd9d22990dfa8f8cca8b77fd8e1b49e56e01b77434920c2de74.webp",
           "width": 1600,
           "height": 2273,
-          "sha256": "7ae02c2e25e2e473bd3b7e7b5888afa150d187217bcdd925fdf2c8860ad4e9e8"
+          "sha256": "184c62bcc9109fd9d22990dfa8f8cca8b77fd8e1b49e56e01b77434920c2de74"
         },
         {
-          "image": "data/textbook/previews/pages/caa120def174221561c78cad36f2ac79e4ba5d5e41d7c2d3a25ce92269ee5b5b.webp",
+          "image": "data/textbook/previews/pages/b05db769d57049738f38797b2bc1f8ed6620b962b1636f3eff3428cdfdb45e87.webp",
           "width": 1600,
           "height": 2273,
-          "sha256": "caa120def174221561c78cad36f2ac79e4ba5d5e41d7c2d3a25ce92269ee5b5b"
+          "sha256": "b05db769d57049738f38797b2bc1f8ed6620b962b1636f3eff3428cdfdb45e87"
         },
         {
-          "image": "data/textbook/previews/pages/08c895aaa9be66410cd67fb7c789505a37ca8104d1c1b2c5231a1839ce6cc35b.webp",
+          "image": "data/textbook/previews/pages/268283fe4e37ea76f360541a8887079b5574806ffb1159c8190934cd39197043.webp",
           "width": 1600,
           "height": 2273,
-          "sha256": "08c895aaa9be66410cd67fb7c789505a37ca8104d1c1b2c5231a1839ce6cc35b"
+          "sha256": "268283fe4e37ea76f360541a8887079b5574806ffb1159c8190934cd39197043"
         },
         {
-          "image": "data/textbook/previews/pages/31903d588fbad20d7437dc49617c94830b9b9e0c7fe08a19ac0daf4b36b1e1a6.webp",
+          "image": "data/textbook/previews/pages/26b1c3e4d1dd6d0027f3f55310ffddb14fd9e770f9e387137fa16694151b250e.webp",
           "width": 1600,
           "height": 2273,
-          "sha256": "31903d588fbad20d7437dc49617c94830b9b9e0c7fe08a19ac0daf4b36b1e1a6"
+          "sha256": "26b1c3e4d1dd6d0027f3f55310ffddb14fd9e770f9e387137fa16694151b250e"
         },
         {
-          "image": "data/textbook/previews/pages/262d47ef6e3707ec3c31cf59a10466060828425e1a9f1b759d896955e3058042.webp",
+          "image": "data/textbook/previews/pages/736d0f2972e1573c0a9e0e3b2126d60fb501d96fef18ac34422758e93539f9a6.webp",
           "width": 1600,
           "height": 2273,
-          "sha256": "262d47ef6e3707ec3c31cf59a10466060828425e1a9f1b759d896955e3058042"
+          "sha256": "736d0f2972e1573c0a9e0e3b2126d60fb501d96fef18ac34422758e93539f9a6"
         },
         {
-          "image": "data/textbook/previews/pages/b05c3b124c3a3442423215094c7b0f59784fa3802f697c7d02a1c33263860374.webp",
+          "image": "data/textbook/previews/pages/d6fb0615ece996f041816921f18ba69f6b0cca429448134974be73e70152a0b3.webp",
           "width": 1600,
           "height": 2273,
-          "sha256": "b05c3b124c3a3442423215094c7b0f59784fa3802f697c7d02a1c33263860374"
+          "sha256": "d6fb0615ece996f041816921f18ba69f6b0cca429448134974be73e70152a0b3"
         },
         {
-          "image": "data/textbook/previews/pages/3f14c9d545f62d67bab444e2deff567c526d9699b86ddbbe70aad673df44cff4.webp",
+          "image": "data/textbook/previews/pages/6d0e65637f2ca82b774c053f3d80ae7cc0bb3ca0ef3fd7a92a8079086eded2fa.webp",
           "width": 1600,
           "height": 2273,
-          "sha256": "3f14c9d545f62d67bab444e2deff567c526d9699b86ddbbe70aad673df44cff4"
+          "sha256": "6d0e65637f2ca82b774c053f3d80ae7cc0bb3ca0ef3fd7a92a8079086eded2fa"
         },
         {
-          "image": "data/textbook/previews/pages/1067e687f2f67e2099ccbcd181b38ab869e3979953bf73d124f178ea3d9a9f9d.webp",
+          "image": "data/textbook/previews/pages/a888f81112bb9a4afdab32df8cf8837c9a933533be9f6f302b5a98c0a677f319.webp",
           "width": 1600,
           "height": 2273,
-          "sha256": "1067e687f2f67e2099ccbcd181b38ab869e3979953bf73d124f178ea3d9a9f9d"
+          "sha256": "a888f81112bb9a4afdab32df8cf8837c9a933533be9f6f302b5a98c0a677f319"
         },
         {
-          "image": "data/textbook/previews/pages/1b3b76d25f23d4ae27736ea81dfae888fa9ee1af420eeb7ae3a878793166425a.webp",
+          "image": "data/textbook/previews/pages/bb8a1e4b7817e07436df44dded3b9f5a128fc2866e83f975dc022f842db6de32.webp",
           "width": 1600,
           "height": 2273,
-          "sha256": "1b3b76d25f23d4ae27736ea81dfae888fa9ee1af420eeb7ae3a878793166425a"
+          "sha256": "bb8a1e4b7817e07436df44dded3b9f5a128fc2866e83f975dc022f842db6de32"
         },
         {
-          "image": "data/textbook/previews/pages/4fed44540e7b3dea0965c3ef4a2df68ca0c6f492c2587bffe301530eb5723bc9.webp",
+          "image": "data/textbook/previews/pages/b5275573f4940e58a43d80c3eec572f28f63fc4b8bd7909f92d2051e36fc18df.webp",
           "width": 1600,
           "height": 2273,
-          "sha256": "4fed44540e7b3dea0965c3ef4a2df68ca0c6f492c2587bffe301530eb5723bc9"
+          "sha256": "b5275573f4940e58a43d80c3eec572f28f63fc4b8bd7909f92d2051e36fc18df"
         },
         {
-          "image": "data/textbook/previews/pages/e26e9e7dc50ec1e112cdc474042edbe668cf732e97bde733052f2b99dd02a98f.webp",
+          "image": "data/textbook/previews/pages/8d178474e116c8e5930a7eaeb1e4f86dfc2776d6fbc9d607b33db171449c0646.webp",
           "width": 1600,
           "height": 2273,
-          "sha256": "e26e9e7dc50ec1e112cdc474042edbe668cf732e97bde733052f2b99dd02a98f"
+          "sha256": "8d178474e116c8e5930a7eaeb1e4f86dfc2776d6fbc9d607b33db171449c0646"
         },
         {
-          "image": "data/textbook/previews/pages/e0cdee6b2d345522854a4358ece6d1aff745376212db0df7331d0b661163dc66.webp",
+          "image": "data/textbook/previews/pages/3033e5d74caba515e5268962ad7b3d0a4d0f754b04e5878fe85696ee6c56ac49.webp",
           "width": 1600,
           "height": 2273,
-          "sha256": "e0cdee6b2d345522854a4358ece6d1aff745376212db0df7331d0b661163dc66"
+          "sha256": "3033e5d74caba515e5268962ad7b3d0a4d0f754b04e5878fe85696ee6c56ac49"
         },
         {
-          "image": "data/textbook/previews/pages/b6365914ae58530f42e03342f2666ea4f84cdbcbc8da065d6ce5b7e1444a5b46.webp",
+          "image": "data/textbook/previews/pages/a1c6b486d71119e4b55a27f6c27083cd56eb856e6eaf84258311d9c3fa4eb4fd.webp",
           "width": 1600,
           "height": 2273,
-          "sha256": "b6365914ae58530f42e03342f2666ea4f84cdbcbc8da065d6ce5b7e1444a5b46"
+          "sha256": "a1c6b486d71119e4b55a27f6c27083cd56eb856e6eaf84258311d9c3fa4eb4fd"
         },
         {
-          "image": "data/textbook/previews/pages/2cf4aca6d72453b673e79e7755d7dbca5cdbe65937294c478c6afe9fd55489f3.webp",
+          "image": "data/textbook/previews/pages/f38a9ba8a6021b16db095fdc1b65fa40d90f944b42d70d3a85add15eedf1b8aa.webp",
           "width": 1600,
           "height": 2273,
-          "sha256": "2cf4aca6d72453b673e79e7755d7dbca5cdbe65937294c478c6afe9fd55489f3"
+          "sha256": "f38a9ba8a6021b16db095fdc1b65fa40d90f944b42d70d3a85add15eedf1b8aa"
         },
         {
-          "image": "data/textbook/previews/pages/221b68337b2c54cb8845d7b492390243f6599a27ac8a3375181017a6f8b90ed8.webp",
+          "image": "data/textbook/previews/pages/bdf645250080cd9b8ccd264e0913917a4c7416e11187b05f182e19092216d9e3.webp",
           "width": 1600,
           "height": 2273,
-          "sha256": "221b68337b2c54cb8845d7b492390243f6599a27ac8a3375181017a6f8b90ed8"
+          "sha256": "bdf645250080cd9b8ccd264e0913917a4c7416e11187b05f182e19092216d9e3"
+        },
+        {
+          "image": "data/textbook/previews/pages/60b13fb263c67c3e96aa27011e83e14de6476dfc8fb17e426ca83988ad9f287a.webp",
+          "width": 1600,
+          "height": 2273,
+          "sha256": "60b13fb263c67c3e96aa27011e83e14de6476dfc8fb17e426ca83988ad9f287a"
+        },
+        {
+          "image": "data/textbook/previews/pages/f468efca9d2e523ba34a4482e3ed785d75d2de256bedbba1189671c41333c79a.webp",
+          "width": 1600,
+          "height": 2273,
+          "sha256": "f468efca9d2e523ba34a4482e3ed785d75d2de256bedbba1189671c41333c79a"
+        },
+        {
+          "image": "data/textbook/previews/pages/e73fd784b5fc710a68018fd4c5dc8b8ec2e3c6f93b36f415199fdbf0591b6c46.webp",
+          "width": 1600,
+          "height": 2273,
+          "sha256": "e73fd784b5fc710a68018fd4c5dc8b8ec2e3c6f93b36f415199fdbf0591b6c46"
+        },
+        {
+          "image": "data/textbook/previews/pages/39bfbeeefe91e39aa88d26580ad98b336bf3b41fd854df3e96ab6b44b03e89c8.webp",
+          "width": 1600,
+          "height": 2273,
+          "sha256": "39bfbeeefe91e39aa88d26580ad98b336bf3b41fd854df3e96ab6b44b03e89c8"
+        },
+        {
+          "image": "data/textbook/previews/pages/a06750c04f91ff6ce6baefe0c3a52005581675ee6c3c93d461b2ac31e39513c8.webp",
+          "width": 1600,
+          "height": 2273,
+          "sha256": "a06750c04f91ff6ce6baefe0c3a52005581675ee6c3c93d461b2ac31e39513c8"
+        },
+        {
+          "image": "data/textbook/previews/pages/f9ab85f25161ddda49f769cfdca5ab5604ed6a2562a301af47800eff4d594b46.webp",
+          "width": 1600,
+          "height": 2273,
+          "sha256": "f9ab85f25161ddda49f769cfdca5ab5604ed6a2562a301af47800eff4d594b46"
+        },
+        {
+          "image": "data/textbook/previews/pages/1aaa79b4a3b6cc6bf82963c06f5bb9bd65420afa8b15fa96c3b4ac06da4a8134.webp",
+          "width": 1600,
+          "height": 2273,
+          "sha256": "1aaa79b4a3b6cc6bf82963c06f5bb9bd65420afa8b15fa96c3b4ac06da4a8134"
+        },
+        {
+          "image": "data/textbook/previews/pages/260b3ccc6e5059e8cfb69dface80bc64ba3de57de2c2c4da79e7ec62c5b36e2b.webp",
+          "width": 1600,
+          "height": 2273,
+          "sha256": "260b3ccc6e5059e8cfb69dface80bc64ba3de57de2c2c4da79e7ec62c5b36e2b"
+        },
+        {
+          "image": "data/textbook/previews/pages/2755e155362fe8be083f95c8360e75197c818dba1e761489cb5be77cf62dbe10.webp",
+          "width": 1600,
+          "height": 2273,
+          "sha256": "2755e155362fe8be083f95c8360e75197c818dba1e761489cb5be77cf62dbe10"
+        },
+        {
+          "image": "data/textbook/previews/pages/692c554e31a186695a2994f08abf8744263f01a0ff08fb9bb3854c7397834720.webp",
+          "width": 1600,
+          "height": 2273,
+          "sha256": "692c554e31a186695a2994f08abf8744263f01a0ff08fb9bb3854c7397834720"
+        },
+        {
+          "image": "data/textbook/previews/pages/ada1426fca556d12ae30a40e2ad9442db6a58c39f0ce6f139a7c2cbb69e3d158.webp",
+          "width": 1600,
+          "height": 2273,
+          "sha256": "ada1426fca556d12ae30a40e2ad9442db6a58c39f0ce6f139a7c2cbb69e3d158"
+        },
+        {
+          "image": "data/textbook/previews/pages/63f19884ac07ec72a1f77d24d18e7839cd807519751686c3cce09053535713d7.webp",
+          "width": 1600,
+          "height": 2273,
+          "sha256": "63f19884ac07ec72a1f77d24d18e7839cd807519751686c3cce09053535713d7"
+        },
+        {
+          "image": "data/textbook/previews/pages/4bc595cffc095a32f7e27ff1c60288105a831695696a8141c9031fd30a331ee3.webp",
+          "width": 1600,
+          "height": 2273,
+          "sha256": "4bc595cffc095a32f7e27ff1c60288105a831695696a8141c9031fd30a331ee3"
+        }
+      ]
+    },
+    "ch04-pretraining": {
+      "title": "科学基础模型的预训练原理与方法",
+      "pageCount": 42,
+      "pdfSha256": "21b8eeb2aa658b84ac35945f1ba364f4015f33f5c7731c14428f45c1b8579455",
+      "pages": [
+        {
+          "image": "data/textbook/previews/pages/206227f5d535a4dbba7cd5de8388e89fa67d5bc9ba9c657ef462b44cb8f38ed3.webp",
+          "width": 1600,
+          "height": 2273,
+          "sha256": "206227f5d535a4dbba7cd5de8388e89fa67d5bc9ba9c657ef462b44cb8f38ed3"
+        },
+        {
+          "image": "data/textbook/previews/pages/2e82b9b41bf2dc72d681e4fa6d1ce7320eb054374a0545d410ed8a5766d169fd.webp",
+          "width": 1600,
+          "height": 2273,
+          "sha256": "2e82b9b41bf2dc72d681e4fa6d1ce7320eb054374a0545d410ed8a5766d169fd"
+        },
+        {
+          "image": "data/textbook/previews/pages/db3846609642b537139f21a73ae4658b9aba50cb2c0972bad744a93a23c1a02e.webp",
+          "width": 1600,
+          "height": 2273,
+          "sha256": "db3846609642b537139f21a73ae4658b9aba50cb2c0972bad744a93a23c1a02e"
+        },
+        {
+          "image": "data/textbook/previews/pages/20abe748f1371c89a28d9ab58da42761c5f37bda61ab80e316416557fdd033f2.webp",
+          "width": 1600,
+          "height": 2273,
+          "sha256": "20abe748f1371c89a28d9ab58da42761c5f37bda61ab80e316416557fdd033f2"
+        },
+        {
+          "image": "data/textbook/previews/pages/3d038d810d81aa0a452fda5a956b3a7c1c5dee4da263b987821a6d0b343f0628.webp",
+          "width": 1600,
+          "height": 2273,
+          "sha256": "3d038d810d81aa0a452fda5a956b3a7c1c5dee4da263b987821a6d0b343f0628"
+        },
+        {
+          "image": "data/textbook/previews/pages/f7a2956edc83bf2060c3676ae6e99e49953c83c1538cb757b22ae67d93542399.webp",
+          "width": 1600,
+          "height": 2273,
+          "sha256": "f7a2956edc83bf2060c3676ae6e99e49953c83c1538cb757b22ae67d93542399"
+        },
+        {
+          "image": "data/textbook/previews/pages/ff4978dfa1d46c1fd5f8ca8951128c4604cb24a6fce60293e6a12a5785206304.webp",
+          "width": 1600,
+          "height": 2273,
+          "sha256": "ff4978dfa1d46c1fd5f8ca8951128c4604cb24a6fce60293e6a12a5785206304"
+        },
+        {
+          "image": "data/textbook/previews/pages/123b41599e85ffec0a5fd6b510a9c38423cf5da9c4531d02c0909344407b184e.webp",
+          "width": 1600,
+          "height": 2273,
+          "sha256": "123b41599e85ffec0a5fd6b510a9c38423cf5da9c4531d02c0909344407b184e"
+        },
+        {
+          "image": "data/textbook/previews/pages/13b40d5c14ce139d2470013d43619894cca54efe0628e254c4ab0ad39a26a208.webp",
+          "width": 1600,
+          "height": 2273,
+          "sha256": "13b40d5c14ce139d2470013d43619894cca54efe0628e254c4ab0ad39a26a208"
+        },
+        {
+          "image": "data/textbook/previews/pages/48fd2ed8af7c66582fdbef0b754db120ed70de1a4f3cd7b8200b9d8ec41ed71d.webp",
+          "width": 1600,
+          "height": 2273,
+          "sha256": "48fd2ed8af7c66582fdbef0b754db120ed70de1a4f3cd7b8200b9d8ec41ed71d"
+        },
+        {
+          "image": "data/textbook/previews/pages/dd77f865fcc37a40778e9564e0f1b0c32e06d0eeff01aeb5c6b5a074eefd75b4.webp",
+          "width": 1600,
+          "height": 2273,
+          "sha256": "dd77f865fcc37a40778e9564e0f1b0c32e06d0eeff01aeb5c6b5a074eefd75b4"
+        },
+        {
+          "image": "data/textbook/previews/pages/f413e622a25543ed23f65d44ffdc3fbbe373856f705fa8e48998a8bca38850d5.webp",
+          "width": 1600,
+          "height": 2273,
+          "sha256": "f413e622a25543ed23f65d44ffdc3fbbe373856f705fa8e48998a8bca38850d5"
+        },
+        {
+          "image": "data/textbook/previews/pages/ca875cd3caa3f583fca000d6392ac568b962af36ba88332d1a9f51c6fcea1112.webp",
+          "width": 1600,
+          "height": 2273,
+          "sha256": "ca875cd3caa3f583fca000d6392ac568b962af36ba88332d1a9f51c6fcea1112"
+        },
+        {
+          "image": "data/textbook/previews/pages/04b0bd27f7fa1bf774186e5ef7d0f4bcf0ecbb50d85b08d522856edabe11007a.webp",
+          "width": 1600,
+          "height": 2273,
+          "sha256": "04b0bd27f7fa1bf774186e5ef7d0f4bcf0ecbb50d85b08d522856edabe11007a"
+        },
+        {
+          "image": "data/textbook/previews/pages/cbe5b68de03af91faab68213997c6acaad0e0779f191d90d95feee40507037dc.webp",
+          "width": 1600,
+          "height": 2273,
+          "sha256": "cbe5b68de03af91faab68213997c6acaad0e0779f191d90d95feee40507037dc"
+        },
+        {
+          "image": "data/textbook/previews/pages/6c99635d65292af941337b76bd010f9dee1da59ed038e24b6cb06afc461cb78f.webp",
+          "width": 1600,
+          "height": 2273,
+          "sha256": "6c99635d65292af941337b76bd010f9dee1da59ed038e24b6cb06afc461cb78f"
+        },
+        {
+          "image": "data/textbook/previews/pages/e2e9181d2ece317312ff4d6570efb45197d2ce33d39669134e483d5279f3e4f8.webp",
+          "width": 1600,
+          "height": 2273,
+          "sha256": "e2e9181d2ece317312ff4d6570efb45197d2ce33d39669134e483d5279f3e4f8"
+        },
+        {
+          "image": "data/textbook/previews/pages/255e0528bc71b0780397afea09c5917dc7390fb43dd07968dc177a9da0ef4caa.webp",
+          "width": 1600,
+          "height": 2273,
+          "sha256": "255e0528bc71b0780397afea09c5917dc7390fb43dd07968dc177a9da0ef4caa"
+        },
+        {
+          "image": "data/textbook/previews/pages/9f120b807a3a5c2c1fe79425c1ef4801fa42d7905a2fcd6ee5d9cbe815635308.webp",
+          "width": 1600,
+          "height": 2273,
+          "sha256": "9f120b807a3a5c2c1fe79425c1ef4801fa42d7905a2fcd6ee5d9cbe815635308"
+        },
+        {
+          "image": "data/textbook/previews/pages/9906fa1197be8819519eba9ec02d20ac3038f3ae57a5debcb2503b6c36480ade.webp",
+          "width": 1600,
+          "height": 2273,
+          "sha256": "9906fa1197be8819519eba9ec02d20ac3038f3ae57a5debcb2503b6c36480ade"
+        },
+        {
+          "image": "data/textbook/previews/pages/be772ff726ed494c78934a5c7ae1a98458c80aba221fc48ddd76a3dd27d6e067.webp",
+          "width": 1600,
+          "height": 2273,
+          "sha256": "be772ff726ed494c78934a5c7ae1a98458c80aba221fc48ddd76a3dd27d6e067"
+        },
+        {
+          "image": "data/textbook/previews/pages/413ae943e4f486a8e8f3f028f8bb8d12024bc637bb80bd476023a74dcf287d9f.webp",
+          "width": 1600,
+          "height": 2273,
+          "sha256": "413ae943e4f486a8e8f3f028f8bb8d12024bc637bb80bd476023a74dcf287d9f"
+        },
+        {
+          "image": "data/textbook/previews/pages/de9e49b35a4fd3f9a2ef0eac994792d6f8d2daa9d3eb56f27d86ffd17987d222.webp",
+          "width": 1600,
+          "height": 2273,
+          "sha256": "de9e49b35a4fd3f9a2ef0eac994792d6f8d2daa9d3eb56f27d86ffd17987d222"
+        },
+        {
+          "image": "data/textbook/previews/pages/32a39d29f4af84898650749fde1f54e1dee84aaf3af60b24ad5c2d1091eff1de.webp",
+          "width": 1600,
+          "height": 2273,
+          "sha256": "32a39d29f4af84898650749fde1f54e1dee84aaf3af60b24ad5c2d1091eff1de"
+        },
+        {
+          "image": "data/textbook/previews/pages/a72c982bab235662d2e12a4d8d115b6fad372a68b727753d972ee45b5d110b6e.webp",
+          "width": 1600,
+          "height": 2273,
+          "sha256": "a72c982bab235662d2e12a4d8d115b6fad372a68b727753d972ee45b5d110b6e"
+        },
+        {
+          "image": "data/textbook/previews/pages/adddc6a92beae0dfdb1b333a1c1c9b7751e2650f6064361aa01bbda5135a8b09.webp",
+          "width": 1600,
+          "height": 2273,
+          "sha256": "adddc6a92beae0dfdb1b333a1c1c9b7751e2650f6064361aa01bbda5135a8b09"
+        },
+        {
+          "image": "data/textbook/previews/pages/006bf28ff46e3a2833e7a26166f5dfa7436c390262af7d8485b8d6276e3f2798.webp",
+          "width": 1600,
+          "height": 2273,
+          "sha256": "006bf28ff46e3a2833e7a26166f5dfa7436c390262af7d8485b8d6276e3f2798"
+        },
+        {
+          "image": "data/textbook/previews/pages/f38a9ba8a6021b16db095fdc1b65fa40d90f944b42d70d3a85add15eedf1b8aa.webp",
+          "width": 1600,
+          "height": 2273,
+          "sha256": "f38a9ba8a6021b16db095fdc1b65fa40d90f944b42d70d3a85add15eedf1b8aa"
+        },
+        {
+          "image": "data/textbook/previews/pages/bdf645250080cd9b8ccd264e0913917a4c7416e11187b05f182e19092216d9e3.webp",
+          "width": 1600,
+          "height": 2273,
+          "sha256": "bdf645250080cd9b8ccd264e0913917a4c7416e11187b05f182e19092216d9e3"
+        },
+        {
+          "image": "data/textbook/previews/pages/60b13fb263c67c3e96aa27011e83e14de6476dfc8fb17e426ca83988ad9f287a.webp",
+          "width": 1600,
+          "height": 2273,
+          "sha256": "60b13fb263c67c3e96aa27011e83e14de6476dfc8fb17e426ca83988ad9f287a"
+        },
+        {
+          "image": "data/textbook/previews/pages/f468efca9d2e523ba34a4482e3ed785d75d2de256bedbba1189671c41333c79a.webp",
+          "width": 1600,
+          "height": 2273,
+          "sha256": "f468efca9d2e523ba34a4482e3ed785d75d2de256bedbba1189671c41333c79a"
+        },
+        {
+          "image": "data/textbook/previews/pages/e73fd784b5fc710a68018fd4c5dc8b8ec2e3c6f93b36f415199fdbf0591b6c46.webp",
+          "width": 1600,
+          "height": 2273,
+          "sha256": "e73fd784b5fc710a68018fd4c5dc8b8ec2e3c6f93b36f415199fdbf0591b6c46"
+        },
+        {
+          "image": "data/textbook/previews/pages/39bfbeeefe91e39aa88d26580ad98b336bf3b41fd854df3e96ab6b44b03e89c8.webp",
+          "width": 1600,
+          "height": 2273,
+          "sha256": "39bfbeeefe91e39aa88d26580ad98b336bf3b41fd854df3e96ab6b44b03e89c8"
+        },
+        {
+          "image": "data/textbook/previews/pages/a06750c04f91ff6ce6baefe0c3a52005581675ee6c3c93d461b2ac31e39513c8.webp",
+          "width": 1600,
+          "height": 2273,
+          "sha256": "a06750c04f91ff6ce6baefe0c3a52005581675ee6c3c93d461b2ac31e39513c8"
+        },
+        {
+          "image": "data/textbook/previews/pages/f9ab85f25161ddda49f769cfdca5ab5604ed6a2562a301af47800eff4d594b46.webp",
+          "width": 1600,
+          "height": 2273,
+          "sha256": "f9ab85f25161ddda49f769cfdca5ab5604ed6a2562a301af47800eff4d594b46"
+        },
+        {
+          "image": "data/textbook/previews/pages/1aaa79b4a3b6cc6bf82963c06f5bb9bd65420afa8b15fa96c3b4ac06da4a8134.webp",
+          "width": 1600,
+          "height": 2273,
+          "sha256": "1aaa79b4a3b6cc6bf82963c06f5bb9bd65420afa8b15fa96c3b4ac06da4a8134"
+        },
+        {
+          "image": "data/textbook/previews/pages/260b3ccc6e5059e8cfb69dface80bc64ba3de57de2c2c4da79e7ec62c5b36e2b.webp",
+          "width": 1600,
+          "height": 2273,
+          "sha256": "260b3ccc6e5059e8cfb69dface80bc64ba3de57de2c2c4da79e7ec62c5b36e2b"
+        },
+        {
+          "image": "data/textbook/previews/pages/2755e155362fe8be083f95c8360e75197c818dba1e761489cb5be77cf62dbe10.webp",
+          "width": 1600,
+          "height": 2273,
+          "sha256": "2755e155362fe8be083f95c8360e75197c818dba1e761489cb5be77cf62dbe10"
+        },
+        {
+          "image": "data/textbook/previews/pages/692c554e31a186695a2994f08abf8744263f01a0ff08fb9bb3854c7397834720.webp",
+          "width": 1600,
+          "height": 2273,
+          "sha256": "692c554e31a186695a2994f08abf8744263f01a0ff08fb9bb3854c7397834720"
+        },
+        {
+          "image": "data/textbook/previews/pages/ada1426fca556d12ae30a40e2ad9442db6a58c39f0ce6f139a7c2cbb69e3d158.webp",
+          "width": 1600,
+          "height": 2273,
+          "sha256": "ada1426fca556d12ae30a40e2ad9442db6a58c39f0ce6f139a7c2cbb69e3d158"
+        },
+        {
+          "image": "data/textbook/previews/pages/63f19884ac07ec72a1f77d24d18e7839cd807519751686c3cce09053535713d7.webp",
+          "width": 1600,
+          "height": 2273,
+          "sha256": "63f19884ac07ec72a1f77d24d18e7839cd807519751686c3cce09053535713d7"
+        },
+        {
+          "image": "data/textbook/previews/pages/4bc595cffc095a32f7e27ff1c60288105a831695696a8141c9031fd30a331ee3.webp",
+          "width": 1600,
+          "height": 2273,
+          "sha256": "4bc595cffc095a32f7e27ff1c60288105a831695696a8141c9031fd30a331ee3"
+        }
+      ]
+    },
+    "ch05-scientific-agents": {
+      "title": "科学智能体：从基本概念到科研应用与研究版图",
+      "pageCount": 30,
+      "pdfSha256": "c5d1c47aef5d41e0a13de38f5e096bf6a692a837136f279c1c6233404291bdad",
+      "pages": [
+        {
+          "image": "data/textbook/previews/pages/7fa8b79cf6878bac318b6ad0c45d06ccb27d3ff59e92b9632b2dcbe2d10bde17.webp",
+          "width": 1600,
+          "height": 2273,
+          "sha256": "7fa8b79cf6878bac318b6ad0c45d06ccb27d3ff59e92b9632b2dcbe2d10bde17"
+        },
+        {
+          "image": "data/textbook/previews/pages/40013b81cf854c46381009dd138a9ed100e554686bb6c3408655898ede3ebf81.webp",
+          "width": 1600,
+          "height": 2273,
+          "sha256": "40013b81cf854c46381009dd138a9ed100e554686bb6c3408655898ede3ebf81"
+        },
+        {
+          "image": "data/textbook/previews/pages/962cb0681d4c3276d8026e4239a3ffcfcbbde69574b55d42fde556c82b370d0d.webp",
+          "width": 1600,
+          "height": 2273,
+          "sha256": "962cb0681d4c3276d8026e4239a3ffcfcbbde69574b55d42fde556c82b370d0d"
+        },
+        {
+          "image": "data/textbook/previews/pages/c0f56bc04b703ddcd29d376fe28b09b7f1cb1acf5c072706cb8710f7640da1fe.webp",
+          "width": 1600,
+          "height": 2273,
+          "sha256": "c0f56bc04b703ddcd29d376fe28b09b7f1cb1acf5c072706cb8710f7640da1fe"
+        },
+        {
+          "image": "data/textbook/previews/pages/2447e8a43753cd0754cd708a3004475fdded9df3dedbfb9add3c8c6958109188.webp",
+          "width": 1600,
+          "height": 2273,
+          "sha256": "2447e8a43753cd0754cd708a3004475fdded9df3dedbfb9add3c8c6958109188"
+        },
+        {
+          "image": "data/textbook/previews/pages/c76402aeaffad080753ee601630ef788ba2e7da939f79a53df60b8dead8970c9.webp",
+          "width": 1600,
+          "height": 2273,
+          "sha256": "c76402aeaffad080753ee601630ef788ba2e7da939f79a53df60b8dead8970c9"
+        },
+        {
+          "image": "data/textbook/previews/pages/afb7ed85dcc213c61de1216108c5f4a4bb5685ad713c431b45b7e6f03c50903c.webp",
+          "width": 1600,
+          "height": 2273,
+          "sha256": "afb7ed85dcc213c61de1216108c5f4a4bb5685ad713c431b45b7e6f03c50903c"
+        },
+        {
+          "image": "data/textbook/previews/pages/398e2ab2367288ed6a1b5af4983cb71d50c1896ae82b7ca083668cdd57005799.webp",
+          "width": 1600,
+          "height": 2273,
+          "sha256": "398e2ab2367288ed6a1b5af4983cb71d50c1896ae82b7ca083668cdd57005799"
+        },
+        {
+          "image": "data/textbook/previews/pages/d66e0b8d71d4f0aaf9385025e96594adf07646a57a15c26585bcef93f5366e6c.webp",
+          "width": 1600,
+          "height": 2273,
+          "sha256": "d66e0b8d71d4f0aaf9385025e96594adf07646a57a15c26585bcef93f5366e6c"
+        },
+        {
+          "image": "data/textbook/previews/pages/512f6061dcb0fe528c06ceaeacf07dfb6361f0475ffa0a64a4de291a868d1c48.webp",
+          "width": 1600,
+          "height": 2273,
+          "sha256": "512f6061dcb0fe528c06ceaeacf07dfb6361f0475ffa0a64a4de291a868d1c48"
+        },
+        {
+          "image": "data/textbook/previews/pages/4ca50ca3ccf72b622a4a6973358998f9fb6d914607a180a3e0a92877f613495c.webp",
+          "width": 1600,
+          "height": 2273,
+          "sha256": "4ca50ca3ccf72b622a4a6973358998f9fb6d914607a180a3e0a92877f613495c"
+        },
+        {
+          "image": "data/textbook/previews/pages/57475a4d9da142e9531a5c23026d9a3820cff0a255d488d1acfc019b19736c1f.webp",
+          "width": 1600,
+          "height": 2273,
+          "sha256": "57475a4d9da142e9531a5c23026d9a3820cff0a255d488d1acfc019b19736c1f"
+        },
+        {
+          "image": "data/textbook/previews/pages/e4ded7e6646065ff7152c093f2a6a0d506a6a5be8bbe2123e6650cdb21228bce.webp",
+          "width": 1600,
+          "height": 2273,
+          "sha256": "e4ded7e6646065ff7152c093f2a6a0d506a6a5be8bbe2123e6650cdb21228bce"
+        },
+        {
+          "image": "data/textbook/previews/pages/071051b9765aa831439add336740a0ea91677aecd8506a2c02fc5bf59a8ce5ce.webp",
+          "width": 1600,
+          "height": 2273,
+          "sha256": "071051b9765aa831439add336740a0ea91677aecd8506a2c02fc5bf59a8ce5ce"
+        },
+        {
+          "image": "data/textbook/previews/pages/0608396a86ca5edfd37bb67518f72eea612ccc9cd370893c1438ae07ec85d2a5.webp",
+          "width": 1600,
+          "height": 2273,
+          "sha256": "0608396a86ca5edfd37bb67518f72eea612ccc9cd370893c1438ae07ec85d2a5"
+        },
+        {
+          "image": "data/textbook/previews/pages/f38a9ba8a6021b16db095fdc1b65fa40d90f944b42d70d3a85add15eedf1b8aa.webp",
+          "width": 1600,
+          "height": 2273,
+          "sha256": "f38a9ba8a6021b16db095fdc1b65fa40d90f944b42d70d3a85add15eedf1b8aa"
+        },
+        {
+          "image": "data/textbook/previews/pages/bdf645250080cd9b8ccd264e0913917a4c7416e11187b05f182e19092216d9e3.webp",
+          "width": 1600,
+          "height": 2273,
+          "sha256": "bdf645250080cd9b8ccd264e0913917a4c7416e11187b05f182e19092216d9e3"
+        },
+        {
+          "image": "data/textbook/previews/pages/60b13fb263c67c3e96aa27011e83e14de6476dfc8fb17e426ca83988ad9f287a.webp",
+          "width": 1600,
+          "height": 2273,
+          "sha256": "60b13fb263c67c3e96aa27011e83e14de6476dfc8fb17e426ca83988ad9f287a"
+        },
+        {
+          "image": "data/textbook/previews/pages/f468efca9d2e523ba34a4482e3ed785d75d2de256bedbba1189671c41333c79a.webp",
+          "width": 1600,
+          "height": 2273,
+          "sha256": "f468efca9d2e523ba34a4482e3ed785d75d2de256bedbba1189671c41333c79a"
+        },
+        {
+          "image": "data/textbook/previews/pages/e73fd784b5fc710a68018fd4c5dc8b8ec2e3c6f93b36f415199fdbf0591b6c46.webp",
+          "width": 1600,
+          "height": 2273,
+          "sha256": "e73fd784b5fc710a68018fd4c5dc8b8ec2e3c6f93b36f415199fdbf0591b6c46"
+        },
+        {
+          "image": "data/textbook/previews/pages/39bfbeeefe91e39aa88d26580ad98b336bf3b41fd854df3e96ab6b44b03e89c8.webp",
+          "width": 1600,
+          "height": 2273,
+          "sha256": "39bfbeeefe91e39aa88d26580ad98b336bf3b41fd854df3e96ab6b44b03e89c8"
+        },
+        {
+          "image": "data/textbook/previews/pages/a06750c04f91ff6ce6baefe0c3a52005581675ee6c3c93d461b2ac31e39513c8.webp",
+          "width": 1600,
+          "height": 2273,
+          "sha256": "a06750c04f91ff6ce6baefe0c3a52005581675ee6c3c93d461b2ac31e39513c8"
+        },
+        {
+          "image": "data/textbook/previews/pages/f9ab85f25161ddda49f769cfdca5ab5604ed6a2562a301af47800eff4d594b46.webp",
+          "width": 1600,
+          "height": 2273,
+          "sha256": "f9ab85f25161ddda49f769cfdca5ab5604ed6a2562a301af47800eff4d594b46"
+        },
+        {
+          "image": "data/textbook/previews/pages/1aaa79b4a3b6cc6bf82963c06f5bb9bd65420afa8b15fa96c3b4ac06da4a8134.webp",
+          "width": 1600,
+          "height": 2273,
+          "sha256": "1aaa79b4a3b6cc6bf82963c06f5bb9bd65420afa8b15fa96c3b4ac06da4a8134"
+        },
+        {
+          "image": "data/textbook/previews/pages/260b3ccc6e5059e8cfb69dface80bc64ba3de57de2c2c4da79e7ec62c5b36e2b.webp",
+          "width": 1600,
+          "height": 2273,
+          "sha256": "260b3ccc6e5059e8cfb69dface80bc64ba3de57de2c2c4da79e7ec62c5b36e2b"
+        },
+        {
+          "image": "data/textbook/previews/pages/2755e155362fe8be083f95c8360e75197c818dba1e761489cb5be77cf62dbe10.webp",
+          "width": 1600,
+          "height": 2273,
+          "sha256": "2755e155362fe8be083f95c8360e75197c818dba1e761489cb5be77cf62dbe10"
+        },
+        {
+          "image": "data/textbook/previews/pages/692c554e31a186695a2994f08abf8744263f01a0ff08fb9bb3854c7397834720.webp",
+          "width": 1600,
+          "height": 2273,
+          "sha256": "692c554e31a186695a2994f08abf8744263f01a0ff08fb9bb3854c7397834720"
+        },
+        {
+          "image": "data/textbook/previews/pages/ada1426fca556d12ae30a40e2ad9442db6a58c39f0ce6f139a7c2cbb69e3d158.webp",
+          "width": 1600,
+          "height": 2273,
+          "sha256": "ada1426fca556d12ae30a40e2ad9442db6a58c39f0ce6f139a7c2cbb69e3d158"
+        },
+        {
+          "image": "data/textbook/previews/pages/63f19884ac07ec72a1f77d24d18e7839cd807519751686c3cce09053535713d7.webp",
+          "width": 1600,
+          "height": 2273,
+          "sha256": "63f19884ac07ec72a1f77d24d18e7839cd807519751686c3cce09053535713d7"
+        },
+        {
+          "image": "data/textbook/previews/pages/4bc595cffc095a32f7e27ff1c60288105a831695696a8141c9031fd30a331ee3.webp",
+          "width": 1600,
+          "height": 2273,
+          "sha256": "4bc595cffc095a32f7e27ff1c60288105a831695696a8141c9031fd30a331ee3"
         }
       ]
     },
     "ch03-evaluation": {
       "title": "科学智能的测评数据构建与可信评价",
-      "pageCount": 33,
-      "pdfSha256": "9892c3f68300b670c1e486e18ed7ed9125ea151142b9789fc05c7af706c91006",
+      "pageCount": 38,
+      "pdfSha256": "3fe2c4f8ca3526db9700c433b78f988c1c624760380b880a06900e27e86ab6ec",
       "pages": [
         {
-          "image": "data/textbook/previews/pages/e15bd45d2dfaaed5f7a9c7f9c932048abaadec9ece20dd13262674c01ffecf9c.webp",
+          "image": "data/textbook/previews/pages/c30c85bdc1fe6a4ee9a025f8f14fe07b58d7168942df82865a295fabe267c688.webp",
           "width": 1600,
           "height": 2273,
-          "sha256": "e15bd45d2dfaaed5f7a9c7f9c932048abaadec9ece20dd13262674c01ffecf9c"
+          "sha256": "c30c85bdc1fe6a4ee9a025f8f14fe07b58d7168942df82865a295fabe267c688"
         },
         {
-          "image": "data/textbook/previews/pages/9457e6034282c8f07896659a44b31a525ae37460c92d378a7a390b3408f62003.webp",
+          "image": "data/textbook/previews/pages/9344e5feef7a70ee98d479f0bfaf62780a5f4b49df7e72a1455e22ffab140fb3.webp",
           "width": 1600,
           "height": 2273,
-          "sha256": "9457e6034282c8f07896659a44b31a525ae37460c92d378a7a390b3408f62003"
+          "sha256": "9344e5feef7a70ee98d479f0bfaf62780a5f4b49df7e72a1455e22ffab140fb3"
         },
         {
-          "image": "data/textbook/previews/pages/718742c0bebe7cd0403bb6c498062e98d533e3c71ad13fa828048ee40eae8e36.webp",
+          "image": "data/textbook/previews/pages/20db913eb0bef6cb6a9473ead70a72c8d7c1446a2dc1543b08614e1ba9288799.webp",
           "width": 1600,
           "height": 2273,
-          "sha256": "718742c0bebe7cd0403bb6c498062e98d533e3c71ad13fa828048ee40eae8e36"
+          "sha256": "20db913eb0bef6cb6a9473ead70a72c8d7c1446a2dc1543b08614e1ba9288799"
         },
         {
-          "image": "data/textbook/previews/pages/9af0239a543f132cb789194669633c764740a51f3f675550f2a1c1412560585a.webp",
+          "image": "data/textbook/previews/pages/4ae55b2d26309dd9cb8a77c74ff714696fe9f4bde2f90a3a6dd30c7d12e354b6.webp",
           "width": 1600,
           "height": 2273,
-          "sha256": "9af0239a543f132cb789194669633c764740a51f3f675550f2a1c1412560585a"
+          "sha256": "4ae55b2d26309dd9cb8a77c74ff714696fe9f4bde2f90a3a6dd30c7d12e354b6"
         },
         {
-          "image": "data/textbook/previews/pages/26f43c277273bbb904fbb54ffea1e466546170ce71087da8c76f034ddae44e9b.webp",
+          "image": "data/textbook/previews/pages/d85fa11cd84963d47de37a25aada289786f11732634f82408b5e9e9486c0a186.webp",
           "width": 1600,
           "height": 2273,
-          "sha256": "26f43c277273bbb904fbb54ffea1e466546170ce71087da8c76f034ddae44e9b"
+          "sha256": "d85fa11cd84963d47de37a25aada289786f11732634f82408b5e9e9486c0a186"
         },
         {
-          "image": "data/textbook/previews/pages/439f3c1a5cffe906b60792907ed693290b798dbf996dc1fabdb806942464bd81.webp",
+          "image": "data/textbook/previews/pages/683354ca603a2d11dd331bf6d29eb1fcc92f731c566bf47dbe5c6f36ebaec459.webp",
           "width": 1600,
           "height": 2273,
-          "sha256": "439f3c1a5cffe906b60792907ed693290b798dbf996dc1fabdb806942464bd81"
+          "sha256": "683354ca603a2d11dd331bf6d29eb1fcc92f731c566bf47dbe5c6f36ebaec459"
         },
         {
-          "image": "data/textbook/previews/pages/42bd6d951c06c1a2f39523a2241404499b02f4256a25ab431dc0df5399adc41c.webp",
+          "image": "data/textbook/previews/pages/73dfebe2bd630abc79380b1361ba121feccb38a655c869b4dca8ff2cdacdc2d2.webp",
           "width": 1600,
           "height": 2273,
-          "sha256": "42bd6d951c06c1a2f39523a2241404499b02f4256a25ab431dc0df5399adc41c"
+          "sha256": "73dfebe2bd630abc79380b1361ba121feccb38a655c869b4dca8ff2cdacdc2d2"
         },
         {
-          "image": "data/textbook/previews/pages/b482880477533383a3030fba9b75fd8422ea883e58e250e2fafc6bdb7c4ae386.webp",
+          "image": "data/textbook/previews/pages/271769ce5d5d9bf361ae013cfba298e887832634a993ac6ec85c5d10d2617f6d.webp",
           "width": 1600,
           "height": 2273,
-          "sha256": "b482880477533383a3030fba9b75fd8422ea883e58e250e2fafc6bdb7c4ae386"
+          "sha256": "271769ce5d5d9bf361ae013cfba298e887832634a993ac6ec85c5d10d2617f6d"
         },
         {
-          "image": "data/textbook/previews/pages/5fc4caf0947dbbab5192cdb85d4c5863de3ed3f00ada59de056cb89ff06d161b.webp",
+          "image": "data/textbook/previews/pages/d68827ad77c16f5c19859cc12cd71a580ffe6eb7006bade3489e58fecc613196.webp",
           "width": 1600,
           "height": 2273,
-          "sha256": "5fc4caf0947dbbab5192cdb85d4c5863de3ed3f00ada59de056cb89ff06d161b"
+          "sha256": "d68827ad77c16f5c19859cc12cd71a580ffe6eb7006bade3489e58fecc613196"
         },
         {
-          "image": "data/textbook/previews/pages/2fef07fb15f3c8def5dcdd424256637a550c06dcdcb680dcdde429c7ea75c296.webp",
+          "image": "data/textbook/previews/pages/6f25528e3120407ab00ad2a91f8b4d8a705dc5ee73224c9a90bc05debdd38ba0.webp",
           "width": 1600,
           "height": 2273,
-          "sha256": "2fef07fb15f3c8def5dcdd424256637a550c06dcdcb680dcdde429c7ea75c296"
+          "sha256": "6f25528e3120407ab00ad2a91f8b4d8a705dc5ee73224c9a90bc05debdd38ba0"
         },
         {
-          "image": "data/textbook/previews/pages/de049822199a49a4362940fc90d1344192f899f3262bd298dbc18ff42dc08582.webp",
+          "image": "data/textbook/previews/pages/72ef10dc21f9b90b6642c95b387a1a6159e4598568825403090ca4ec1accb0db.webp",
           "width": 1600,
           "height": 2273,
-          "sha256": "de049822199a49a4362940fc90d1344192f899f3262bd298dbc18ff42dc08582"
+          "sha256": "72ef10dc21f9b90b6642c95b387a1a6159e4598568825403090ca4ec1accb0db"
         },
         {
-          "image": "data/textbook/previews/pages/f3f121d93967554a34c0b4025c9405a08fb3c70a22a02f8ece36fc1627a81955.webp",
+          "image": "data/textbook/previews/pages/31bddc1ee95b4d4c1d367c9368a14fc52225244675a2ddb675dc1a92726eb443.webp",
           "width": 1600,
           "height": 2273,
-          "sha256": "f3f121d93967554a34c0b4025c9405a08fb3c70a22a02f8ece36fc1627a81955"
+          "sha256": "31bddc1ee95b4d4c1d367c9368a14fc52225244675a2ddb675dc1a92726eb443"
         },
         {
-          "image": "data/textbook/previews/pages/8744c9596fa70e88a396be4cb700cc5f546766baed075958905f3c7172c3accb.webp",
+          "image": "data/textbook/previews/pages/627317522870ef595bb75d8522d54b500b3c212d56381007a8e18f2df4e9a40d.webp",
           "width": 1600,
           "height": 2273,
-          "sha256": "8744c9596fa70e88a396be4cb700cc5f546766baed075958905f3c7172c3accb"
+          "sha256": "627317522870ef595bb75d8522d54b500b3c212d56381007a8e18f2df4e9a40d"
         },
         {
-          "image": "data/textbook/previews/pages/8fa9d7925e8228134c54cb4db4cf4f1cc3691a3ae5aa0026cb5a9201d8681dfb.webp",
+          "image": "data/textbook/previews/pages/32ee3143ef61f625a2e881d9a7a31e3560149cdd63bc850005030c6ea8af0b8b.webp",
           "width": 1600,
           "height": 2273,
-          "sha256": "8fa9d7925e8228134c54cb4db4cf4f1cc3691a3ae5aa0026cb5a9201d8681dfb"
+          "sha256": "32ee3143ef61f625a2e881d9a7a31e3560149cdd63bc850005030c6ea8af0b8b"
         },
         {
-          "image": "data/textbook/previews/pages/ba11b834a69f7a7f2d97ce61b3725f06590e045a1aff681ac3d1e65c970991b8.webp",
+          "image": "data/textbook/previews/pages/847dfafc5cb1e1ab74e48c615c123c56865db27f84a0f1dfff77a71edafb2c68.webp",
           "width": 1600,
           "height": 2273,
-          "sha256": "ba11b834a69f7a7f2d97ce61b3725f06590e045a1aff681ac3d1e65c970991b8"
+          "sha256": "847dfafc5cb1e1ab74e48c615c123c56865db27f84a0f1dfff77a71edafb2c68"
         },
         {
-          "image": "data/textbook/previews/pages/f54496ec8c6173030930325f95b4abfb4c5968ced37b6ce21deba848707316e8.webp",
+          "image": "data/textbook/previews/pages/129c7cc6e3b7aa497a18b056408d576dcbfbebf618b6101ac9e7c3d9d27ab753.webp",
           "width": 1600,
           "height": 2273,
-          "sha256": "f54496ec8c6173030930325f95b4abfb4c5968ced37b6ce21deba848707316e8"
+          "sha256": "129c7cc6e3b7aa497a18b056408d576dcbfbebf618b6101ac9e7c3d9d27ab753"
         },
         {
-          "image": "data/textbook/previews/pages/b65871836232f6f1f639fa55e93d6fb652b20c1f3a2729dd9be447c4af49f6fd.webp",
+          "image": "data/textbook/previews/pages/52d0846910e635805508d20dfd3cab8ff9e2cdc9e5ebd9e355677c42ed55435b.webp",
           "width": 1600,
           "height": 2273,
-          "sha256": "b65871836232f6f1f639fa55e93d6fb652b20c1f3a2729dd9be447c4af49f6fd"
+          "sha256": "52d0846910e635805508d20dfd3cab8ff9e2cdc9e5ebd9e355677c42ed55435b"
         },
         {
-          "image": "data/textbook/previews/pages/64c25815f69a3b082b1cbd4db210e699d4dac25bf20dd65a16eeff5380079438.webp",
+          "image": "data/textbook/previews/pages/9d58f6fa67a9a5786e251d716e897104c98abdc9be4f3bfd9e9a53ea3824c658.webp",
           "width": 1600,
           "height": 2273,
-          "sha256": "64c25815f69a3b082b1cbd4db210e699d4dac25bf20dd65a16eeff5380079438"
+          "sha256": "9d58f6fa67a9a5786e251d716e897104c98abdc9be4f3bfd9e9a53ea3824c658"
         },
         {
-          "image": "data/textbook/previews/pages/55c00234ef84ddd846df9c6371adc76c8cdd0473d3bfacdc8b4b88f43903f4b2.webp",
+          "image": "data/textbook/previews/pages/feb77359a8a80c38b7531e54583fc66006279fdbd228284caf4f0be855fb8706.webp",
           "width": 1600,
           "height": 2273,
-          "sha256": "55c00234ef84ddd846df9c6371adc76c8cdd0473d3bfacdc8b4b88f43903f4b2"
+          "sha256": "feb77359a8a80c38b7531e54583fc66006279fdbd228284caf4f0be855fb8706"
         },
         {
-          "image": "data/textbook/previews/pages/9914e1dbd790ad8e42e0160a9b0ba0a2864002c4263c8859442cfd06614966b6.webp",
+          "image": "data/textbook/previews/pages/c1edb792bacdb3782d8d3154a79e86877d37f1ca8e5dd813de60a99ce18447c8.webp",
           "width": 1600,
           "height": 2273,
-          "sha256": "9914e1dbd790ad8e42e0160a9b0ba0a2864002c4263c8859442cfd06614966b6"
+          "sha256": "c1edb792bacdb3782d8d3154a79e86877d37f1ca8e5dd813de60a99ce18447c8"
         },
         {
-          "image": "data/textbook/previews/pages/d4392781214ef33589dc82d91c418e3d5f4a798d55f4e3e737c1a35d0da2e6b1.webp",
+          "image": "data/textbook/previews/pages/be70faf947c0c613d5fdee36e8b3a92e10e541cc1f6de6987dd8d68d7c80ddcd.webp",
           "width": 1600,
           "height": 2273,
-          "sha256": "d4392781214ef33589dc82d91c418e3d5f4a798d55f4e3e737c1a35d0da2e6b1"
+          "sha256": "be70faf947c0c613d5fdee36e8b3a92e10e541cc1f6de6987dd8d68d7c80ddcd"
         },
         {
-          "image": "data/textbook/previews/pages/158573354148c0412bbd6ed50e2ca001d464fba15cab2549774e65c78d4ddc35.webp",
+          "image": "data/textbook/previews/pages/6701170d184d74ec4beb57124cc3bb43b01462205bfc72b3c971f0d8f82114c5.webp",
           "width": 1600,
           "height": 2273,
-          "sha256": "158573354148c0412bbd6ed50e2ca001d464fba15cab2549774e65c78d4ddc35"
+          "sha256": "6701170d184d74ec4beb57124cc3bb43b01462205bfc72b3c971f0d8f82114c5"
         },
         {
-          "image": "data/textbook/previews/pages/1a1680272407b1288aa5d52472f8fdf1e3d805cee15c70ca858b1731d37c644f.webp",
+          "image": "data/textbook/previews/pages/6398f2b76d7eda1e6452cecc56ecb5bac8097b2676d1049fb9dd8e72099190c4.webp",
           "width": 1600,
           "height": 2273,
-          "sha256": "1a1680272407b1288aa5d52472f8fdf1e3d805cee15c70ca858b1731d37c644f"
+          "sha256": "6398f2b76d7eda1e6452cecc56ecb5bac8097b2676d1049fb9dd8e72099190c4"
         },
         {
-          "image": "data/textbook/previews/pages/7b4e1453fdc74baa06c2a49c7606bbee8a27c879bedf67e242cfd57d8717a1e5.webp",
+          "image": "data/textbook/previews/pages/f38a9ba8a6021b16db095fdc1b65fa40d90f944b42d70d3a85add15eedf1b8aa.webp",
           "width": 1600,
           "height": 2273,
-          "sha256": "7b4e1453fdc74baa06c2a49c7606bbee8a27c879bedf67e242cfd57d8717a1e5"
+          "sha256": "f38a9ba8a6021b16db095fdc1b65fa40d90f944b42d70d3a85add15eedf1b8aa"
         },
         {
-          "image": "data/textbook/previews/pages/3f14c9d545f62d67bab444e2deff567c526d9699b86ddbbe70aad673df44cff4.webp",
+          "image": "data/textbook/previews/pages/bdf645250080cd9b8ccd264e0913917a4c7416e11187b05f182e19092216d9e3.webp",
           "width": 1600,
           "height": 2273,
-          "sha256": "3f14c9d545f62d67bab444e2deff567c526d9699b86ddbbe70aad673df44cff4"
+          "sha256": "bdf645250080cd9b8ccd264e0913917a4c7416e11187b05f182e19092216d9e3"
         },
         {
-          "image": "data/textbook/previews/pages/1067e687f2f67e2099ccbcd181b38ab869e3979953bf73d124f178ea3d9a9f9d.webp",
+          "image": "data/textbook/previews/pages/60b13fb263c67c3e96aa27011e83e14de6476dfc8fb17e426ca83988ad9f287a.webp",
           "width": 1600,
           "height": 2273,
-          "sha256": "1067e687f2f67e2099ccbcd181b38ab869e3979953bf73d124f178ea3d9a9f9d"
+          "sha256": "60b13fb263c67c3e96aa27011e83e14de6476dfc8fb17e426ca83988ad9f287a"
         },
         {
-          "image": "data/textbook/previews/pages/1b3b76d25f23d4ae27736ea81dfae888fa9ee1af420eeb7ae3a878793166425a.webp",
+          "image": "data/textbook/previews/pages/f468efca9d2e523ba34a4482e3ed785d75d2de256bedbba1189671c41333c79a.webp",
           "width": 1600,
           "height": 2273,
-          "sha256": "1b3b76d25f23d4ae27736ea81dfae888fa9ee1af420eeb7ae3a878793166425a"
+          "sha256": "f468efca9d2e523ba34a4482e3ed785d75d2de256bedbba1189671c41333c79a"
         },
         {
-          "image": "data/textbook/previews/pages/4fed44540e7b3dea0965c3ef4a2df68ca0c6f492c2587bffe301530eb5723bc9.webp",
+          "image": "data/textbook/previews/pages/e73fd784b5fc710a68018fd4c5dc8b8ec2e3c6f93b36f415199fdbf0591b6c46.webp",
           "width": 1600,
           "height": 2273,
-          "sha256": "4fed44540e7b3dea0965c3ef4a2df68ca0c6f492c2587bffe301530eb5723bc9"
+          "sha256": "e73fd784b5fc710a68018fd4c5dc8b8ec2e3c6f93b36f415199fdbf0591b6c46"
         },
         {
-          "image": "data/textbook/previews/pages/e26e9e7dc50ec1e112cdc474042edbe668cf732e97bde733052f2b99dd02a98f.webp",
+          "image": "data/textbook/previews/pages/39bfbeeefe91e39aa88d26580ad98b336bf3b41fd854df3e96ab6b44b03e89c8.webp",
           "width": 1600,
           "height": 2273,
-          "sha256": "e26e9e7dc50ec1e112cdc474042edbe668cf732e97bde733052f2b99dd02a98f"
+          "sha256": "39bfbeeefe91e39aa88d26580ad98b336bf3b41fd854df3e96ab6b44b03e89c8"
         },
         {
-          "image": "data/textbook/previews/pages/e0cdee6b2d345522854a4358ece6d1aff745376212db0df7331d0b661163dc66.webp",
+          "image": "data/textbook/previews/pages/a06750c04f91ff6ce6baefe0c3a52005581675ee6c3c93d461b2ac31e39513c8.webp",
           "width": 1600,
           "height": 2273,
-          "sha256": "e0cdee6b2d345522854a4358ece6d1aff745376212db0df7331d0b661163dc66"
+          "sha256": "a06750c04f91ff6ce6baefe0c3a52005581675ee6c3c93d461b2ac31e39513c8"
         },
         {
-          "image": "data/textbook/previews/pages/b6365914ae58530f42e03342f2666ea4f84cdbcbc8da065d6ce5b7e1444a5b46.webp",
+          "image": "data/textbook/previews/pages/f9ab85f25161ddda49f769cfdca5ab5604ed6a2562a301af47800eff4d594b46.webp",
           "width": 1600,
           "height": 2273,
-          "sha256": "b6365914ae58530f42e03342f2666ea4f84cdbcbc8da065d6ce5b7e1444a5b46"
+          "sha256": "f9ab85f25161ddda49f769cfdca5ab5604ed6a2562a301af47800eff4d594b46"
         },
         {
-          "image": "data/textbook/previews/pages/2cf4aca6d72453b673e79e7755d7dbca5cdbe65937294c478c6afe9fd55489f3.webp",
+          "image": "data/textbook/previews/pages/1aaa79b4a3b6cc6bf82963c06f5bb9bd65420afa8b15fa96c3b4ac06da4a8134.webp",
           "width": 1600,
           "height": 2273,
-          "sha256": "2cf4aca6d72453b673e79e7755d7dbca5cdbe65937294c478c6afe9fd55489f3"
+          "sha256": "1aaa79b4a3b6cc6bf82963c06f5bb9bd65420afa8b15fa96c3b4ac06da4a8134"
         },
         {
-          "image": "data/textbook/previews/pages/221b68337b2c54cb8845d7b492390243f6599a27ac8a3375181017a6f8b90ed8.webp",
+          "image": "data/textbook/previews/pages/260b3ccc6e5059e8cfb69dface80bc64ba3de57de2c2c4da79e7ec62c5b36e2b.webp",
           "width": 1600,
           "height": 2273,
-          "sha256": "221b68337b2c54cb8845d7b492390243f6599a27ac8a3375181017a6f8b90ed8"
+          "sha256": "260b3ccc6e5059e8cfb69dface80bc64ba3de57de2c2c4da79e7ec62c5b36e2b"
+        },
+        {
+          "image": "data/textbook/previews/pages/2755e155362fe8be083f95c8360e75197c818dba1e761489cb5be77cf62dbe10.webp",
+          "width": 1600,
+          "height": 2273,
+          "sha256": "2755e155362fe8be083f95c8360e75197c818dba1e761489cb5be77cf62dbe10"
+        },
+        {
+          "image": "data/textbook/previews/pages/692c554e31a186695a2994f08abf8744263f01a0ff08fb9bb3854c7397834720.webp",
+          "width": 1600,
+          "height": 2273,
+          "sha256": "692c554e31a186695a2994f08abf8744263f01a0ff08fb9bb3854c7397834720"
+        },
+        {
+          "image": "data/textbook/previews/pages/ada1426fca556d12ae30a40e2ad9442db6a58c39f0ce6f139a7c2cbb69e3d158.webp",
+          "width": 1600,
+          "height": 2273,
+          "sha256": "ada1426fca556d12ae30a40e2ad9442db6a58c39f0ce6f139a7c2cbb69e3d158"
+        },
+        {
+          "image": "data/textbook/previews/pages/63f19884ac07ec72a1f77d24d18e7839cd807519751686c3cce09053535713d7.webp",
+          "width": 1600,
+          "height": 2273,
+          "sha256": "63f19884ac07ec72a1f77d24d18e7839cd807519751686c3cce09053535713d7"
+        },
+        {
+          "image": "data/textbook/previews/pages/4bc595cffc095a32f7e27ff1c60288105a831695696a8141c9031fd30a331ee3.webp",
+          "width": 1600,
+          "height": 2273,
+          "sha256": "4bc595cffc095a32f7e27ff1c60288105a831695696a8141c9031fd30a331ee3"
+        }
+      ]
+    },
+    "ch16-autonomous-laboratory": {
+      "title": "自主实验室与干湿闭环",
+      "pageCount": 33,
+      "pdfSha256": "db03b4b2744c2dc421b4127c8d329dc4dcedfbce31376c1049e5066b06d079ac",
+      "pages": [
+        {
+          "image": "data/textbook/previews/pages/25712b1fff54032fbb7b22327e49908e3908f434c64dadb590a47984730241ee.webp",
+          "width": 1600,
+          "height": 2273,
+          "sha256": "25712b1fff54032fbb7b22327e49908e3908f434c64dadb590a47984730241ee"
+        },
+        {
+          "image": "data/textbook/previews/pages/69158789d6f83afc82a3663c984506a585aebe0e3ac4f3e7d6c4a52e2121e855.webp",
+          "width": 1600,
+          "height": 2273,
+          "sha256": "69158789d6f83afc82a3663c984506a585aebe0e3ac4f3e7d6c4a52e2121e855"
+        },
+        {
+          "image": "data/textbook/previews/pages/6d555651459f3c9fa0c469320ac8e9efc36497f966abd95ec8e6a7fd421a5bb8.webp",
+          "width": 1600,
+          "height": 2273,
+          "sha256": "6d555651459f3c9fa0c469320ac8e9efc36497f966abd95ec8e6a7fd421a5bb8"
+        },
+        {
+          "image": "data/textbook/previews/pages/02e1736cc5d48c9ee050e64c531d64b5aa7e51d4ab7b17b0b6dfd0b57a21fb8d.webp",
+          "width": 1600,
+          "height": 2273,
+          "sha256": "02e1736cc5d48c9ee050e64c531d64b5aa7e51d4ab7b17b0b6dfd0b57a21fb8d"
+        },
+        {
+          "image": "data/textbook/previews/pages/4366a0163d173609b0c912dbf3a12500ef6aa69ab947065eaa002ab50039fcbf.webp",
+          "width": 1600,
+          "height": 2273,
+          "sha256": "4366a0163d173609b0c912dbf3a12500ef6aa69ab947065eaa002ab50039fcbf"
+        },
+        {
+          "image": "data/textbook/previews/pages/c5ce66f3673c4784060243e6fd1801e3b036fda4980ca92c4221b96316fd9cf3.webp",
+          "width": 1600,
+          "height": 2273,
+          "sha256": "c5ce66f3673c4784060243e6fd1801e3b036fda4980ca92c4221b96316fd9cf3"
+        },
+        {
+          "image": "data/textbook/previews/pages/594c537e82ed792f0ad708582293f86b615b1fc4eb2ec5303626a9122faabe89.webp",
+          "width": 1600,
+          "height": 2273,
+          "sha256": "594c537e82ed792f0ad708582293f86b615b1fc4eb2ec5303626a9122faabe89"
+        },
+        {
+          "image": "data/textbook/previews/pages/daa3ca604d82adc02aa606d6228a5a9881dbf96442f165deab24e672988d29f7.webp",
+          "width": 1600,
+          "height": 2273,
+          "sha256": "daa3ca604d82adc02aa606d6228a5a9881dbf96442f165deab24e672988d29f7"
+        },
+        {
+          "image": "data/textbook/previews/pages/8a3bcf35cf01e14370f1464fddc125ddd9399677c562fcf80b1f3c55f3f1d5e3.webp",
+          "width": 1600,
+          "height": 2273,
+          "sha256": "8a3bcf35cf01e14370f1464fddc125ddd9399677c562fcf80b1f3c55f3f1d5e3"
+        },
+        {
+          "image": "data/textbook/previews/pages/cd2672d48663a6968f0122868ac1db71dcc3013aa69fd4b9f437fbc9b66dc6f7.webp",
+          "width": 1600,
+          "height": 2273,
+          "sha256": "cd2672d48663a6968f0122868ac1db71dcc3013aa69fd4b9f437fbc9b66dc6f7"
+        },
+        {
+          "image": "data/textbook/previews/pages/ae52a27b8024a9a9352f777a599f0da93a5bc268ad407644185daa80bfc2febd.webp",
+          "width": 1600,
+          "height": 2273,
+          "sha256": "ae52a27b8024a9a9352f777a599f0da93a5bc268ad407644185daa80bfc2febd"
+        },
+        {
+          "image": "data/textbook/previews/pages/f7ae999008264560f2082e41a8bb39bf5b3a74f44f39fb98d959e22fdc4bf375.webp",
+          "width": 1600,
+          "height": 2273,
+          "sha256": "f7ae999008264560f2082e41a8bb39bf5b3a74f44f39fb98d959e22fdc4bf375"
+        },
+        {
+          "image": "data/textbook/previews/pages/2e98de974e625be3f05d1201029e77552ef09ab6efb5e3f8b1fd5e06330474fa.webp",
+          "width": 1600,
+          "height": 2273,
+          "sha256": "2e98de974e625be3f05d1201029e77552ef09ab6efb5e3f8b1fd5e06330474fa"
+        },
+        {
+          "image": "data/textbook/previews/pages/59bf0aa6a9ca66df176fcbb871a10345bbcee11af20e4d20503b3d2f5940f31a.webp",
+          "width": 1600,
+          "height": 2273,
+          "sha256": "59bf0aa6a9ca66df176fcbb871a10345bbcee11af20e4d20503b3d2f5940f31a"
+        },
+        {
+          "image": "data/textbook/previews/pages/24239e752531f9a06f4d9df8eadb66173b8039fe13ce3f355e5ff79da592968a.webp",
+          "width": 1600,
+          "height": 2273,
+          "sha256": "24239e752531f9a06f4d9df8eadb66173b8039fe13ce3f355e5ff79da592968a"
+        },
+        {
+          "image": "data/textbook/previews/pages/0aa782358e1c2c3d825fbbb7a72ec17c6f4454d06b0ad9d0ebc29bc7dd297265.webp",
+          "width": 1600,
+          "height": 2273,
+          "sha256": "0aa782358e1c2c3d825fbbb7a72ec17c6f4454d06b0ad9d0ebc29bc7dd297265"
+        },
+        {
+          "image": "data/textbook/previews/pages/e8ffcce0f7546b3644ada438e3057826ac81a19cc0d8b2303890bc3cb50eb276.webp",
+          "width": 1600,
+          "height": 2273,
+          "sha256": "e8ffcce0f7546b3644ada438e3057826ac81a19cc0d8b2303890bc3cb50eb276"
+        },
+        {
+          "image": "data/textbook/previews/pages/c5d7174d993e771a1fa41b0ebd2f35721aa7e1b14cbf58c9e45599dd0cdbca49.webp",
+          "width": 1600,
+          "height": 2273,
+          "sha256": "c5d7174d993e771a1fa41b0ebd2f35721aa7e1b14cbf58c9e45599dd0cdbca49"
+        },
+        {
+          "image": "data/textbook/previews/pages/f38a9ba8a6021b16db095fdc1b65fa40d90f944b42d70d3a85add15eedf1b8aa.webp",
+          "width": 1600,
+          "height": 2273,
+          "sha256": "f38a9ba8a6021b16db095fdc1b65fa40d90f944b42d70d3a85add15eedf1b8aa"
+        },
+        {
+          "image": "data/textbook/previews/pages/bdf645250080cd9b8ccd264e0913917a4c7416e11187b05f182e19092216d9e3.webp",
+          "width": 1600,
+          "height": 2273,
+          "sha256": "bdf645250080cd9b8ccd264e0913917a4c7416e11187b05f182e19092216d9e3"
+        },
+        {
+          "image": "data/textbook/previews/pages/60b13fb263c67c3e96aa27011e83e14de6476dfc8fb17e426ca83988ad9f287a.webp",
+          "width": 1600,
+          "height": 2273,
+          "sha256": "60b13fb263c67c3e96aa27011e83e14de6476dfc8fb17e426ca83988ad9f287a"
+        },
+        {
+          "image": "data/textbook/previews/pages/f468efca9d2e523ba34a4482e3ed785d75d2de256bedbba1189671c41333c79a.webp",
+          "width": 1600,
+          "height": 2273,
+          "sha256": "f468efca9d2e523ba34a4482e3ed785d75d2de256bedbba1189671c41333c79a"
+        },
+        {
+          "image": "data/textbook/previews/pages/e73fd784b5fc710a68018fd4c5dc8b8ec2e3c6f93b36f415199fdbf0591b6c46.webp",
+          "width": 1600,
+          "height": 2273,
+          "sha256": "e73fd784b5fc710a68018fd4c5dc8b8ec2e3c6f93b36f415199fdbf0591b6c46"
+        },
+        {
+          "image": "data/textbook/previews/pages/39bfbeeefe91e39aa88d26580ad98b336bf3b41fd854df3e96ab6b44b03e89c8.webp",
+          "width": 1600,
+          "height": 2273,
+          "sha256": "39bfbeeefe91e39aa88d26580ad98b336bf3b41fd854df3e96ab6b44b03e89c8"
+        },
+        {
+          "image": "data/textbook/previews/pages/a06750c04f91ff6ce6baefe0c3a52005581675ee6c3c93d461b2ac31e39513c8.webp",
+          "width": 1600,
+          "height": 2273,
+          "sha256": "a06750c04f91ff6ce6baefe0c3a52005581675ee6c3c93d461b2ac31e39513c8"
+        },
+        {
+          "image": "data/textbook/previews/pages/f9ab85f25161ddda49f769cfdca5ab5604ed6a2562a301af47800eff4d594b46.webp",
+          "width": 1600,
+          "height": 2273,
+          "sha256": "f9ab85f25161ddda49f769cfdca5ab5604ed6a2562a301af47800eff4d594b46"
+        },
+        {
+          "image": "data/textbook/previews/pages/1aaa79b4a3b6cc6bf82963c06f5bb9bd65420afa8b15fa96c3b4ac06da4a8134.webp",
+          "width": 1600,
+          "height": 2273,
+          "sha256": "1aaa79b4a3b6cc6bf82963c06f5bb9bd65420afa8b15fa96c3b4ac06da4a8134"
+        },
+        {
+          "image": "data/textbook/previews/pages/260b3ccc6e5059e8cfb69dface80bc64ba3de57de2c2c4da79e7ec62c5b36e2b.webp",
+          "width": 1600,
+          "height": 2273,
+          "sha256": "260b3ccc6e5059e8cfb69dface80bc64ba3de57de2c2c4da79e7ec62c5b36e2b"
+        },
+        {
+          "image": "data/textbook/previews/pages/2755e155362fe8be083f95c8360e75197c818dba1e761489cb5be77cf62dbe10.webp",
+          "width": 1600,
+          "height": 2273,
+          "sha256": "2755e155362fe8be083f95c8360e75197c818dba1e761489cb5be77cf62dbe10"
+        },
+        {
+          "image": "data/textbook/previews/pages/692c554e31a186695a2994f08abf8744263f01a0ff08fb9bb3854c7397834720.webp",
+          "width": 1600,
+          "height": 2273,
+          "sha256": "692c554e31a186695a2994f08abf8744263f01a0ff08fb9bb3854c7397834720"
+        },
+        {
+          "image": "data/textbook/previews/pages/ada1426fca556d12ae30a40e2ad9442db6a58c39f0ce6f139a7c2cbb69e3d158.webp",
+          "width": 1600,
+          "height": 2273,
+          "sha256": "ada1426fca556d12ae30a40e2ad9442db6a58c39f0ce6f139a7c2cbb69e3d158"
+        },
+        {
+          "image": "data/textbook/previews/pages/63f19884ac07ec72a1f77d24d18e7839cd807519751686c3cce09053535713d7.webp",
+          "width": 1600,
+          "height": 2273,
+          "sha256": "63f19884ac07ec72a1f77d24d18e7839cd807519751686c3cce09053535713d7"
+        },
+        {
+          "image": "data/textbook/previews/pages/4bc595cffc095a32f7e27ff1c60288105a831695696a8141c9031fd30a331ee3.webp",
+          "width": 1600,
+          "height": 2273,
+          "sha256": "4bc595cffc095a32f7e27ff1c60288105a831695696a8141c9031fd30a331ee3"
         }
       ]
     }
