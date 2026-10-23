@@ -32,7 +32,7 @@
 - [x] Fix preview interaction using continuous scrolling, lazy page loading, page navigation and zoom; reproduce and test the former single-page behavior.
 - [x] Add release timestamps, six-chapter book presentation, README Star History and Reasoning Lab QR image.
 - [x] Add course homepage cover and direct book navigation; replace old local textbook pages with redirects in an isolated release checkout and the working copy.
-- [ ] Validate builds, browsers, QR preservation and cross-site links; obtain final code review, publish both sites and check live behavior.
+- [x] Validate builds, browsers, QR preservation and cross-site links; obtain final code review, publish both sites and check live behavior.
 
 ## Verification
 
@@ -40,3 +40,5 @@
 - 18 Python tests passed; six-chapter browser checks passed, including 16 homepage language/theme/width combinations and continuous scroll, jump, zoom, retry and publication boundaries.
 - Course site build, 33 JavaScript tests and 28 responsive language/theme combinations passed; unrelated original workspace files preserved.
 - Independent review corrected a duplicated figure wrapper; all six chapters now have unique IDs and 66 figures/12 tables matching the source.
+
+- Published book ccb6a21 and course e78e4de; both GitHub Pages builds and the first automated Star History job succeeded. Live six-chapter browser suite passed (257 pages/66 figures/12 tables); live course desktop/mobile cover, book links, redirects, release times and publication boundaries passed. Published QR checksum and bilingual README sections verified.
