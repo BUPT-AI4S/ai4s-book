@@ -1,6 +1,6 @@
 import {$,node,link,setup,tr,json,localResource,chapterUrl} from './shared.mjs';
 import {recordChapter} from './metrics.mjs';
-import {PagePreview} from './page-preview.mjs?v=links-1';
+import {PagePreview} from './page-preview.mjs?v=page-field-20261024';
 let catalog,chapter,preview,mode=new URLSearchParams(location.search).get('view')==='pdf'?'pdf':'html';
 function renderChrome(){
  if(!chapter)return;document.title=chapter.title+' · AI4SBook';$('chapter-title').textContent=chapter.title;$('chapter-number').textContent=tr('第 '+chapter.number+' 章','CHAPTER '+String(chapter.number).padStart(2,'0'));

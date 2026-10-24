@@ -51,3 +51,5 @@ python tools/build_previews.py --pdf-dir /path/to/chapter-pdfs --source-catalog 
 教材更新按“同步、生成、校验、提交”执行。GitHub Actions 校验已生成的内容并发布到 Pages。
 
 当前同步源为私有仓库 `0c5b628`。源文件已按实际章次重命名，生成器保留最初的六个公开章节 ID，同时保留旧小节、图表锚点别名。按章统一遗留标签前缀，单列嵌套排版表格转为单元格内换行，避免重复表号。排印用的本地 OTF/TTF 字体进入被忽略的源码快照，公开网站不包含字体、源文件或 PDF。完整编译使用 Tectonic 或 XeLaTeX，并需要缓存或下载 `fontawesome5` 等原工程依赖。
+
+浏览器补充回归：`node tests/page-field-browser.cjs` 检查输入跳转页码时，排队的滚动通知不会覆盖正在输入的数字；离开输入框后恢复当前页指示。该测试可用 `BOOK_PREVIEW_URL` 指向线上页面。

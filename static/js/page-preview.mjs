@@ -7,6 +7,7 @@ export class PagePreview {
   this.previous=node('button');this.previous.type='button';this.previous.onclick=()=>this.select(this.page-1);
   this.next=node('button');this.next.type='button';this.next.onclick=()=>this.select(this.page+1);
   this.input=node('input');this.input.type='number';this.input.min='1';this.input.value='1';this.input.onchange=()=>this.select(Number(this.input.value)||this.page);
+  this.input.addEventListener('blur',()=>{this.input.value=String(this.page);});
   this.count=node('span',' / —','page-preview-count');
   this.returnButton=node('button',undefined,'preview-return');this.returnButton.type='button';this.returnButton.hidden=true;this.returnButton.onclick=()=>this.returnToCitation();
   const paging=node('div',undefined,'page-preview-paging');paging.append(this.previous,this.input,this.count,this.next,this.returnButton);
@@ -96,7 +97,8 @@ export class PagePreview {
   if(!this.data||!this.stage.clientHeight)return;
   const atBottom=this.stage.scrollHeight-this.stage.scrollTop-this.stage.clientHeight<2;
   this.page=atBottom?this.data.pageCount:this.currentAt(this.stage.scrollTop+Math.min(80,this.stage.clientHeight*.15))+1;
-  this.input.value=String(this.page);this.update();this.load(this.sheets[this.page-1]);this.showStatus();
+  if(document.activeElement!==this.input)this.input.value=String(this.page);
+  this.update();this.load(this.sheets[this.page-1]);this.showStatus();
  }
  reserveEndSpace(){
   // A short final page must still be able to align at the viewport's top.
