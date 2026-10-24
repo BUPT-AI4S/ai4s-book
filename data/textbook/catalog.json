@@ -3,15 +3,15 @@
   "publicationMode": "web-only",
   "pdfVersion": 4,
   "title": "科学智能原理与实践",
-  "sourceHash": "329de08e2f95ee5d2305ed83c17b79469973bf3c91e627c663a69dbced97016c",
-  "buildHash": "f649d809fda02ee33db3b0aed321924582792d66df7434150f5d4c472fe4c399",
+  "sourceHash": "966972b5de11ec6672373413c16a2d5bd752933ef1044abce6f85c4c2b5191d9",
+  "buildHash": "ba022a0693716b827606c0e040d31785eeface1dd785f0d92f75f3ae28409bfc",
   "statistics": {
     "chapters": 6,
-    "figures": 66,
-    "tables": 12
+    "figures": 64,
+    "tables": 13
   },
   "sourceRepository": "https://github.com/BUPT-AI4S/AI4SBook",
-  "sourceCommit": "c5c0a804ad2d42de8fdec868157fa530e2504089",
+  "sourceCommit": "0c5b628ce3b3f0d72fc7f3f24a4a3a49ce6abe73",
   "pages": 195,
   "bookPdfUrl": null,
   "bookPdfSha256": null,
@@ -22,14 +22,14 @@
       "title": "科学数据与AI4S研究闭环",
       "part": "教材内容",
       "partNumber": 1,
-      "source": "chapters/ch06-scientific-data.tex",
+      "source": "chapters/ch01-scientific-data.tex",
       "status": "available",
       "hasCitations": true,
       "summary": "理解科学数据在模型学习与科学推断中的作用；掌握数据需求、质量与任务样本的组织方法；分析数据表征、评价和反馈之间的联系；运用催化实例理解数据支撑研究闭环的具体机制。",
       "pdfUrl": null,
       "pdfSha256": null,
       "contentUrl": "data/textbook/chapters/ch06-scientific-data.json",
-      "contentSha256": "40c281ac279a960a84a26d646633873f2ba8b966461fa078872ba37a4fecbd3c"
+      "contentSha256": "d797925eb8f9d1670258610ebca71f8cc26bf9574a8e9fdf9a444466f48134e8"
     },
     {
       "id": "ch13-knowledge-rag",
@@ -37,14 +37,14 @@
       "title": "科学知识建模与大模型推理",
       "part": "教材内容",
       "partNumber": 1,
-      "source": "chapters/ch13-knowledge-rag.tex",
+      "source": "chapters/ch02-knowledge-rag.tex",
       "status": "available",
       "hasCitations": true,
       "summary": "理解科学知识的组织、表示与建模，以及检索、推理和科研任务中知识的使用方法。",
       "pdfUrl": null,
       "pdfSha256": null,
       "contentUrl": "data/textbook/chapters/ch13-knowledge-rag.json",
-      "contentSha256": "0d4ad5d8722b21e6735c57f529bd85ebbdb1e3469bd157b3662d63ecb84c0469"
+      "contentSha256": "42c016f16150ea72e9dbf5e8d89a0d744cda36b8bed2c2bcc3260997c981000c"
     },
     {
       "id": "ch04-pretraining",
@@ -52,14 +52,14 @@
       "title": "科学基础模型的预训练原理与方法",
       "part": "教材内容",
       "partNumber": 1,
-      "source": "chapters/ch04-pretraining.tex",
+      "source": "chapters/ch03-pretraining.tex",
       "status": "available",
       "hasCitations": true,
       "summary": "理解科学基础模型的概念、特征与发展趋势，掌握科学表示、预训练目标、数据构建与迁移评估的联系。",
       "pdfUrl": null,
       "pdfSha256": null,
       "contentUrl": "data/textbook/chapters/ch04-pretraining.json",
-      "contentSha256": "98c8c8448dc95d7d081505a47238f08e6d801144fd91f087a897eeeb5887f0a5"
+      "contentSha256": "00cc465b487ef4100fb91ab576bd446f7e45acf5b1813010ea37484d2a4baa2b"
     },
     {
       "id": "ch05-scientific-agents",
@@ -67,14 +67,14 @@
       "title": "科学智能体：从基本概念到科研应用与研究版图",
       "part": "教材内容",
       "partNumber": 1,
-      "source": "chapters/ch05-scientific-agents.tex",
+      "source": "chapters/ch04-scientific-agents.tex",
       "status": "available",
       "hasCitations": true,
       "summary": "掌握科学智能体的交互原理与系统架构，理解规划、工具、记忆和验证的协同机制，并能够围绕具体科研任务设计、评测和改进智能体。",
       "pdfUrl": null,
       "pdfSha256": null,
       "contentUrl": "data/textbook/chapters/ch05-scientific-agents.json",
-      "contentSha256": "def5a45fa092d7acf7456d87d3bf31d8a1c75ed165acd491f74e84cf4907d2c3"
+      "contentSha256": "551dc51d54b3beb9b02e01f26ddb7ad43e70077fe190491100871d6f0d3c3762"
     },
     {
       "id": "ch03-evaluation",
@@ -82,14 +82,14 @@
       "title": "科学智能的测评数据构建与可信评价",
       "part": "教材内容",
       "partNumber": 1,
-      "source": "chapters/ch03-evaluation.tex",
+      "source": "chapters/ch05-evaluation.tex",
       "status": "available",
       "hasCitations": true,
       "summary": "区分科学任务、研究工作流与科学发现的测评目标，能够设计测试数据、选择评价依据，并审查测评结论的适用条件。",
       "pdfUrl": null,
       "pdfSha256": null,
       "contentUrl": "data/textbook/chapters/ch03-evaluation.json",
-      "contentSha256": "9f07bf80eb985d07bb5785150999f216fb0ab278b5189ccf5991c606e6027616"
+      "contentSha256": "684cb7e7596c5826889afc4e082a97774020dc5534f8dc2ae53cc769b4ecabac"
     },
     {
       "id": "ch16-autonomous-laboratory",
@@ -97,14 +97,14 @@
       "title": "自主实验室与干湿闭环",
       "part": "教材内容",
       "partNumber": 1,
-      "source": "chapters/ch16-autonomous-laboratory.tex",
+      "source": "chapters/ch06-autonomous-laboratory.tex",
       "status": "available",
       "hasCitations": true,
       "summary": "理解计算决策、实验执行和测量反馈如何形成闭环，并比较不同领域自主实验室的实现。",
       "pdfUrl": null,
       "pdfSha256": null,
       "contentUrl": "data/textbook/chapters/ch16-autonomous-laboratory.json",
-      "contentSha256": "5497059ea44aacf3d01a842f8d835c9797c23269d53d083f1eb151ff74bf906c"
+      "contentSha256": "adaa950c00deaf67dfadf79ebd4ad3324c985b3bffd64587a162fcf8e586b9a4"
     }
   ]
 }

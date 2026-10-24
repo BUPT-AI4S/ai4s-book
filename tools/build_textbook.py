@@ -14,6 +14,15 @@ ROOT = Path(__file__).resolve().parents[1]
 SOURCE = ROOT / '.textbook-source'
 REPO = 'https://github.com/BUPT-AI4S/AI4SBook'
 PDF_PUBLICATION_ENABLED = False
+# Reader links predate the authoring repository's chapter-file renumbering.
+PUBLIC_CHAPTER_IDS = {
+    'ch01-scientific-data': 'ch06-scientific-data',
+    'ch02-knowledge-rag': 'ch13-knowledge-rag',
+    'ch03-pretraining': 'ch04-pretraining',
+    'ch04-scientific-agents': 'ch05-scientific-agents',
+    'ch05-evaluation': 'ch03-evaluation',
+    'ch06-autonomous-laboratory': 'ch16-autonomous-laboratory',
+}
 PREAMBLE = r'''
 \newcommand{\chapterintro}[2]{\textbf{学习目标：}#1\par\textbf{先修知识：}#2。\par}
 \newcommand{\chapterplan}[2]{\chapterintro{#1}{#2}}
@@ -24,6 +33,9 @@ PREAMBLE = r'''
 \newcommand{\R}{\mathbb{R}}
 \newcommand{\E}{\mathbb{E}}
 \newcommand{\argmin}{\operatorname*{arg\,min}}
+\newcommand{\faTools}{}
+\newcommand{\faChartBar}{}
+\newcommand{\faLightbulb}{}
 '''
 
 
@@ -104,7 +116,7 @@ def read_book(source):
             title = re.sub(r'\\\\\s*', '', command_arg(text, 'chapter'))
             if not title:
                 raise ValueError(f'Missing chapter title: {filename}')
-            slug = path.stem
+            slug = PUBLIC_CHAPTER_IDS.get(path.stem, path.stem)
             if not re.fullmatch(r'[a-zA-Z0-9][a-zA-Z0-9_-]*', slug):
                 raise ValueError(f'Unsafe chapter slug: {slug}')
             summary = command_arg(text, 'chapter(?:intro|plan)')
@@ -127,6 +139,8 @@ def read_book(source):
 
 def reader_tex(text):
     """Omit authoring logistics from the reading edition; retain scientific content."""
+    for current, legacy in PUBLIC_CHAPTER_IDS.items():
+        text = text.replace('{chap:' + legacy + '}', '{chap:' + current + '}')
     text = re.sub(r'(?m)^\\noindent\\textbf\{编写说明。\}[^\n]*(?:\n|$)', '', text)
     text = text.replace(r'\textbf{当前版本为协作编写稿，只收录已经提供完整原稿的章节。}', '')
     text = re.sub(r'(?m)^三章均保留原稿[^\n]*',
@@ -154,6 +168,28 @@ def reader_tex(text):
 
 def prepare_tex(text):
     text = reader_tex(uncomment(text))
+    # Width-constrained print tables become flowing, horizontally scrollable HTML tables.
+    for kind in ('table', 'figure'):
+        text = text.replace('\\begin{' + kind + '*}', '\\begin{' + kind + '}')
+        text = text.replace('\\end{' + kind + '*}', '\\end{' + kind + '}')
+    for match in reversed(list(re.finditer(r'\\resizebox\*?\s*', text))):
+        position = match.end()
+        _, position = argument(text, position)
+        _, position = argument(text, position)
+        content, end = argument(text, position)
+        text = text[:match.start()] + content + text[end:]
+    # A one-column tabular nested in a cell only supplies line breaks. Pandoc
+    # otherwise repeats the outer caption and allocates additional table numbers.
+    for match in reversed(list(re.finditer(r'\\begin\{tabular\}(?:\[[^\]]*\])?\s*', text))):
+        columns, position = argument(text, match.end())
+        if columns.replace('@{}', '').strip() not in {'l', 'c', 'r'}:
+            continue
+        prefix = text[:match.start()]
+        if prefix.count(r'\begin{tabular}') <= prefix.count(r'\end{tabular}'):
+            continue
+        end = text.index(r'\end{tabular}', position)
+        body = text[position:end].replace(r'\\', r'\newline ')
+        text = text[:match.start()] + body + text[end + len(r'\end{tabular}'):]
     # Preserve semantic tips while discarding only their TeX box configuration.
     def tip(match):
         position = match.end()
@@ -177,7 +213,7 @@ def prepare_tex(text):
     text = text.replace(r'\end{exercises}', r'\end{enumerate}')
     text = re.sub(r'\\begin\{minipage\}\{\\linewidth\}|\\end\{minipage\}', ' ', text)
     text = re.sub(r'\\(?:fontsize)\{[^{}]*\}\{[^{}]*\}', ' ', text)
-    text = re.sub(r'\\(?:linespread|addvspace|markright)\{[^{}]*\}', ' ', text)
+    text = re.sub(r'\\(?:linespread|addvspace|markright|vspace\*?)\{[^{}]*\}', ' ', text)
     text = re.sub(r'\\renewcommand\{\\arraystretch\}\{[^{}]*\}', ' ', text)
     text = re.sub(r'\\addlinespace(?:\[[^\]]*\])?', ' ', text)
     text = re.sub(r'\\allowbreak(?![A-Za-z])\s*', '', text)
@@ -217,7 +253,7 @@ def sync_source(authoring, target=SOURCE):
             # compiled output must never bypass a fresh manuscript compilation.
             if path.suffix.lower() == '.pdf' and rel.parts[0] != 'images':
                 continue
-            if path.is_file() and path.suffix.lower() in {'.tex', '.sty', '.bst', '.bib', '.png', '.jpg', '.jpeg', '.svg', '.pdf'}:
+            if path.is_file() and path.suffix.lower() in {'.tex', '.sty', '.bst', '.bib', '.png', '.jpg', '.jpeg', '.svg', '.pdf', '.otf', '.ttf'}:
                 output = snapshot / rel
                 output.parent.mkdir(parents=True, exist_ok=True)
                 shutil.copy2(path, output)
@@ -283,8 +319,18 @@ class Contents(HTMLParser):
             self.current = None
 
 
+def chapter_tex(chapter, source):
+    text = expand_inputs(Path(source) / chapter['source'], source)
+    legacy = chapter['id'].split('-')[0]
+    current = Path(chapter['source']).stem.split('-')[0]
+    if legacy != current:
+        text = re.sub(r'(\\(?:label|ref\*?|pageref|eqref|autoref)\{[^{}:]+:)' + re.escape(legacy) + r'(?=[-}])',
+                      lambda m: m[1] + current, text)
+    return text
+
+
 def parse_chapter(chapter, source, pandoc):
-    text = prepare_tex(expand_inputs(source / chapter['source'], source))
+    text = prepare_tex(chapter_tex(chapter, source))
     ast = json.loads(run([pandoc, '--from=latex+latex_macros+raw_tex', '--to=json', '--fail-if-warnings'], source, text))
     # Pandoc can duplicate a captioned minipage inside its surrounding figure.
     # Keep one semantic figure while preserving its image and reading notes.
@@ -344,6 +390,46 @@ def parse_chapter(chapter, source, pandoc):
     return ast, references
 
 
+def publish_image(image, source, output):
+    image, source, output = Path(image), Path(source), Path(output)
+    rel = inside(image, source).relative_to(source)
+    if image.suffix.lower() == '.pdf':
+        from PIL import Image
+        renderer = shutil.which('pdftoppm')
+        if not renderer:
+            raise ValueError('Poppler pdftoppm is required to render PDF figure assets')
+        rel = rel.with_suffix('.webp')
+        asset = output / 'assets' / rel
+        asset.parent.mkdir(parents=True, exist_ok=True)
+        if not asset.exists():
+            with tempfile.TemporaryDirectory(prefix='figure-', dir=output) as temp:
+                prefix = Path(temp) / 'figure'
+                run([renderer, '-f', '1', '-l', '1', '-singlefile', '-scale-to', '2200',
+                     '-png', image, prefix], source)
+                with Image.open(prefix.with_suffix('.png')) as rendered:
+                    rendered.convert('RGB').save(asset, 'WEBP', lossless=True, method=4)
+    else:
+        asset = output / 'assets' / rel
+        asset.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(image, asset)
+    return 'data/textbook/assets/' + rel.as_posix()
+
+
+def legacy_anchor_aliases(html, chapter):
+    legacy, current = chapter['id'].split('-')[0], Path(chapter['source']).stem.split('-')[0]
+    if legacy == current:
+        return html
+    identities = set(re.findall(r'\bid="([^"]+)"', html))
+    def alias(match):
+        identity = match[1]
+        old = re.sub(r'^([^:]+:)' + re.escape(current) + r'(?=-)', lambda m: m[1] + legacy, identity)
+        if old == identity or old in identities:
+            return match[0]
+        identities.add(old)
+        return '<span class="legacy-anchor" id="' + old + '" aria-hidden="true"></span>' + match[0]
+    return re.sub(r'<[a-zA-Z][^>]*\bid="([^"]+)"[^>]*>', alias, html)
+
+
 def convert_chapter(chapter, source, output, pandoc, ast=None, references=None):
     ast, local = parse_chapter(chapter, source, pandoc) if ast is None else (ast, {})
     references = references or local
@@ -365,11 +451,7 @@ def convert_chapter(chapter, source, output, pandoc, ast=None, references=None):
                 image = inside(source / 'images' / original, source)
             if not image.is_file():
                 raise ValueError(f'Missing textbook image: {original}')
-            rel = image.relative_to(source)
-            asset = output / 'assets' / rel
-            asset.parent.mkdir(parents=True, exist_ok=True)
-            shutil.copy2(image, asset)
-            content[2][0] = 'data/textbook/assets/' + rel.as_posix()
+            content[2][0] = publish_image(image, source, output)
     # Drop chapter heading only; the page supplies its own accessible h1.
     ast['blocks'] = [block for block in ast['blocks'] if not (block.get('t') == 'Header' and block['c'][0] == 1)]
     html = run([pandoc, '--from=json', '--to=html5', '--mathml', '--citeproc',
@@ -378,6 +460,7 @@ def convert_chapter(chapter, source, output, pandoc, ast=None, references=None):
                 '--metadata=lang:en-US', '--fail-if-warnings'], source, json.dumps(ast))
     # citeproc inserts an h1 for its bibliography; the reader owns the sole h1.
     html = re.sub(r'<h1\b', '<h2', html).replace('</h1>', '</h2>')
+    html = legacy_anchor_aliases(html, chapter)
     toc = Contents()
     toc.feed(html)
     return dict(html=html, toc=toc.items)
@@ -442,6 +525,12 @@ def compile_and_split(source, work, output, chapters, engine, reuse_verified_pdf
 
 
 
+def scope_duplicate_labels(text, chapter_id, duplicates):
+    local = set(re.findall(r'\\label\{([^{}]+)\}', text)) & duplicates
+    return re.sub(r'\\(label|ref\*?|pageref|eqref|autoref)\{([^{}]+)\}',
+                  lambda m: '\\' + m[1] + '{' + (chapter_id + ':' if m[2] in local else '') + m[2] + '}', text)
+
+
 def build_book(source=SOURCE, root=ROOT, pdf_engine=None, html_only=False, preview_pdf_engine=None):
     if not PDF_PUBLICATION_ENABLED:
         html_only = True
@@ -483,15 +572,22 @@ def build_book(source=SOURCE, root=ROOT, pdf_engine=None, html_only=False, previ
         for path in work.rglob('*'):
             if path.suffix in {'.tex', '.bib'}:
                 path.write_text(reader_tex(path.read_text(encoding='utf-8')), encoding='utf-8', newline='\n')
-        documents, references = {}, {}
+        documents, references, local_references, duplicates = {}, {}, {}, set()
         for chapter in chapters:
             ast, local = parse_chapter(chapter, source, pandoc)
             documents[chapter['id']] = ast
-            overlap = references.keys() & local.keys()
-            if overlap:
-                raise ValueError(f'Duplicate textbook labels: {sorted(overlap)}')
+            local_references[chapter['id']] = local
+            duplicates.update(references.keys() & local.keys())
             references.update(local)
-        converted_chapters = {chapter['id']: convert_chapter(chapter, source, output, pandoc, documents[chapter['id']], references) for chapter in chapters}
+        # HTML anchors are local to a chapter. Ambiguous labels must never resolve
+        # across chapters; the compiled reading copy uses explicit chapter scopes.
+        for key in duplicates:
+            references.pop(key, None)
+        for chapter in chapters:
+            text = reader_tex(chapter_tex(chapter, source))
+            (work / chapter['source']).write_text(scope_duplicate_labels(text, chapter['id'], duplicates), encoding='utf-8')
+        converted_chapters = {chapter['id']: convert_chapter(chapter, source, output, pandoc, documents[chapter['id']],
+                              dict(references, **local_references[chapter['id']])) for chapter in chapters}
         full_pdf = output / 'pdf/scientific-intelligence.pdf'
         cached = PDF_PUBLICATION_ENABLED and html_only and previous.get('sourceHash') == fingerprint and previous.get('pdfVersion') == 4 and bool(previous.get('bookPdfUrl'))
         total_pages = previous.get('pages', 0) if previous.get('sourceHash') == fingerprint else 0

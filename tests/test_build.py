@@ -1,6 +1,7 @@
 import hashlib
 import importlib.util
 import json
+import shutil
 from html.parser import HTMLParser
 from pathlib import Path
 import tempfile
@@ -14,6 +15,75 @@ SPEC.loader.exec_module(book)
 
 
 class BookBuildTests(unittest.TestCase):
+    def test_legacy_section_links_survive_source_renumbering_without_duplicate_ids(self):
+        html='<h2 id="sec:ch01-2">分类</h2><figure id="fig:ch01-1"></figure>'
+        chapter=dict(id='ch06-scientific-data',source='chapters/ch01-scientific-data.tex')
+        aliased=book.legacy_anchor_aliases(html,chapter)
+        self.assertIn('id="sec:ch06-2"',aliased)
+        self.assertIn('id="fig:ch06-1"',aliased)
+        self.assertEqual(book.legacy_anchor_aliases(aliased,chapter),aliased)
+
+    @unittest.skipUnless(shutil.which('pandoc') or importlib.util.find_spec('pypandoc'), 'Pandoc is required to regenerate chapter ASTs')
+    def test_multiline_table_cells_do_not_become_extra_numbered_tables(self):
+        with tempfile.TemporaryDirectory() as temp:
+            source=Path(temp)
+            (source/'chapter.tex').write_text(r'\chapter{Table}\begin{table}\caption{Roles}\label{tab:roles}\begin{tabular}{cc}Role & Task \\\begin{tabular}[c]{@{}c@{}}First\\Second\end{tabular} & Analysis \\\end{tabular}\end{table}\begin{table}\caption{Next}\label{tab:next}\begin{tabular}{cc}A & B\\\end{tabular}\end{table}',encoding='utf-8')
+            ast,refs=book.parse_chapter(dict(id='sample',number=1,source='chapter.tex'),source,book.find_pandoc())
+            self.assertEqual(len([x for x in book.walk(ast) if x.get('t')=='Table']),2)
+            self.assertEqual(refs['tab:next']['text'],'1.2')
+            self.assertIn('First',json.dumps(ast));self.assertIn('Second',json.dumps(ast))
+
+    def test_chapter_renumbering_aligns_legacy_table_labels_and_new_references(self):
+        with tempfile.TemporaryDirectory() as temp:
+            source=Path(temp);(source/'chapters').mkdir()
+            (source/'chapters/ch01-scientific-data.tex').write_text(r'\chapter{数据}\label{tab:ch06-1}见\ref{tab:ch01-1}。',encoding='utf-8')
+            text=book.chapter_tex(dict(id='ch06-scientific-data',source='chapters/ch01-scientific-data.tex'),source)
+            self.assertIn(r'\label{tab:ch01-1}',text)
+            self.assertIn(r'\ref{tab:ch01-1}',text)
+
+    def test_duplicate_print_labels_are_scoped_to_their_chapter(self):
+        text=r'\chapter{模型}\label{chap:model}\label{tab:shared}见表\ref{tab:shared}和图\ref{fig:unique}。'
+        actual=book.scope_duplicate_labels(text,'models',{'tab:shared'})
+        self.assertIn(r'\label{models:tab:shared}',actual)
+        self.assertIn(r'\ref{models:tab:shared}',actual)
+        self.assertIn(r'\ref{fig:unique}',actual)
+        self.assertIn(r'\label{chap:model}',actual)
+
+    def test_scaled_wide_table_retains_caption_citations_and_cells(self):
+        text=r'\begin{table*}[t]\caption{评价\cite{source}}\resizebox{\textwidth}{!}{\begin{tabular}{cc}模型 & $x_{i}$ \\\end{tabular}}\end{table*}'
+        converted=book.prepare_tex(text)
+        self.assertNotIn(r'\resizebox',converted)
+        self.assertIn(r'\begin{table}',converted)
+        self.assertIn(r'\caption{评价\cite{source}}',converted)
+        self.assertIn(r'模型 & $x_{i}$',converted)
+        self.assertIn(r'\end{tabular}\end{table}',converted)
+
+    @unittest.skipUnless(shutil.which('pdftoppm') and importlib.util.find_spec('PIL') and importlib.util.find_spec('pypdf'), 'Figure generation requires Poppler, Pillow and pypdf')
+    def test_pdf_figure_is_published_as_an_image_without_exposing_source_pdf(self):
+        from pypdf import PdfWriter
+        from PIL import Image
+        with tempfile.TemporaryDirectory() as temp:
+            root=Path(temp);source=root/'source';output=root/'output'
+            (source/'images').mkdir(parents=True);output.mkdir()
+            pdf=source/'images/diagram.pdf';writer=PdfWriter();writer.add_blank_page(width=200,height=100)
+            with pdf.open('wb') as stream:writer.write(stream)
+            url=book.publish_image(pdf,source,output)
+            self.assertEqual(url,'data/textbook/assets/images/diagram.webp')
+            with Image.open(output/'assets/images/diagram.webp') as image:
+                self.assertEqual(image.width,2200)
+                self.assertEqual(image.height,1100)
+            self.assertEqual(list(output.rglob('*.pdf')),[])
+
+    def test_renamed_authoring_files_keep_published_reader_links(self):
+        with tempfile.TemporaryDirectory() as temp:
+            source=Path(temp);(source/'chapters').mkdir()
+            names=['ch01-scientific-data','ch02-knowledge-rag','ch03-pretraining','ch04-scientific-agents','ch05-evaluation','ch06-autonomous-laboratory']
+            (source/'main.tex').write_text('\n'.join(r'\include{chapters/'+name+'}' for name in names),encoding='utf-8')
+            for name in names:(source/'chapters'/f'{name}.tex').write_text(r'\chapter{'+name+'}',encoding='utf-8')
+            chapters=book.read_book(source)
+            self.assertEqual([c['id'] for c in chapters],['ch06-scientific-data','ch13-knowledge-rag','ch04-pretraining','ch05-scientific-agents','ch03-evaluation','ch16-autonomous-laboratory'])
+            self.assertEqual(chapters[0]['source'],'chapters/ch01-scientific-data.tex')
+
     def test_long_chapter_title_uses_required_argument(self):
         self.assertEqual(book.command_arg(r'\chapter[短标题]{完整标题}', 'chapter'), '完整标题')
         with self.assertRaisesRegex(ValueError, 'Unclosed optional'):
@@ -79,6 +149,8 @@ class BookBuildTests(unittest.TestCase):
             authoring.mkdir()
             (authoring / 'chapters').mkdir()
             (authoring / 'images').mkdir()
+            (authoring / 'fonts').mkdir()
+            (authoring / 'fonts/rare.otf').write_bytes(b'author-supplied font')
             (authoring / 'main.tex').write_text(r'\include{chapters/a}', encoding='utf-8')
             (authoring / 'chapters/a.tex').write_text(r'\chapter{新书稿}\chapterintro{目标}{基础}', encoding='utf-8')
             (authoring / 'main.pdf').write_bytes(b'%PDF-old manuscript')
@@ -89,6 +161,7 @@ class BookBuildTests(unittest.TestCase):
                 book.sync_source(authoring, snapshot)
             self.assertFalse((snapshot / 'main.pdf').exists())
             self.assertTrue((snapshot / 'images/diagram.pdf').is_file())
+            self.assertEqual((snapshot/'fonts/rare.otf').read_bytes(),b'author-supplied font')
 
     def test_source_snapshot_is_private(self):
         ignore = (ROOT / '.gitignore').read_text()
@@ -100,9 +173,9 @@ class BookBuildTests(unittest.TestCase):
         catalog = book.validate_outputs(ROOT)
         self.assertEqual(len(catalog['chapters']), 6)
         details = [json.loads((ROOT / c['contentUrl']).read_text(encoding='utf-8')) for c in catalog['chapters']]
-        self.assertEqual(sum(d['html'].count('<figure') for d in details), 66)
-        self.assertEqual(sum(d['html'].count('<table') for d in details), 12)
-        self.assertEqual(catalog['statistics'], dict(chapters=6, figures=66, tables=12))
+        self.assertEqual(sum(d['html'].count('<figure') for d in details), 64)
+        self.assertEqual(sum(d['html'].count('<table') for d in details), 13)
+        self.assertEqual(catalog['statistics'], dict(chapters=6, figures=64, tables=13))
         self.assertTrue(all('??' not in d['html'] for d in details))
         for chapter in details:
             self.assertNotIn('data-reference-unresolved', chapter['html'])
@@ -161,7 +234,7 @@ class BookBuildTests(unittest.TestCase):
     def test_all_original_preview_pages_are_present(self):
         catalog = json.loads((ROOT / 'data/textbook/catalog.json').read_text(encoding='utf-8'))
         index = book.validate_previews(ROOT, catalog)
-        self.assertEqual([index['chapters'][c['id']]['pageCount'] for c in catalog['chapters']], [66, 48, 42, 30, 38, 33])
+        self.assertEqual([index['chapters'][c['id']]['pageCount'] for c in catalog['chapters']], [67, 49, 43, 31, 38, 33])
 
     def test_original_preview_preserves_citation_link_destinations(self):
         index = json.loads((ROOT / 'data/textbook/previews/index.json').read_text(encoding='utf-8'))

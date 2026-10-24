@@ -27,7 +27,7 @@
 
 Scientific intelligence requires clear scientific questions, organized knowledge, usable experimental feedback and evaluation that supports the conclusions. This book connects knowledge, action and evaluation in scientific research.
 
-Six chapters connect scientific data, knowledge modeling, foundation-model pretraining, scientific agents, trustworthy evaluation and autonomous laboratories, with 66 figures, 12 tables and research examples.
+Six chapters connect scientific data, knowledge modeling, foundation-model pretraining, scientific agents, trustworthy evaluation and autonomous laboratories, with 64 figures, 13 tables and research examples.
 
 ## Contents
 
@@ -58,6 +58,19 @@ The book is in **Chinese**, with bilingual project information and website navig
 Use [Issues](https://github.com/BUPT-AI4S/ai4s-book/issues/new/choose) to report text, formula, figure, reference or website issues. Include the chapter/section, a description, suggested changes and supporting sources where available.
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for participation details.
+
+## Chapter contributors
+
+| Chapter | Contributors |
+| --- | --- |
+| Chapter 1 | 王梦冉 |
+| Chapter 2 | 王婉婷和李雪婷 |
+| Chapter 3 | 朱长昊和乔徐阳 |
+| Chapter 4 | 陈晨和丁利军 |
+| Chapter 5 | 胡心怡 |
+| Chapter 6 | 黄怡玲 |
+
+Cover image: created with AI assistance by 汤子辰.
 
 ## Teaching and usage authorization
 
