@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="900" height="440" viewBox="0 0 900 440" role="img" aria-labelledby="title description">
 <title id="title">Star History · BUPT-AI4S/ai4s-book</title>
-<desc id="description">GitHub star history, 7 stars at 2026-10-24T04:13:17.683144+00:00</desc>
+<desc id="description">GitHub star history, 7 stars at 2026-10-25T04:16:20.406600+00:00</desc>
 <rect width="900" height="440" rx="12" fill="#ffffff"/>
 <g font-family="Arial, sans-serif" fill="#182536"><text x="450" y="42" text-anchor="middle" font-size="25" font-weight="700">Star History</text>
 <rect x="85" y="63" width="11" height="11" rx="2" fill="#e45d42"/>
@@ -16,9 +16,9 @@
 <line x1="85" y1="107.00" x2="835" y2="107.00" stroke="#e8edf3"/>
 <text x="72" y="112.00" text-anchor="end" font-size="13">8</text>
 <text x="85.00" y="378" text-anchor="middle" font-size="12">2026-10-22 13:42</text>
-<text x="460.00" y="378" text-anchor="middle" font-size="12">2026-10-23 08:57</text>
-<text x="835.00" y="378" text-anchor="middle" font-size="12">2026-10-24 04:13</text>
-<path d="M85.00,352.00 L91.42,321.38 L99.98,290.75 L162.16,260.12 L358.31,229.50 L383.78,198.88 L394.77,168.25 L418.66,137.62 L835.00,137.62" fill="none" stroke="#e45d42" stroke-width="3" stroke-linejoin="round"/>
+<text x="460.00" y="378" text-anchor="middle" font-size="12">2026-10-23 20:59</text>
+<text x="835.00" y="378" text-anchor="middle" font-size="12">2026-10-25 04:16</text>
+<path d="M85.00,352.00 L88.95,321.38 L94.22,290.75 L132.50,260.12 L253.24,229.50 L268.92,198.88 L275.69,168.25 L290.39,137.62 L835.00,137.62" fill="none" stroke="#e45d42" stroke-width="3" stroke-linejoin="round"/>
 <circle cx="835" cy="137.62" r="4" fill="#e45d42"/>
 <text x="835" y="92" text-anchor="end" font-size="14">7 stars</text>
 <text x="450" y="418" text-anchor="middle" font-size="13">Date (UTC)</text>
