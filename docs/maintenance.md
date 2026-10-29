@@ -21,10 +21,10 @@ python tools/preview.py --port 8084
 
 ```sh
 python -m pip install -r tools/textbook-requirements.txt
-python tools/build_textbook.py --sync-from /path/to/authoring-checkout
+python tools/build_textbook.py --sync-from /path/to/authoring-checkout --preview-pdf-engine /path/to/tectonic
 ```
 
-`.textbook-source/` 是忽略提交的本地快照，保留所选版本以便重建。生成网页不需要 LaTeX 编译器；含 PDF 原始配图时需要可在 PATH 中调用的 Poppler `pdftoppm`。这些配图在生成时转成 WebP，源 PDF 不进入公开目录。
+`.textbook-source/` 是忽略提交的本地快照，保留所选版本以便重建。网页转换使用 Pandoc；含 TikZ 绘图时需要 LaTeX 编译器，含 PDF 原始配图时需要可在 PATH 中调用的 Poppler `pdftoppm`。这些配图在生成时转成 WebP，源 PDF 不进入公开目录。
 
 生成器从快照中的 `main.tex` 确定章节与顺序，支持嵌套 input、学习目标、小贴士、图表、脚注、数学公式及交叉引用。遇到新宏时先补充网页映射再重新生成。阅读版省略工程说明，保留科研内容及其适用条件。
 
@@ -40,9 +40,11 @@ python tools/build_previews.py --pdf-dir /path/to/chapter-pdfs --source-catalog 
 
 发布前必须通过 `--check`，验证章节、配图、校验和及网页发布范围。来源摘要、内容校验和记录在 `data/textbook/catalog.json`。请勿直接修改生成文件。
 
+含 TikZ 的章节需指定 `--preview-pdf-engine`：使用教材原有字体与样式编译图形，裁去空白页边后转换为网页图片；中间 PDF 保留在本地。跨页续图保留原图编号及各部分图注。章节 PDF 按顶层目录拆分，避免短章名与节标题重复时定位错误。
+
 ## 提交前检查
 
-- 正文结构、64 幅图和 13 张表格的数量及单元格完整；新章节发布时同步修改测试的预期数量。
+- 正文结构、60 幅图和 13 张表格的数量及单元格完整；新章节发布时同步修改测试的预期数量。
 - 交叉引用、图解提示、脚注和文献可跳转。
 - 测试手机、桌面、深浅主题、中英导航、预览翻页与缩放、课程链接与授权邮箱，确认发布目录中没有 PDF。
 - 同步 README、English README、CHANGELOG 和引用信息。
@@ -50,6 +52,6 @@ python tools/build_previews.py --pdf-dir /path/to/chapter-pdfs --source-catalog 
 
 教材更新按“同步、生成、校验、提交”执行。GitHub Actions 校验已生成的内容并发布到 Pages。
 
-当前同步源为私有仓库 `0c5b628`。源文件已按实际章次重命名，生成器保留最初的六个公开章节 ID，同时保留旧小节、图表锚点别名。按章统一遗留标签前缀，单列嵌套排版表格转为单元格内换行，避免重复表号。排印用的本地 OTF/TTF 字体进入被忽略的源码快照，公开网站不包含字体、源文件或 PDF。完整编译使用 Tectonic 或 XeLaTeX，并需要缓存或下载 `fontawesome5` 等原工程依赖。
+当前同步源为私有仓库 `075e6e9`。源文件已按实际章次重命名，生成器保留最初的六个公开章节 ID，同时保留旧小节、图表锚点别名。按章统一遗留标签前缀，单列嵌套排版表格转为单元格内换行，避免重复表号。排印用的本地 OTF/TTF 字体进入被忽略的源码快照，公开网站不包含字体、源文件或 PDF。完整编译使用 Tectonic 或 XeLaTeX，并需要缓存或下载 `fontawesome5` 等原工程依赖。
 
 浏览器补充回归：`node tests/page-field-browser.cjs` 检查输入跳转页码时，排队的滚动通知不会覆盖正在输入的数字；离开输入框后恢复当前页指示。该测试可用 `BOOK_PREVIEW_URL` 指向线上页面。

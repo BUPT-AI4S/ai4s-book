@@ -6,7 +6,7 @@ authors:
     given-names: "海红"
   - family-names: "徐"
     given-names: "坤"
-date-released: 2026-10-24
+date-released: 2026-10-29
 url: "https://bupt-ai4s.github.io/ai4s-book/"
 repository-code: "https://github.com/BUPT-AI4S/ai4s-book"
 abstract: "围绕科学数据、知识建模、基础模型预训练、科学智能体、可信评价与自主实验室，结合研究案例、图表与参考文献，介绍科学智能的方法与实践。提供在线阅读与配套课程。"

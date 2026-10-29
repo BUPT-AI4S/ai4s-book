@@ -3,16 +3,16 @@
   "publicationMode": "web-only",
   "pdfVersion": 4,
   "title": "科学智能原理与实践",
-  "sourceHash": "966972b5de11ec6672373413c16a2d5bd752933ef1044abce6f85c4c2b5191d9",
-  "buildHash": "ba022a0693716b827606c0e040d31785eeface1dd785f0d92f75f3ae28409bfc",
+  "sourceHash": "86639b6acc87b8e8712771bd50766934774da005634d7b534dc0fd0791c4cbe9",
+  "buildHash": "6e0125a4c80291f0cc3cb95212b510806417d58047c339785985e1fbbdc45c51",
   "statistics": {
     "chapters": 6,
-    "figures": 64,
+    "figures": 60,
     "tables": 13
   },
   "sourceRepository": "https://github.com/BUPT-AI4S/AI4SBook",
-  "sourceCommit": "0c5b628ce3b3f0d72fc7f3f24a4a3a49ce6abe73",
-  "pages": 195,
+  "sourceCommit": "075e6e9cafc39568915ae46a6ccf124c8a61424c",
+  "pages": 207,
   "bookPdfUrl": null,
   "bookPdfSha256": null,
   "chapters": [
@@ -26,25 +26,27 @@
       "status": "available",
       "hasCitations": true,
       "summary": "理解科学数据在模型学习与科学推断中的作用；掌握数据需求、质量与任务样本的组织方法；分析数据表征、评价和反馈之间的联系；运用催化实例理解数据支撑研究闭环的具体机制。",
+      "pages": 69,
       "pdfUrl": null,
       "pdfSha256": null,
       "contentUrl": "data/textbook/chapters/ch06-scientific-data.json",
-      "contentSha256": "d797925eb8f9d1670258610ebca71f8cc26bf9574a8e9fdf9a444466f48134e8"
+      "contentSha256": "50ca947050d8b640a77f3f842ad21f69a4cf4cfd726aeb9fd455bc474b2fa4c9"
     },
     {
       "id": "ch13-knowledge-rag",
       "number": 2,
-      "title": "科学知识建模与大模型推理",
+      "title": "科学知识建模",
       "part": "教材内容",
       "partNumber": 1,
       "source": "chapters/ch02-knowledge-rag.tex",
       "status": "available",
       "hasCitations": true,
       "summary": "理解科学知识的组织、表示与建模，以及检索、推理和科研任务中知识的使用方法。",
+      "pages": 61,
       "pdfUrl": null,
       "pdfSha256": null,
       "contentUrl": "data/textbook/chapters/ch13-knowledge-rag.json",
-      "contentSha256": "42c016f16150ea72e9dbf5e8d89a0d744cda36b8bed2c2bcc3260997c981000c"
+      "contentSha256": "332ed4db87e4df906468a4fa1e78895801f84b0c49785986e1a36671d82b6cf4"
     },
     {
       "id": "ch04-pretraining",
@@ -56,10 +58,11 @@
       "status": "available",
       "hasCitations": true,
       "summary": "理解科学基础模型的概念、特征与发展趋势，掌握科学表示、预训练目标、数据构建与迁移评估的联系。",
+      "pages": 45,
       "pdfUrl": null,
       "pdfSha256": null,
       "contentUrl": "data/textbook/chapters/ch04-pretraining.json",
-      "contentSha256": "00cc465b487ef4100fb91ab576bd446f7e45acf5b1813010ea37484d2a4baa2b"
+      "contentSha256": "05568089cffa38f0730a809d5f94391f28f5b9919636a3914cbaaa968cf0fcd0"
     },
     {
       "id": "ch05-scientific-agents",
@@ -71,10 +74,11 @@
       "status": "available",
       "hasCitations": true,
       "summary": "掌握科学智能体的交互原理与系统架构，理解规划、工具、记忆和验证的协同机制，并能够围绕具体科研任务设计、评测和改进智能体。",
+      "pages": 33,
       "pdfUrl": null,
       "pdfSha256": null,
       "contentUrl": "data/textbook/chapters/ch05-scientific-agents.json",
-      "contentSha256": "551dc51d54b3beb9b02e01f26ddb7ad43e70077fe190491100871d6f0d3c3762"
+      "contentSha256": "c780f31059ced6bc022c410ee41ab4bca0809c3bc0f65c4ab7c892c752b47758"
     },
     {
       "id": "ch03-evaluation",
@@ -86,10 +90,11 @@
       "status": "available",
       "hasCitations": true,
       "summary": "区分科学任务、研究工作流与科学发现的测评目标，能够设计测试数据、选择评价依据，并审查测评结论的适用条件。",
+      "pages": 40,
       "pdfUrl": null,
       "pdfSha256": null,
       "contentUrl": "data/textbook/chapters/ch03-evaluation.json",
-      "contentSha256": "684cb7e7596c5826889afc4e082a97774020dc5534f8dc2ae53cc769b4ecabac"
+      "contentSha256": "1147d1b2099dfe3ce45d77e30762143a567055dd73284582e3d8f96561e27830"
     },
     {
       "id": "ch16-autonomous-laboratory",
@@ -101,10 +106,11 @@
       "status": "available",
       "hasCitations": true,
       "summary": "理解计算决策、实验执行和测量反馈如何形成闭环，并比较不同领域自主实验室的实现。",
+      "pages": 35,
       "pdfUrl": null,
       "pdfSha256": null,
       "contentUrl": "data/textbook/chapters/ch16-autonomous-laboratory.json",
-      "contentSha256": "adaa950c00deaf67dfadf79ebd4ad3324c985b3bffd64587a162fcf8e586b9a4"
+      "contentSha256": "11614e0124e5da8b8f99dbbc6b1f14bdf7fc899f9a585c73556a626600ee952c"
     }
   ]
 }

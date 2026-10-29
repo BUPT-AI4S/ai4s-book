@@ -15,6 +15,53 @@ SPEC.loader.exec_module(book)
 
 
 class BookBuildTests(unittest.TestCase):
+    def test_pdf_split_uses_chapter_bookmarks_when_section_repeats_short_title(self):
+        from pypdf import PdfWriter, PdfReader
+        with tempfile.TemporaryDirectory() as temp:
+            work = Path(temp)
+            output = work / 'output'
+            (output / 'pdf').mkdir(parents=True)
+            writer = PdfWriter()
+            for _ in range(3):
+                writer.add_blank_page(width=200, height=300)
+            parent = writer.add_outline_item('第二章 科学知识建模', 0)
+            writer.add_outline_item('2.1 科学知识建模研究', 0, parent=parent)
+            writer.add_outline_item('第三章 科学模型', 1)
+            writer.add_outline_item('参考文献', 2)
+            with (work / 'main.pdf').open('wb') as stream:
+                writer.write(stream)
+            chapters = [dict(id='knowledge', title='科学知识建模'), dict(id='models', title='科学模型')]
+            self.assertEqual(book.compile_and_split(work, work, output, chapters, 'unused', True), 3)
+            self.assertEqual(len(PdfReader(output / 'pdf/knowledge.pdf').pages), 2)
+
+    @unittest.skipUnless(shutil.which('pandoc') or importlib.util.find_spec('pypandoc'), 'Pandoc is required')
+    def test_continued_figure_retains_its_number_and_next_reference(self):
+        with tempfile.TemporaryDirectory() as temp:
+            source = Path(temp)
+            (source / 'chapter.tex').write_text(r'\chapter{知识}\begin{figure}\includegraphics{a.png}\caption{上半}\label{fig:timeline}\end{figure}\begin{figure}\ContinuedFloat\includegraphics{b.png}\caption{下半}\end{figure}\begin{figure}\includegraphics{c.png}\caption{下一张}\label{fig:next}\end{figure}', encoding='utf-8')
+            ast, refs = book.parse_chapter(dict(id='knowledge', number=2, source='chapter.tex'), source, book.find_pandoc())
+            figures = [node for node in book.walk(ast) if node.get('t') == 'Figure']
+            self.assertEqual(len(figures), 3)
+            self.assertEqual(refs['fig:timeline']['text'], '2.1')
+            self.assertEqual(refs['fig:next']['text'], '2.2')
+            self.assertIn('continued-figure', figures[1]['c'][0][1])
+
+    @unittest.skipUnless(shutil.which('pandoc') or importlib.util.find_spec('pypandoc'), 'Pandoc is required')
+    def test_rendered_tikz_keeps_figure_caption_number_and_reference(self):
+        diagram = r'\begin{tikzpicture}\node{知识分类};\end{tikzpicture}'
+        with tempfile.TemporaryDirectory() as temp:
+            source = Path(temp)
+            (source / 'chapter.tex').write_text(r'\chapter{知识}\begin{figure}' + diagram + r'\caption{知识分类图}\label{fig:taxonomy}\end{figure}见图\ref{fig:taxonomy}。', encoding='utf-8')
+            ast, refs = book.parse_chapter(dict(id='knowledge', number=2, source='chapter.tex'), source,
+                                          book.find_pandoc(), {diagram: 'images/web-tikz/diagram.pdf'})
+            figures = [node for node in book.walk(ast) if node.get('t') == 'Figure']
+            images = [node for node in book.walk(ast) if node.get('t') == 'Image']
+            self.assertEqual(len(figures), 1)
+            self.assertEqual(len(images), 1)
+            self.assertEqual(images[0]['c'][2][0], 'images/web-tikz/diagram.pdf')
+            self.assertEqual(refs['fig:taxonomy']['text'], '2.1')
+            self.assertIn('知识分类图', json.dumps(ast, ensure_ascii=False))
+
     def test_legacy_section_links_survive_source_renumbering_without_duplicate_ids(self):
         html='<h2 id="sec:ch01-2">分类</h2><figure id="fig:ch01-1"></figure>'
         chapter=dict(id='ch06-scientific-data',source='chapters/ch01-scientific-data.tex')
@@ -173,9 +220,9 @@ class BookBuildTests(unittest.TestCase):
         catalog = book.validate_outputs(ROOT)
         self.assertEqual(len(catalog['chapters']), 6)
         details = [json.loads((ROOT / c['contentUrl']).read_text(encoding='utf-8')) for c in catalog['chapters']]
-        self.assertEqual(sum(d['html'].count('<figure') for d in details), 64)
+        self.assertEqual(sum(d['html'].count('<figure') for d in details), 60)
         self.assertEqual(sum(d['html'].count('<table') for d in details), 13)
-        self.assertEqual(catalog['statistics'], dict(chapters=6, figures=64, tables=13))
+        self.assertEqual(catalog['statistics'], dict(chapters=6, figures=60, tables=13))
         self.assertTrue(all('??' not in d['html'] for d in details))
         for chapter in details:
             self.assertNotIn('data-reference-unresolved', chapter['html'])
@@ -234,7 +281,7 @@ class BookBuildTests(unittest.TestCase):
     def test_all_original_preview_pages_are_present(self):
         catalog = json.loads((ROOT / 'data/textbook/catalog.json').read_text(encoding='utf-8'))
         index = book.validate_previews(ROOT, catalog)
-        self.assertEqual([index['chapters'][c['id']]['pageCount'] for c in catalog['chapters']], [67, 49, 43, 31, 38, 33])
+        self.assertEqual([index['chapters'][c['id']]['pageCount'] for c in catalog['chapters']], [69, 61, 45, 33, 40, 35])
 
     def test_original_preview_preserves_citation_link_destinations(self):
         index = json.loads((ROOT / 'data/textbook/previews/index.json').read_text(encoding='utf-8'))

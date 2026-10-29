@@ -8,6 +8,7 @@
   "status": "available",
   "hasCitations": true,
   "summary": "理解科学数据在模型学习与科学推断中的作用；掌握数据需求、质量与任务样本的组织方法；分析数据表征、评价和反馈之间的联系；运用催化实例理解数据支撑研究闭环的具体机制。",
+  "pages": 69,
   "pdfUrl": null,
   "pdfSha256": null,
   "contentUrl": "data/textbook/chapters/ch06-scientific-data.json",
@@ -279,5 +280,5 @@
       "title": "参考文献"
     }
   ],
-  "sourceHash": "966972b5de11ec6672373413c16a2d5bd752933ef1044abce6f85c4c2b5191d9"
+  "sourceHash": "86639b6acc87b8e8712771bd50766934774da005634d7b534dc0fd0791c4cbe9"
 }

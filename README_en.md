@@ -27,14 +27,14 @@
 
 Scientific intelligence requires clear scientific questions, organized knowledge, usable experimental feedback and evaluation that supports the conclusions. This book connects knowledge, action and evaluation in scientific research.
 
-Six chapters connect scientific data, knowledge modeling, foundation-model pretraining, scientific agents, trustworthy evaluation and autonomous laboratories, with 64 figures, 13 tables and research examples.
+Six chapters connect scientific data, knowledge modeling, foundation-model pretraining, scientific agents, trustworthy evaluation and autonomous laboratories, with 60 figures, 13 tables and research examples.
 
 ## Contents
 
 | Chapter | Focus | Access |
 | --- | --- | --- |
 | 1. 科学数据与AI4S研究闭环 | Scientific data governance, organization, representation and research workflows | [Read](https://bupt-ai4s.github.io/ai4s-book/read.html?chapter=ch06-scientific-data) · [PDF preview](https://bupt-ai4s.github.io/ai4s-book/read.html?chapter=ch06-scientific-data&view=pdf) |
-| 2. 科学知识建模与大模型推理 | Knowledge representation, retrieval augmentation and large-model reasoning | [Read](https://bupt-ai4s.github.io/ai4s-book/read.html?chapter=ch13-knowledge-rag) · [PDF preview](https://bupt-ai4s.github.io/ai4s-book/read.html?chapter=ch13-knowledge-rag&view=pdf) |
+| 2. 科学知识建模 | Knowledge classification, representation, acquisition, modeling and use in research | [Read](https://bupt-ai4s.github.io/ai4s-book/read.html?chapter=ch13-knowledge-rag) · [PDF preview](https://bupt-ai4s.github.io/ai4s-book/read.html?chapter=ch13-knowledge-rag&view=pdf) |
 | 3. 科学基础模型的预训练原理与方法 | Pretraining objectives, methods and scientific applications | [Read](https://bupt-ai4s.github.io/ai4s-book/read.html?chapter=ch04-pretraining) · [PDF preview](https://bupt-ai4s.github.io/ai4s-book/read.html?chapter=ch04-pretraining&view=pdf) |
 | 4. 科学智能体：从基本概念到科研应用与研究版图 | Agent architectures, scientific workflows and applications | [Read](https://bupt-ai4s.github.io/ai4s-book/read.html?chapter=ch05-scientific-agents) · [PDF preview](https://bupt-ai4s.github.io/ai4s-book/read.html?chapter=ch05-scientific-agents&view=pdf) |
 | 5. 科学智能的测评数据构建与可信评价 | Evaluation data, metrics and credible conclusions | [Read](https://bupt-ai4s.github.io/ai4s-book/read.html?chapter=ch03-evaluation) · [PDF preview](https://bupt-ai4s.github.io/ai4s-book/read.html?chapter=ch03-evaluation&view=pdf) |
@@ -52,6 +52,10 @@ The book is in **Chinese**, with bilingual project information and website navig
 
 - [Read online](https://bupt-ai4s.github.io/ai4s-book/) with chapter navigation, figures, formulas and references. Switch to PDF preview for original page layouts, continuous scrolling, page navigation, zoom and clickable citations with a return to the reading position.
 - The [companion course](https://bupt-ai4s.github.io/) provides teaching materials, recordings and further reading.
+
+## Latest content update
+
+October 29, 2026: updated the scientific knowledge modeling chapter, related tables, reading guide and references. All six web chapters and 283 chapter-preview pages now reflect the same source version.
 
 ## Feedback and contributions
 

@@ -8,6 +8,7 @@
   "status": "available",
   "hasCitations": true,
   "summary": "理解计算决策、实验执行和测量反馈如何形成闭环，并比较不同领域自主实验室的实现。",
+  "pages": 35,
   "pdfUrl": null,
   "pdfSha256": null,
   "contentUrl": "data/textbook/chapters/ch16-autonomous-laboratory.json",
@@ -124,5 +125,5 @@
       "title": "参考文献"
     }
   ],
-  "sourceHash": "966972b5de11ec6672373413c16a2d5bd752933ef1044abce6f85c4c2b5191d9"
+  "sourceHash": "86639b6acc87b8e8712771bd50766934774da005634d7b534dc0fd0791c4cbe9"
 }

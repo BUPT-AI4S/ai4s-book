@@ -31,7 +31,7 @@
 
 科学智能不仅需要选择模型，也需要说明科学问题如何表达、知识如何组织、实验结果怎样反馈，以及什么样的评价能够支撑结论。《科学智能原理与实践》围绕这些问题，连接科学研究中的知识、行动与评价。
 
-本书围绕**科学数据、科学知识建模、基础模型预训练、科学智能体、可信测评与自主实验室**六个主题展开，结合研究案例、64 幅配图、13 张表格及参考文献，系统介绍从数据基础到科研闭环的方法与实践。
+本书围绕**科学数据、科学知识建模、基础模型预训练、科学智能体、可信测评与自主实验室**六个主题展开，结合研究案例、60 幅配图、13 张表格及参考文献，系统介绍从数据基础到科研闭环的方法与实践。
 
 ## 你将学习什么
 
@@ -46,7 +46,7 @@
 | 章节 | 主要内容 | 阅读资源 |
 | --- | --- | --- |
 | 第 1 章 科学数据与AI4S研究闭环 | 科学数据的治理、组织、表征与研究闭环 | [在线阅读](https://bupt-ai4s.github.io/ai4s-book/read.html?chapter=ch06-scientific-data) · [PDF 预览](https://bupt-ai4s.github.io/ai4s-book/read.html?chapter=ch06-scientific-data&view=pdf) |
-| 第 2 章 科学知识建模与大模型推理 | 知识表示、检索增强与大模型推理 | [在线阅读](https://bupt-ai4s.github.io/ai4s-book/read.html?chapter=ch13-knowledge-rag) · [PDF 预览](https://bupt-ai4s.github.io/ai4s-book/read.html?chapter=ch13-knowledge-rag&view=pdf) |
+| 第 2 章 科学知识建模 | 知识分类、表示、获取、建模与科研任务中的使用 | [在线阅读](https://bupt-ai4s.github.io/ai4s-book/read.html?chapter=ch13-knowledge-rag) · [PDF 预览](https://bupt-ai4s.github.io/ai4s-book/read.html?chapter=ch13-knowledge-rag&view=pdf) |
 | 第 3 章 科学基础模型的预训练原理与方法 | 基础模型预训练的目标、方法与科学应用 | [在线阅读](https://bupt-ai4s.github.io/ai4s-book/read.html?chapter=ch04-pretraining) · [PDF 预览](https://bupt-ai4s.github.io/ai4s-book/read.html?chapter=ch04-pretraining&view=pdf) |
 | 第 4 章 科学智能体：从基本概念到科研应用与研究版图 | 智能体架构、科研工作流与应用案例 | [在线阅读](https://bupt-ai4s.github.io/ai4s-book/read.html?chapter=ch05-scientific-agents) · [PDF 预览](https://bupt-ai4s.github.io/ai4s-book/read.html?chapter=ch05-scientific-agents&view=pdf) |
 | 第 5 章 科学智能的测评数据构建与可信评价 | 测评数据、评价指标与可信结论 | [在线阅读](https://bupt-ai4s.github.io/ai4s-book/read.html?chapter=ch03-evaluation) · [PDF 预览](https://bupt-ai4s.github.io/ai4s-book/read.html?chapter=ch03-evaluation&view=pdf) |
@@ -72,6 +72,7 @@
 
 | 日期 | 公开更新 |
 | --- | --- |
+| 2026-10-29 | 更新“科学知识建模”及相关表格、阅读指南与参考文献；同步六章网页和 283 页章节原版预览，现含 60 幅图与 13 张表格。 |
 | 2026-10-24 | 同步六章正文、引用及配图，更新为 64 幅图与 13 张表格；补充内容贡献名单，保留原版预览与既有阅读链接。 |
 | 2026-10-23 | 更新六章网页与原版预览，包含 66 幅图与 12 张表格；加入连续滚动阅读。 |
 | 2026-10-22 | 上线三章网页、32 幅图与 2 张表格，提供书籍介绍和阅读导航。 |

@@ -329,14 +329,80 @@ def chapter_tex(chapter, source):
     return text
 
 
-def parse_chapter(chapter, source, pandoc):
-    text = prepare_tex(chapter_tex(chapter, source))
+def render_tikz_diagrams(chapters, source, work, engine):
+    """Compile original TikZ with the book's fonts/styles, keeping PDFs private."""
+    pattern = r'\\begin\{tikzpicture\}[\s\S]*?\\end\{tikzpicture\}'
+    diagrams = dict.fromkeys(diagram for chapter in chapters
+                             for diagram in re.findall(pattern, chapter_tex(chapter, source)))
+    if not diagrams:
+        return {}
+    if not engine:
+        raise ValueError('TikZ figures require a LaTeX engine; supply --preview-pdf-engine.')
+    preamble = uncomment((source / 'main.tex').read_text(encoding='utf-8')).split(r'\begin{document}', 1)[0]
+    for diagram in diagrams:
+        digest = hashlib.sha256(diagram.encode()).hexdigest()
+        name = 'web-tikz-' + digest
+        document = (preamble + '\n'
+                    + r'\begin{document}\pagestyle{empty}\noindent\begingroup\linespread{1.05}\selectfont' + '\n'
+                    + diagram + '\n' + r'\endgroup\end{document}')
+        (work / (name + '.tex')).write_text(document, encoding='utf-8')
+        if 'tectonic' in Path(engine).name:
+            run([engine, '--keep-logs', name + '.tex'], work,
+                env=dict(os.environ, TECTONIC_UNTRUSTED_MODE='1'))
+        else:
+            run([engine, '-xelatex', '-interaction=nonstopmode', '-halt-on-error',
+                 '-no-shell-escape', name + '.tex'], work)
+        from pypdf import PdfReader, PdfWriter
+        from pypdf.generic import RectangleObject
+        from PIL import Image, ImageChops
+        pdf = work / (name + '.pdf')
+        reader = PdfReader(pdf)
+        if len(reader.pages) != 1:
+            raise ValueError('A TikZ figure must render as exactly one page')
+        # Locate the complete drawing on its otherwise empty book page. Cropping
+        # the PDF box preserves vectors and uses only existing build dependencies.
+        renderer = shutil.which('pdftoppm')
+        if not renderer:
+            raise ValueError('Poppler pdftoppm is required to render TikZ figures')
+        prefix = work / name
+        run([renderer, '-f', '1', '-l', '1', '-singlefile', '-r', '144', '-png', pdf, prefix], work)
+        with Image.open(prefix.with_suffix('.png')) as image:
+            image = image.convert('RGB')
+            bounds = ImageChops.difference(image, Image.new('RGB', image.size, 'white')).getbbox()
+            if not bounds:
+                raise ValueError('TikZ figure rendered as an empty page')
+            left, top, right, bottom = bounds
+            page = reader.pages[0]
+            sx, sy = float(page.mediabox.width) / image.width, float(page.mediabox.height) / image.height
+            box = RectangleObject([max(0, left-4)*sx, max(0, image.height-bottom-4)*sy,
+                                   min(image.width, right+4)*sx, min(image.height, image.height-top+4)*sy])
+        page.mediabox = box
+        page.cropbox = box
+        relative = Path('images/web-tikz') / (digest + '.pdf')
+        (work / relative).parent.mkdir(parents=True, exist_ok=True)
+        writer = PdfWriter()
+        writer.add_page(page)
+        with (work / relative).open('wb') as stream:
+            writer.write(stream)
+        diagrams[diagram] = relative.as_posix()
+    return diagrams
+
+
+def parse_chapter(chapter, source, pandoc, diagrams=None):
+    text = chapter_tex(chapter, source)
+    for diagram, image in (diagrams or {}).items():
+        text = text.replace(diagram, r'\includegraphics{' + image + '}')
+    text = prepare_tex(text)
     ast = json.loads(run([pandoc, '--from=latex+latex_macros+raw_tex', '--to=json', '--fail-if-warnings'], source, text))
     # Pandoc can duplicate a captioned minipage inside its surrounding figure.
     # Keep one semantic figure while preserving its image and reading notes.
     for element in walk(ast):
         if element.get('t') == 'Figure':
             identity, caption, blocks = element['c']
+            for child in walk(blocks):
+                if child.get('t') in {'RawBlock', 'RawInline'} and child['c'][0] in {'latex', 'tex'} and child['c'][1].strip() == r'\ContinuedFloat':
+                    identity[1].append('continued-figure')
+                    child['t'], child['c'] = ('Para', []) if child['t'] == 'RawBlock' else ('Str', '')
             flattened = []
             for child in blocks:
                 if child.get('t') == 'Figure' and child['c'][0][0] == identity[0] and child['c'][1] == caption:
@@ -371,7 +437,10 @@ def parse_chapter(chapter, source, pandoc):
         if kind == 'Header' and content[0] == 1 and content[1][0]:
             references[content[1][0]] = dict(text=str(chapter['number']), chapter=chapter['id'], anchor='chapter-title')
         if kind == 'Figure':
-            figure_number += 1
+            if 'continued-figure' not in content[0][1]:
+                figure_number += 1
+            elif not figure_number:
+                raise ValueError('A continued figure must follow a numbered figure')
             caption = content[1][1]
             if caption and caption[0]['t'] in {'Plain', 'Para'}:
                 caption[0]['c'][:0] = [{'t': 'Str', 'c': f'图 {chapter["number"]}.{figure_number}'}, {'t': 'Space'}]
@@ -484,9 +553,10 @@ def compile_and_split(source, work, output, chapters, engine, reuse_verified_pdf
             else:
                 yield str(item.title), reader.get_destination_page_number(item)
     bookmarks = list(flatten(reader.outline))
+    chapter_bookmarks = list(flatten([item for item in reader.outline if not isinstance(item, list)]))
     starts = []
     for chapter in chapters:
-        candidates = [page for title, page in bookmarks if chapter['title'] in re.sub(r'\s+', '', title)]
+        candidates = [page for title, page in chapter_bookmarks if chapter['title'] in re.sub(r'\s+', '', title)]
         if len(candidates) != 1:
             raise ValueError(f'Cannot locate unique PDF chapter bookmark: {chapter["title"]}')
         starts.append(candidates[0])
@@ -572,9 +642,10 @@ def build_book(source=SOURCE, root=ROOT, pdf_engine=None, html_only=False, previ
         for path in work.rglob('*'):
             if path.suffix in {'.tex', '.bib'}:
                 path.write_text(reader_tex(path.read_text(encoding='utf-8')), encoding='utf-8', newline='\n')
+        diagrams = render_tikz_diagrams(chapters, source, work, preview_pdf_engine or engine)
         documents, references, local_references, duplicates = {}, {}, {}, set()
         for chapter in chapters:
-            ast, local = parse_chapter(chapter, source, pandoc)
+            ast, local = parse_chapter(chapter, source, pandoc, diagrams)
             documents[chapter['id']] = ast
             local_references[chapter['id']] = local
             duplicates.update(references.keys() & local.keys())
@@ -586,7 +657,7 @@ def build_book(source=SOURCE, root=ROOT, pdf_engine=None, html_only=False, previ
         for chapter in chapters:
             text = reader_tex(chapter_tex(chapter, source))
             (work / chapter['source']).write_text(scope_duplicate_labels(text, chapter['id'], duplicates), encoding='utf-8')
-        converted_chapters = {chapter['id']: convert_chapter(chapter, source, output, pandoc, documents[chapter['id']],
+        converted_chapters = {chapter['id']: convert_chapter(chapter, work, output, pandoc, documents[chapter['id']],
                               dict(references, **local_references[chapter['id']])) for chapter in chapters}
         full_pdf = output / 'pdf/scientific-intelligence.pdf'
         cached = PDF_PUBLICATION_ENABLED and html_only and previous.get('sourceHash') == fingerprint and previous.get('pdfVersion') == 4 and bool(previous.get('bookPdfUrl'))

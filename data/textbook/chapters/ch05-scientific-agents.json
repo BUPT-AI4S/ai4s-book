@@ -8,6 +8,7 @@
   "status": "available",
   "hasCitations": true,
   "summary": "掌握科学智能体的交互原理与系统架构，理解规划、工具、记忆和验证的协同机制，并能够围绕具体科研任务设计、评测和改进智能体。",
+  "pages": 33,
   "pdfUrl": null,
   "pdfSha256": null,
   "contentUrl": "data/textbook/chapters/ch05-scientific-agents.json",
@@ -154,5 +155,5 @@
       "title": "参考文献"
     }
   ],
-  "sourceHash": "966972b5de11ec6672373413c16a2d5bd752933ef1044abce6f85c4c2b5191d9"
+  "sourceHash": "86639b6acc87b8e8712771bd50766934774da005634d7b534dc0fd0791c4cbe9"
 }
