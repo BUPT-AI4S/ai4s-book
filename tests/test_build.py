@@ -15,6 +15,7 @@ SPEC.loader.exec_module(book)
 
 
 class BookBuildTests(unittest.TestCase):
+    @unittest.skipUnless(importlib.util.find_spec('pypdf'), 'Local PDF splitting requires pypdf')
     def test_pdf_split_uses_chapter_bookmarks_when_section_repeats_short_title(self):
         from pypdf import PdfWriter, PdfReader
         with tempfile.TemporaryDirectory() as temp:
