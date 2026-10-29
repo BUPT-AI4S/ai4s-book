@@ -1,6 +1,7 @@
 import {$,node,link,setup,tr,json,chapterUrl} from './shared.mjs';
 import {recordHome} from './metrics.mjs';
-let catalog,release;
+const embeddedRelease={firstPublishedAt:$('first-published').dateTime,lastUpdatedAt:$('last-updated').dateTime};
+let catalog,release=Object.values(embeddedRelease).every(value=>Number.isFinite(Date.parse(value)))?embeddedRelease:null,refreshing=false;
 const descriptions={'ch06-scientific-data':['数据如何支撑研究','Data for scientific research'],'ch13-knowledge-rag':['知识如何进入推理','Knowledge for reasoning'],'ch04-pretraining':['模型如何形成共享能力','Learning shared model capabilities'],'ch05-scientific-agents':['智能体如何组织科研任务','Agents for scientific workflows'],'ch16-autonomous-laboratory':['计算如何连接实验','Connecting computation and experiments'],'ch03-evaluation':['证据如何支持结论','Evidence for credible conclusions']};
 function renderDates(){
  if(!release)return;
@@ -22,6 +23,19 @@ function render(){
  for(const [id,key] of [['stat-chapters','chapters'],['stat-figures','figures'],['stat-tables','tables']])if($(id)&&statistics[key]!==undefined)$(id).textContent=String(statistics[key]).padStart(2,'0');
 }
 setup(render);
+async function refreshRelease(){
+ if(refreshing)return;refreshing=true;
+ try{
+  const response=await fetch('data/site-meta.json?refresh='+Date.now(),{cache:'no-store'});
+  if(!response.ok)throw new Error('Could not load release metadata');
+  const next=await response.json();
+  if(!['firstPublishedAt','lastUpdatedAt'].every(key=>Number.isFinite(Date.parse(next[key]))))throw new Error('Invalid release dates');
+  if(!release||Date.parse(next.lastUpdatedAt)>=Date.parse(release.lastUpdatedAt)){release=next;renderDates();}
+ }catch(error){console.error(error);}finally{refreshing=false;}
+}
+window.addEventListener('pageshow',()=>refreshRelease());
+document.addEventListener('visibilitychange',()=>{if(!document.hidden)refreshRelease();});
+setInterval(()=>{if(!document.hidden)refreshRelease();},60000);
 try{catalog=await json('data/textbook/catalog.json');if(catalog.schemaVersion!==1||!catalog.chapters?.length)throw new Error('Invalid catalog');render();}catch(error){console.error(error);$('catalog-status').textContent=tr('章节加载失败，请刷新重试。','Chapters could not be loaded. Please refresh.');}
-try{release=await json('data/site-meta.json');renderDates();}catch(error){console.error(error);}
+await refreshRelease();
 recordHome();

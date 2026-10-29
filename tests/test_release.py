@@ -20,6 +20,17 @@ stars = module('update_star_history')
 
 
 class ReleaseTests(unittest.TestCase):
+    def test_homepage_dates_are_embedded_in_beijing_time_and_script_version_changes(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root=Path(temp)
+            (root/'index.html').write_text('<time id="first-published">old</time><time id="last-updated">old</time><script src="static/js/home.mjs?v=old"></script>',encoding='utf-8')
+            release.write_homepage_dates(root,dict(firstPublishedAt='2026-10-22T13:51:11Z',lastUpdatedAt='2026-10-29T11:13:08+00:00'))
+            html=(root/'index.html').read_text(encoding='utf-8')
+            self.assertIn('2026-10-22 21:51:11',html)
+            self.assertIn('2026-10-29 19:13:08',html)
+            self.assertIn('datetime="2026-10-29T11:13:08+00:00"',html)
+            self.assertIn('home.mjs?v=release-20261029111308',html)
+
     def test_next_release_preserves_first_launch_and_tracks_current_source(self):
         with tempfile.TemporaryDirectory() as temp:
             root = Path(temp)

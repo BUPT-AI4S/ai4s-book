@@ -1,10 +1,30 @@
 """Record actual launch and content-release times for the book homepage."""
 import argparse
-from datetime import datetime, timezone
+from datetime import datetime, timezone, timedelta
 import json
 from pathlib import Path
+import re
 
 ROOT = Path(__file__).resolve().parents[1]
+
+
+def write_homepage_dates(root, metadata):
+    path = Path(root) / 'index.html'
+    if not path.is_file():
+        return
+    html = path.read_text(encoding='utf-8')
+    for identity, key in [('first-published', 'firstPublishedAt'), ('last-updated', 'lastUpdatedAt')]:
+        value = metadata[key]
+        date = datetime.fromisoformat(value.replace('Z', '+00:00'))
+        display = date.astimezone(timezone(timedelta(hours=8))).strftime('%Y-%m-%d %H:%M:%S')
+        html, count = re.subn(r'<time id="' + identity + r'"[^>]*>[^<]*</time>',
+                             f'<time id="{identity}" datetime="{value}">{display}</time>', html)
+        if count != 1:
+            raise ValueError(f'Missing unique homepage date: {identity}')
+    version = re.sub(r'\D', '', metadata['lastUpdatedAt'].split('+')[0])
+    html = re.sub(r'(src="static/js/home\.mjs)(?:\?[^\"]*)?(")',
+                  lambda match: match[1] + '?v=release-' + version + match[2], html)
+    path.write_text(html, encoding='utf-8', newline='\n')
 
 
 def update(first_published=None, root=ROOT):
@@ -21,6 +41,7 @@ def update(first_published=None, root=ROOT):
                   lastUpdatedAt=datetime.now(timezone.utc).isoformat(timespec='seconds'),
                   sourceCommit=catalog['sourceCommit'], displayTimezone='Asia/Shanghai')
     path.write_text(json.dumps(result, indent=2) + '\n', encoding='utf-8', newline='\n')
+    write_homepage_dates(root, result)
     return result
 
 
