@@ -204,7 +204,14 @@ def prepare_tex(text):
     for start, end, replacement in reversed(replacements):
         text = text[:start] + replacement + text[end:]
     text = re.sub(r'\\end\{(?:figuretip|booktip)\}', r'\\end{quote}', text)
-    text = re.sub(r'\\begin\{minipage\}\{\\linewidth\}(\s*\\captionsetup\{type=(table|figure)\}[\s\S]*?)\\end\{minipage\}', lambda m: '\\begin{' + m[2] + '}' + m[1] + '\\end{' + m[2] + '}', text)
+    # Explanatory text may precede the caption setup inside a figure minipage.
+    # Keep that text, the image and its caption together so Pandoc retains labels.
+    def captioned_minipage(match):
+        kind = re.search(r'\\captionsetup\{type=(table|figure)\}', match[1])
+        if not kind:
+            return match[0]
+        return '\\begin{' + kind[1] + '}' + match[1] + '\\end{' + kind[1] + '}'
+    text = re.sub(r'\\begin\{minipage\}(?:\[[^\]]*\])?\{\\linewidth\}([\s\S]*?)\\end\{minipage\}', captioned_minipage, text)
     # The source uses captionof inside center/minipage instead of floating figures.
     text = re.sub(r'\\begin\{center\}\s*\\begin\{minipage\}(?:\[[^\]]*\])?\{\\linewidth\}', r'\\begin{figure}', text)
     text = re.sub(r'\\end\{minipage\}\s*\\end\{center\}', r'\\end{figure}', text)
@@ -216,12 +223,20 @@ def prepare_tex(text):
     text = re.sub(r'\\(?:linespread|addvspace|markright|vspace\*?)\{[^{}]*\}', ' ', text)
     text = re.sub(r'\\renewcommand\{\\arraystretch\}\{[^{}]*\}', ' ', text)
     text = re.sub(r'\\addlinespace(?:\[[^\]]*\])?', ' ', text)
+    # Pandoc longtable exports use empty noalign groups for print-only spacing.
+    text = re.sub(r'\\noalign\s*\{\s*\}', ' ', text)
+    # A rule-only final footer adds no table content; Pandoc leaves its marker raw.
+    text = re.sub(r'\\bottomrule\s*\\endlastfoot\b', ' ', text)
     text = re.sub(r'\\allowbreak(?![A-Za-z])\s*', '', text)
+    text = re.sub(r'\\nobreak(?:\{\})?(?![A-Za-z])', ' ', text)
+    text = text.replace(r'\textbar{}', '|')
+    text = re.sub(r'\\colorlet\{[^{}]*\}\{[^{}]*\}', ' ', text)
+    text = re.sub(r'\\hspace\*?\{[^{}]*\}', ' ', text)
     # Presentation-only commands have no semantic content in a flowing webpage.
     text = re.sub(r'\\(?:captionsetup|color)\s*\{[^{}]*\}', ' ', text)
     text = re.sub(r'\\setlength\s*\{[^{}]*\}\s*\{[^{}]*\}', ' ', text)
     text = re.sub(r'\\hsize\s*=\s*[0-9.]+\\hsize|\\linewidth\s*=\s*\\hsize', '', text)
-    text = re.sub(r'\\(?:normalfont|clearpage|cleardoublepage|centering|raggedright|arraybackslash|footnotesize|small|selectfont|noindent|begingroup|endgroup)(?![A-Za-z])', ' ', text)
+    text = re.sub(r'\\(?:normalfont|kaishu|medskip|clearpage|cleardoublepage|centering|raggedright|arraybackslash|footnotesize|small|selectfont|noindent|begingroup|endgroup)(?![A-Za-z])', ' ', text)
     return PREAMBLE + '\n' + text
 
 
@@ -332,19 +347,26 @@ def chapter_tex(chapter, source):
 def render_tikz_diagrams(chapters, source, work, engine):
     """Compile original TikZ with the book's fonts/styles, keeping PDFs private."""
     pattern = r'\\begin\{tikzpicture\}[\s\S]*?\\end\{tikzpicture\}'
-    diagrams = dict.fromkeys(diagram for chapter in chapters
-                             for diagram in re.findall(pattern, chapter_tex(chapter, source)))
+    contexts = {}
+    for chapter in chapters:
+        text = chapter_tex(chapter, source)
+        colors = '\n'.join(re.findall(r'\\colorlet\{[^{}]*\}\{[^{}]*\}', text))
+        for diagram in re.findall(pattern, text):
+            if diagram in contexts and contexts[diagram] != colors:
+                raise ValueError('A shared TikZ diagram has conflicting chapter colors')
+            contexts[diagram] = colors
+    diagrams = dict.fromkeys(contexts)
     if not diagrams:
         return {}
     if not engine:
         raise ValueError('TikZ figures require a LaTeX engine; supply --preview-pdf-engine.')
     preamble = uncomment((source / 'main.tex').read_text(encoding='utf-8')).split(r'\begin{document}', 1)[0]
     for diagram in diagrams:
-        digest = hashlib.sha256(diagram.encode()).hexdigest()
+        digest = hashlib.sha256((contexts[diagram] + '\n' + diagram).encode()).hexdigest()
         name = 'web-tikz-' + digest
         document = (preamble + '\n'
                     + r'\begin{document}\pagestyle{empty}\noindent\begingroup\linespread{1.05}\selectfont' + '\n'
-                    + diagram + '\n' + r'\endgroup\end{document}')
+                    + contexts[diagram] + '\n' + diagram + '\n' + r'\endgroup\end{document}')
         (work / (name + '.tex')).write_text(document, encoding='utf-8')
         if 'tectonic' in Path(engine).name:
             run([engine, '--keep-logs', name + '.tex'], work,
@@ -390,6 +412,23 @@ def render_tikz_diagrams(chapters, source, work, engine):
 
 def parse_chapter(chapter, source, pandoc, diagrams=None):
     text = chapter_tex(chapter, source)
+    theorem_names = dict(definition='定义', theorem='定理', proposition='命题', example='例', remark='注')
+    theorem_references, theorem_number = {}, 0
+    def theorem(match):
+        nonlocal theorem_number
+        theorem_number += 1
+        kind, title, label = match.groups()
+        number = f'{chapter["number"]}.{theorem_number}'
+        heading = theorem_names[kind] + ' ' + number + ('（' + title + '）' if title else '')
+        if label:
+            theorem_references[label] = dict(text=number, chapter=chapter['id'])
+            heading = r'\hypertarget{' + label + r'}{\textbf{' + heading + '}}'
+        else:
+            heading = r'\textbf{' + heading + '}'
+        return r'\begin{quote}' + heading + r'\par '
+    pattern = r'\\begin\{(' + '|'.join(theorem_names) + r')\}(?:\[([^\]]*)\])?\s*(?:\\label\{([^{}]+)\})?'
+    text = re.sub(pattern, theorem, text)
+    text = re.sub(r'\\end\{(?:' + '|'.join(theorem_names) + r')\}', r'\\end{quote}', text)
     for diagram, image in (diagrams or {}).items():
         text = text.replace(diagram, r'\includegraphics{' + image + '}')
     text = prepare_tex(text)
@@ -411,7 +450,9 @@ def parse_chapter(chapter, source, pandoc, diagrams=None):
                     flattened.append(child)
             blocks[:] = flattened
     section_numbers, figure_number, table_number = [chapter['number'], 0, 0, 0, 0, 0], 0, 0
-    references, last_reference = {}, None
+    equation_number = 0
+    listing_number = 0
+    references, last_reference = dict(theorem_references), None
     for element in walk(ast):
         kind, content = element.get('t'), element.get('c')
         alias = re.fullmatch(r'\\label\{([^{}]+)\}', content[1].strip()) if kind in {'RawBlock', 'RawInline'} and content[0] in {'latex', 'tex'} else None
@@ -424,8 +465,29 @@ def parse_chapter(chapter, source, pandoc, diagrams=None):
                 if child.get('t') == 'Table':
                     child['c'][0][0], content[0][0] = content[0][0], ''
                     break
-        if kind in {'RawBlock', 'RawInline'} and content[0] in {'latex', 'tex'} and content[1].strip() and not re.fullmatch(r'\\ref\*?\{[^{}]+\}', content[1].strip()):
+        if kind in {'RawBlock', 'RawInline'} and content[0] in {'latex', 'tex'} and content[1].strip() and not re.fullmatch(r'\\(?:ref\*?|eqref)\{[^{}]+\}', content[1].strip()):
             raise ValueError(f'{chapter["id"]}: unsupported LaTeX; add a web mapping: {content[1][:160]}')
+        if kind == 'Math' and content[0]['t'] == 'DisplayMath' and re.match(r'\s*\\begin\{equation\}', content[1]):
+            equation_number += 1
+            number = f'{chapter["number"]}.{equation_number}'
+            labels = re.findall(r'\\label\{([^{}]+)\}', content[1])
+            anchor = labels[0] if labels else ''
+            for label in labels:
+                references[label] = dict(text=number, chapter=chapter['id'], anchor=anchor)
+            formula = re.sub(r'\\(?:begin|end)\{equation\}|\\label\{[^{}]+\}', '', content[1]).strip()
+            # Plain display math avoids browser-side numbering and preserves the
+            # chapter counter, including equations without labels.
+            math = dict(t='Math', c=[content[0], formula + r'\qquad\text{(' + number + ')}'])
+            element['t'], element['c'] = 'Span', [[anchor, ['numbered-equation'], []], [math]]
+        if kind == 'CodeBlock' and (caption := dict(content[0][2]).get('caption')):
+            listing_number += 1
+            number = f'{chapter["number"]}.{listing_number}'
+            if content[0][0]:
+                references[content[0][0]] = dict(text=number, chapter=chapter['id'])
+            content[0][2] = [item for item in content[0][2] if item[0] not in {'caption', 'label'}]
+            heading = dict(t='Para', c=[dict(t='Strong', c=[dict(t='Str', c='代码 ' + number + ' ' + caption)])])
+            code = dict(t='CodeBlock', c=content)
+            element['t'], element['c'] = 'Div', [['', ['code-listing'], []], [heading, code]]
         if kind == 'Header' and content[0] > 1 and 'unnumbered' not in content[1][1]:
             level = content[0] - 1
             section_numbers[level] += 1
@@ -505,14 +567,15 @@ def convert_chapter(chapter, source, output, pandoc, ast=None, references=None):
     for element in walk(ast):
         kind, content = element.get('t'), element.get('c')
         if kind in {'RawInline', 'RawBlock'} and content[0] in {'latex', 'tex'}:
-            match = re.fullmatch(r'\\ref\*?\{([^{}]+)\}', content[1].strip())
+            match = re.fullmatch(r'\\(ref\*?|eqref)\{([^{}]+)\}', content[1].strip())
             if match:
-                target = references.get(match[1])
+                target = references.get(match[2])
                 if not target:
-                    raise ValueError(f'Unresolved textbook reference: {match[1]}')
-                anchor = target.get('anchor', match[1])
+                    raise ValueError(f'Unresolved textbook reference: {match[2]}')
+                anchor = target.get('anchor', match[2])
                 url = '#' + anchor if target['chapter'] == chapter['id'] else 'read.html?chapter=' + target['chapter'] + '#' + anchor
-                element['t'], element['c'] = 'Link', [['', [], []], [{'t': 'Str', 'c': target['text']}], [url, '']]
+                label = '(' + target['text'] + ')' if match[1] == 'eqref' else target['text']
+                element['t'], element['c'] = 'Link', [['', [], []], [{'t': 'Str', 'c': label}], [url, '']]
         if kind == 'Image':
             original = content[2][0]
             image = inside(source / original, source)

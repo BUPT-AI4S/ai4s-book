@@ -15,6 +15,125 @@ SPEC.loader.exec_module(book)
 
 
 class BookBuildTests(unittest.TestCase):
+    @unittest.skipUnless(shutil.which('pandoc') or importlib.util.find_spec('pypandoc'), 'Pandoc is required')
+    def test_minipage_figure_with_intro_keeps_caption_image_and_anchor(self):
+        with tempfile.TemporaryDirectory() as temp:
+            source = Path(temp)
+            (source / 'chapter.tex').write_text(
+                r'\chapter{模型}\begin{minipage}{\linewidth}学习方法说明。\par'
+                r'\captionsetup{type=figure}\centering\includegraphics{model.png}'
+                r'\caption[模型]{模型的学习与适配}\label{fig:process}\end{minipage}'
+                r'见图\ref{fig:process}。', encoding='utf-8')
+            ast, refs = book.parse_chapter(dict(id='models', number=3, source='chapter.tex'), source, book.find_pandoc())
+            self.assertIn('fig:process', refs)
+            self.assertEqual(refs['fig:process']['text'], '3.1')
+            self.assertEqual(sum(n.get('t') == 'Figure' for n in book.walk(ast)), 1)
+            text = json.dumps(ast, ensure_ascii=False)
+            for content in ('学习方法说明', '模型的学习与适配', 'model.png'):
+                self.assertIn(content, text)
+
+    @unittest.skipUnless(shutil.which('pandoc') or importlib.util.find_spec('pypandoc'), 'Pandoc is required')
+    def test_captioned_code_listing_keeps_code_caption_and_reference(self):
+        with tempfile.TemporaryDirectory() as temp:
+            source = Path(temp)
+            (source / 'chapter.tex').write_text(
+                '\\chapter{知识}\n\\begin{lstlisting}\nSELECT 1;\n\\end{lstlisting}\n'
+                '\\begin{lstlisting}[caption={工具卡},label={lst:tool}]\n{"name": "tool"}\n\\end{lstlisting}\n'
+                '见代码\\ref{lst:tool}。', encoding='utf-8')
+            (source / 'references.bib').write_text('', encoding='utf-8')
+            result = book.convert_chapter(dict(id='knowledge', number=2, source='chapter.tex'), source, source / 'output', book.find_pandoc())
+            self.assertIn('href="#lst:tool">2.1</a>', result['html'])
+            self.assertIn('代码 2.1 工具卡', result['html'])
+            self.assertIn('SELECT 1;', result['html'])
+            self.assertIn('&quot;name&quot;', result['html'])
+
+    def test_tikz_compilation_retains_chapter_local_color_aliases(self):
+        with tempfile.TemporaryDirectory() as temp:
+            source = Path(temp)
+            work = source / 'work'
+            work.mkdir()
+            (source / 'main.tex').write_text(r'\documentclass{article}\begin{document}', encoding='utf-8')
+            diagram = r'\begin{tikzpicture}\node[text=KA]{Knowledge};\end{tikzpicture}'
+            (source / 'chapter.tex').write_text(r'\chapter{Knowledge}\colorlet{KA}{blue}' + diagram, encoding='utf-8')
+            def compiler_boundary(command, cwd, **kwargs):
+                document = (Path(cwd) / command[-1]).read_text(encoding='utf-8')
+                self.assertIn(r'\colorlet{KA}{blue}', document)
+                self.assertLess(document.index(r'\colorlet{KA}'), document.index(r'\begin{tikzpicture}'))
+                raise RuntimeError('compiler-boundary')
+            with patch.object(book, 'run', side_effect=compiler_boundary):
+                with self.assertRaisesRegex(RuntimeError, 'compiler-boundary'):
+                    book.render_tikz_diagrams([dict(id='knowledge', source='chapter.tex')], source, work, 'tectonic')
+
+    @unittest.skipUnless(shutil.which('pandoc') or importlib.util.find_spec('pypandoc'), 'Pandoc is required')
+    def test_examples_preserve_shared_numbering_labels_lists_and_literal_symbols(self):
+        with tempfile.TemporaryDirectory() as temp:
+            source = Path(temp)
+            (source / 'chapter.tex').write_text(
+                r'\chapter{知识}\colorlet{KA}{BookAccent}\kaishu '
+                r'\begin{definition}观测记录。\end{definition}'
+                r'\begin{example}[筛选记录]\label{ex:record}'
+                r'字段 A\textbar{}B。\medskip\hspace*{2em}'
+                r'\begin{itemize}\item 条件推荐\item 产率预测\end{itemize}'
+                r'\end{example}见例\ref{ex:record}。', encoding='utf-8')
+            (source / 'references.bib').write_text('', encoding='utf-8')
+            result = book.convert_chapter(dict(id='knowledge', number=2, source='chapter.tex'), source, source / 'output', book.find_pandoc())
+            self.assertIn('href="#ex:record">2.2</a>', result['html'])
+            self.assertIn('id="ex:record"', result['html'])
+            self.assertIn('筛选记录', result['html'])
+            self.assertIn('A|B', result['html'])
+            self.assertRegex(result['html'], r'<li>(?:<p>)?条件推荐')
+            self.assertIn('产率预测', result['html'])
+
+    @unittest.skipUnless(shutil.which('pandoc') or importlib.util.find_spec('pypandoc'), 'Pandoc is required')
+    def test_numbered_equations_have_matching_numbers_and_clickable_references(self):
+        with tempfile.TemporaryDirectory() as temp:
+            source = Path(temp)
+            (source / 'chapter.tex').write_text(
+                r'\chapter{知识}\begin{equation}x=1\end{equation}'
+                r'\[y=2\]\begin{equation}\label{eq:second}z=3\end{equation}'
+                r'见式\eqref{eq:second}，编号\ref{eq:second}。', encoding='utf-8')
+            (source / 'references.bib').write_text('', encoding='utf-8')
+            result = book.convert_chapter(dict(id='knowledge', number=2, source='chapter.tex'), source, source / 'output', book.find_pandoc())
+            self.assertIn('id="eq:second"', result['html'])
+            self.assertIn('href="#eq:second">(2.2)</a>', result['html'])
+            self.assertIn('href="#eq:second">2.2</a>', result['html'])
+            self.assertIn('(2.1)', result['html'])
+            self.assertIn('(2.2)', result['html'])
+            self.assertEqual(result['html'].count('class="numbered-equation"'), 2)
+
+    @unittest.skipUnless(shutil.which('pandoc') or importlib.util.find_spec('pypandoc'), 'Pandoc is required')
+    def test_print_page_break_control_keeps_paragraph_text(self):
+        with tempfile.TemporaryDirectory() as temp:
+            source = Path(temp)
+            (source / 'chapter.tex').write_text(r'\chapter{数据}第一段。\nobreak{}第二段。', encoding='utf-8')
+            ast, _ = book.parse_chapter(dict(id='data', number=1, source='chapter.tex'), source, book.find_pandoc())
+            rendered = book.run([book.find_pandoc(), '--from=json', '--to=html5'], source, json.dumps(ast))
+            self.assertIn('第一段。', rendered)
+            self.assertIn('第二段。', rendered)
+            self.assertNotIn('nobreak', rendered)
+
+    @unittest.skipUnless(shutil.which('pandoc') or importlib.util.find_spec('pypandoc'), 'Pandoc is required')
+    def test_longtable_print_spacing_preserves_caption_cells_and_reference(self):
+        with tempfile.TemporaryDirectory() as temp:
+            source = Path(temp)
+            text = (r'\chapter{智能体}\section{系统}'
+                    r'\begin{longtable}[]{ll}\caption{系统与证据}\label{tab:systems}\\'
+                    r'\toprule\noalign{}系统 & 证据\\\midrule\noalign{}\endfirsthead'
+                    r'\toprule\noalign{}系统 & 证据\\\midrule\noalign{}\endhead'
+                    r'\bottomrule\noalign{}\endlastfoot '
+                    r'DENDRAL & 质谱\\Robin & RNA 测序\\\end{longtable}'
+                    r'见表\ref{tab:systems}。')
+            (source / 'chapter.tex').write_text(text, encoding='utf-8')
+            ast, references = book.parse_chapter(dict(id='agents', number=4, source='chapter.tex'), source, book.find_pandoc())
+            tables = [node for node in book.walk(ast) if node.get('t') == 'Table']
+            self.assertEqual(len(tables), 1)
+            self.assertEqual(references['tab:systems']['text'], '4.1')
+            rendered = book.run([book.find_pandoc(), '--from=json', '--to=html5'], source, json.dumps(ast))
+            self.assertIn('系统与证据', rendered)
+            self.assertIn('DENDRAL', rendered)
+            self.assertIn('RNA 测序', rendered)
+            self.assertEqual(rendered.count('质谱'), 1)
+
     @unittest.skipUnless(importlib.util.find_spec('pypdf'), 'Local PDF splitting requires pypdf')
     def test_pdf_split_uses_chapter_bookmarks_when_section_repeats_short_title(self):
         from pypdf import PdfWriter, PdfReader
@@ -221,9 +340,9 @@ class BookBuildTests(unittest.TestCase):
         catalog = book.validate_outputs(ROOT)
         self.assertEqual(len(catalog['chapters']), 6)
         details = [json.loads((ROOT / c['contentUrl']).read_text(encoding='utf-8')) for c in catalog['chapters']]
-        self.assertEqual(sum(d['html'].count('<figure') for d in details), 60)
-        self.assertEqual(sum(d['html'].count('<table') for d in details), 13)
-        self.assertEqual(catalog['statistics'], dict(chapters=6, figures=60, tables=13))
+        self.assertEqual(sum(d['html'].count('<figure') for d in details), 101)
+        self.assertEqual(sum(d['html'].count('<table') for d in details), 39)
+        self.assertEqual(catalog['statistics'], dict(chapters=6, figures=101, tables=39))
         self.assertTrue(all('??' not in d['html'] for d in details))
         for chapter in details:
             self.assertNotIn('data-reference-unresolved', chapter['html'])
@@ -282,14 +401,14 @@ class BookBuildTests(unittest.TestCase):
     def test_all_original_preview_pages_are_present(self):
         catalog = json.loads((ROOT / 'data/textbook/catalog.json').read_text(encoding='utf-8'))
         index = book.validate_previews(ROOT, catalog)
-        self.assertEqual([index['chapters'][c['id']]['pageCount'] for c in catalog['chapters']], [69, 61, 45, 33, 40, 35])
+        self.assertEqual([index['chapters'][c['id']]['pageCount'] for c in catalog['chapters']], [66, 88, 107, 107, 59, 53])
 
     def test_original_preview_preserves_citation_link_destinations(self):
         index = json.loads((ROOT / 'data/textbook/previews/index.json').read_text(encoding='utf-8'))
         chapter = index['chapters']['ch06-scientific-data']
         links = chapter['pages'][1].get('links', [])
         self.assertGreater(len(links), 0, 'Page 2 citations must remain clickable')
-        self.assertEqual(links[1]['page'], 52)
+        self.assertEqual(links[1]['page'], 31)
         self.assertTrue(all(0 <= value <= 1 for value in links[1]['rect']))
 
     def test_preview_version_mismatch_is_rejected(self):
